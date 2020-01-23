@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AppInitializationService } from './app-initialization.service';
+import { AppInitializationService } from 'app/app-initialization.service';
 
 describe('AppInitializationService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { AppInitializationService } from './app-initialization.service';
+import { AppComponent } from 'app.app.component';
+import { AppInitializationService } from 'app.app-initialization.service';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 @NgModule({
@@ -27,6 +27,6 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 export class AppModule {
 }
 
-export function appInitializerFactory(appInitializer: AppInitializationService): () => Promise<any> {
-  return (): Promise<any> => appInitializer.initApplication();
+export function appInitializerFactory(appInitialization: AppInitializationService): () => Promise<any> {
+  return (): Promise<any> => appInitialization.initApplication();
 }
