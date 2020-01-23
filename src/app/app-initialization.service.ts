@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {KeycloakService} from 'keycloak-angular';
-import {environment} from 'src/environments/environment';
+import {environment} from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class AppInitializationService {
                 checkLoginIframe: false
               },
               enableBearerInterceptor: true,
-              bearerExcludedUrls: ['/assets', '/app-root']
+              bearerExcludedUrls: ['/assets']
             });
             resolve();
           } catch (error) {
