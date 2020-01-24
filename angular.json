@@ -10,6 +10,7 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
@@ -18,7 +19,6 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -29,22 +29,56 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "dev": {
+              "aot": false,
+              "optimization": false,
+              "buildOptimizer": false,
+              "namedChunks": true,
+              "vendorChunk": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "extractLicenses": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            },
+            "qa": {
+              "aot": true,
+              "optimization": true,
+              "buildOptimizer": true,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
+            },
+            "prod": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "aot": true,
               "optimization": true,
+              "buildOptimizer": true,
+              "namedChunks": false,
+              "vendorChunk": false,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -60,23 +94,32 @@
             }
           }
         },
+
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "angular-demo-fe:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "angular-demo-fe:build:production"
+            "dev": {
+              "browserTarget": "angular-demo-fe:build:dev"
+            },
+            "qa": {
+              "browserTarget": "angular-demo-fe:build:qa"
+            },
+            "prod": {
+              "browserTarget": "angular-demo-fe:build:prod"
             }
           }
         },
+
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "angular-demo-fe:build"
           }
         },
+
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -94,6 +137,7 @@
             "scripts": []
           }
         },
+
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -107,6 +151,7 @@
             ]
           }
         },
+
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -114,8 +159,8 @@
             "devServerTarget": "angular-demo-fe:serve"
           },
           "configurations": {
-            "production": {
-              "devServerTarget": "angular-demo-fe:serve:production"
+            "prod": {
+              "devServerTarget": "angular-demo-fe:serve:prod"
             }
           }
         }
