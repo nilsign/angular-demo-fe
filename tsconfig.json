@@ -24,7 +24,9 @@
       "shared": ["src/app/shared"],
       "shared/*": ["src/app/shared/*"],
       "environments": ["src/environments"],
-      "environments/*": ["src/environments/*"]
+      "environments/*": ["src/environments/*"],
+      "testing": ["src/testing"],
+      "testing/*": ["src/testing/*"]
     }
   },
   "angularCompilerOptions": {

@@ -7,13 +7,11 @@ import {environment} from 'environments/environment';
 })
 export class AppInitializationService {
 
-  constructor(
-      private keycloakService: KeycloakService
-  ) {
+  constructor(public keycloakService: KeycloakService) {
   }
 
   initApplication(): Promise<any> {
-    return new Promise(
+    return new Promise<any>(
         async (resolve: any, reject: any): Promise<any> => {
           try {
             await this.keycloakService.init({
