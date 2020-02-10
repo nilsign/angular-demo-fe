@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {KeycloakService} from 'keycloak-angular';
-import {environment} from 'environments/environment';
+import { KeycloakService } from 'keycloak-angular';
+import { environment } from 'environments/environment';
+import { LoggedInUserRepositoryService } from 'shared/api/logged-in-user-repository.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,23 +9,27 @@ import {environment} from 'environments/environment';
 export class AppInitializationService {
 
   constructor(
-      private keycloakService: KeycloakService
-  ) {
+      public keycloakService: KeycloakService,
+      public loggedInUserRepository: LoggedInUserRepositoryService) {
   }
 
   initApplication(): Promise<any> {
-    return new Promise(
+    return new Promise<any>(
         async (resolve: any, reject: any): Promise<any> => {
           try {
+
             await this.keycloakService.init({
               config: environment.keycloak,
               initOptions: {
                 onLoad: 'login-required',
-                checkLoginIframe: false
+                checkLoginIframe: false,
+                promiseType: 'legacy'
               },
               enableBearerInterceptor: true,
               bearerExcludedUrls: ['/assets']
             });
+
+            await this.loggedInUserRepository.loadLoggedInUser();
             resolve();
           } catch (error) {
             reject(error);

@@ -3,5 +3,7 @@
 
 export const environment = {
   prod: false,
+  apiVersion: undefined,
+  apiBaseUrl: undefined,
   keycloak: undefined
 };
