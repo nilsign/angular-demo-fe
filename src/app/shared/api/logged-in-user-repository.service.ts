@@ -21,9 +21,7 @@ export class LoggedInUserRepositoryService {
    * so Promise has to used as return type here. See app.module.ts.
    */
   loadLoggedInUser(): Promise<any> {
-    console.log('this.loadLoggedInUser entered');
-
-    return new Promise<any>((resolve: any): void => {
+    return new Promise<any>((): void => {
       this.requestLoggedInUser().subscribe((loggedInUser: UserDto) => {
         this.loggedInUser = loggedInUser;
       });
@@ -32,7 +30,7 @@ export class LoggedInUserRepositoryService {
 
   getLoggedInUser(): UserDto {
     if (isNil(this.loggedInUser)) {
-      this.loadLoggedInUser();
+      this.loadLoggedInUser().then();
     }
     return this.loggedInUser;
   }

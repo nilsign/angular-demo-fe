@@ -17,6 +17,7 @@ export class AppInitializationService {
     return new Promise<any>(
         async (resolve: any, reject: any): Promise<any> => {
           try {
+
             await this.keycloakService.init({
               config: environment.keycloak,
               initOptions: {
@@ -27,6 +28,7 @@ export class AppInitializationService {
               enableBearerInterceptor: true,
               bearerExcludedUrls: ['/assets']
             });
+
             await this.loggedInUserRepository.loadLoggedInUser();
             resolve();
           } catch (error) {
