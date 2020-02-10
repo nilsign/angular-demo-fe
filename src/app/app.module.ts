@@ -4,6 +4,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AppComponent } from 'app/app.component';
 import { AppInitializationService } from 'app/app-initialization.service';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
   ],
   imports: [
     BrowserModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    HttpClientModule
   ],
   providers: [
     KeycloakService,
