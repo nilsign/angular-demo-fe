@@ -1,5 +1,4 @@
-import {TestBed, tick} from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { AppInitializationService } from 'app/app-initialization.service';
 import { KeycloakService } from 'keycloak-angular';
 import { environment } from 'environments/environment';
