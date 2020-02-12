@@ -2,8 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { AppInitializationService } from 'app/app-initialization.service';
 import { KeycloakService } from 'keycloak-angular';
 import { environment } from 'environments/environment';
-import { LoggedInUserRepositoryService } from 'shared/api/logged-in-user-repository.service';
-import {HttpClient, HttpHandler} from '@angular/common/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import {LoggedInUserHelperService} from 'shared/helper/logged-in-user-helper.service';
+import {voidResolvedPromise} from 'testing/data/promise.testing';
 
 describe('AppInitializationService', () => {
 
@@ -12,10 +13,10 @@ describe('AppInitializationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-          KeycloakService,
-          LoggedInUserRepositoryService,
-          HttpClient,
-          HttpHandler
+        KeycloakService,
+        LoggedInUserHelperService,
+        HttpClient,
+        HttpHandler
       ]
     });
     testObj = TestBed.get(AppInitializationService);
@@ -25,10 +26,11 @@ describe('AppInitializationService', () => {
     expect(testObj).toBeTruthy();
   });
 
-  it('should call keycloak service init', () => {
-    const spy = spyOn(testObj.keycloakService, 'init');
+  it('should call keycloak service init', async () => {
+    const spy = spyOn(testObj.keycloakService, 'init').and.returnValue(voidResolvedPromise);
+    spyOn(testObj.loggedInUserHelper, 'loadLoggedInUser').and.returnValue(voidResolvedPromise);
 
-    testObj.initApplication();
+    await testObj.initApplication();
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith({
@@ -43,10 +45,11 @@ describe('AppInitializationService', () => {
     });
   });
 
-  it('should request logged in user', () => {
-    const spy = spyOn(testObj.loggedInUserRepository, 'loadLoggedInUser');
+  it('should request logged in user', async () => {
+    spyOn(testObj.keycloakService, 'init').and.returnValue(voidResolvedPromise);
+    const spy = spyOn(testObj.loggedInUserHelper, 'loadLoggedInUser').and.returnValue(voidResolvedPromise);
 
-    testObj.initApplication();
+    await testObj.initApplication();
 
     expect(spy).toHaveBeenCalledTimes(1);
   });

@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NavigationHelperService } from 'shared/helper/navigation-helper.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'angular-demo-fe';
+export class AppComponent implements OnInit {
+
+  readonly title = 'angular-demo-fe';
+
+  constructor(private navigationHelper: NavigationHelperService) {
+  }
+
+  ngOnInit(): void {
+    this.navigationHelper.navigateToRoleDependentLandingPage();
+  }
 }
