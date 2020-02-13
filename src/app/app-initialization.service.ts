@@ -16,30 +16,46 @@ export class AppInitializationService {
   initApplication(): Promise<any> {
     return new Promise<any>(
         async (resolve: any, reject: any): Promise<any> => {
-          try {
-            await this.keycloakService.init({
-              config: environment.keycloak,
-              initOptions: {
-                onLoad: 'login-required',
-                checkLoginIframe: false,
-                promiseType: 'legacy'
-              },
-              enableBearerInterceptor: true,
-              bearerExcludedUrls: ['/assets']
-            });
-          } catch (error) {
-            console.error('Couldn\'t initialize Keycloak Service.');
-            reject(error);
-            return;
+
+          let keyCloakInitialized: boolean;
+          await this.initKeycloak()
+              .then(() => keyCloakInitialized = true)
+              .catch((error: Error) => {
+                keyCloakInitialized = false;
+                console.error(`Couldn\'t initialize Keycloak Service. (Error: ${error})`);
+                reject(error);
+                return;
+              });
+
+          if (keyCloakInitialized) {
+            await this.loadLoggedInUser()
+                .then()
+                .catch((error: Error) => {
+                  console.error(`Couldn\'t load logged in user. (Error: ${error})`);
+                  reject(error);
+                  return;
+                });
           }
-          try {
-            await this.loggedInUserHelper.loadLoggedInUser();
-            resolve();
-          } catch (error) {
-            console.error('Couldn\'t load logged in user.');
-            reject(error);
-          }
+
+          resolve();
         }
     );
+  }
+
+  private async initKeycloak(): Promise<any> {
+    return this.keycloakService.init({
+      config: environment.keycloak,
+      initOptions: {
+        onLoad: 'login-required',
+        checkLoginIframe: false,
+        promiseType: 'legacy'
+      },
+      enableBearerInterceptor: true,
+      bearerExcludedUrls: ['/assets']
+    });
+  }
+
+  private async loadLoggedInUser(): Promise<any> {
+    return this.loggedInUserHelper.loadLoggedInUser();
   }
 }
