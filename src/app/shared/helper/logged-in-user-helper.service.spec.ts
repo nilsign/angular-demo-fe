@@ -4,7 +4,7 @@ import { LoggedInUserHelperService } from './logged-in-user-helper.service';
 import {HttpClient, HttpHandler} from '@angular/common/http';
 import {RoleType} from 'shared/api/dtos/dto-models';
 import {userJpaAdminJpaSeller} from 'testing/data/user-data.testing';
-import {of} from 'rxjs';
+import {of, throwError} from 'rxjs';
 
 describe('LoggedInUserHelperService', () => {
 
@@ -65,4 +65,25 @@ describe('LoggedInUserHelperService', () => {
     expect(spy).toHaveBeenCalledTimes(1);
     expect(testObj.hasLoggedInUser).toBeTruthy();
   });
+
+  it ('should return a rejected promise when logged in user can not be loaded ', async () => {
+    const errorMsg = 'error-msg';
+    const spy = spyOn(testObj.loggedInUserRestApi, 'requestLoggedInUser')
+        .and.returnValue(throwError(errorMsg));
+
+    await testObj.loadLoggedInUser()
+      .then()
+      .catch((error: any) => expect(error).toEqual(errorMsg));
+
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it ('should unsubscribe on destroy', () => {
+    const spy = spyOn<any>(testObj.subscriptions, 'unsubscribe');
+
+    testObj.ngOnDestroy();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
 });
