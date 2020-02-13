@@ -2,18 +2,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppComponent } from 'app/app.component';
+import { KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import { AppInitializationService } from 'app/app-initialization.service';
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
-import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from 'app/app-routing.module';
+import { SharedModule} from 'shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     KeycloakAngularModule,
-    HttpClientModule
+    SharedModule
+  ],
+  declarations: [
+    AppComponent
   ],
   providers: [
     KeycloakService,
@@ -29,6 +31,6 @@ import { HttpClientModule } from '@angular/common/http';
 export class AppModule {
 }
 
-export function appInitializerFactory(appInitialization: AppInitializationService): () => Promise<any> {
-  return (): Promise<any> => appInitialization.initApplication();
+export function appInitializerFactory(appInitializer: AppInitializationService): () => Promise<any> {
+  return (): Promise<any> => appInitializer.initApplication();
 }

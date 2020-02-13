@@ -12,7 +12,9 @@ Keycloak and Postgres instance, the Backend must have been started locally also.
 ### Major Tech-Stack
 - Angular
 - TypeScript
-- SASS, SCSS
+- Jasmine tests
+- Bootstrap & SCSS
+- Bootstrap
 - Keycloak
 - Docker
 - Storybook
@@ -116,7 +118,7 @@ DemoProjectRealm->Configure->Clients->Account->Credentials
 
 3. Execute Sonarqube's code analysis.
 
-        $ ng run sonar
+        $ npm run sonar
 
 3. Navigate to the to http://localhost:9000 and enter the default credentials to inspect the results
 - Username: `admin`
