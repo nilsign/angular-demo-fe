@@ -70,6 +70,18 @@ describe('NavigationHelperService', () => {
     expect(spy2).toHaveBeenCalledTimes(1);
   });
 
+  it('should log error when not landing page is available for the users roles', async () => {
+    const roles =  new Set<RoleType>();
+    const spy1 = spyOn(testObj.loggedInUserHelper, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+    const spy2 = spyOn(console, 'error');
+
+    await testObj.navigateToRoleDependentLandingPage();
+
+    expect(spy1).toHaveBeenCalledTimes(1);
+    expect(spy2).toHaveBeenCalledTimes(1);
+    expect(spy2).toHaveBeenCalledWith('Logged in user has not a valid authorization role.');
+  });
+
   it('should navigate to admin landing page',  async () => {
     const spy = spyOn(testObj.router, 'navigate').and.returnValue(Promise.resolve(true));
 
