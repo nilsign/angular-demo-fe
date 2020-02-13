@@ -18,7 +18,7 @@ export class LoggedInUserHelperService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getSubscribtions().unsubscribe();
+    this.getSubscriptions().unsubscribe();
   }
 
   getLoggedInUser(): UserDto {
@@ -62,7 +62,7 @@ export class LoggedInUserHelperService implements OnDestroy {
     });
   }
 
-  private getSubscribtions(): Subscription {
+  private getSubscriptions(): Subscription {
     return this.subscriptions;
   }
 }

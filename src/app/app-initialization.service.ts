@@ -14,35 +14,29 @@ export class AppInitializationService {
   }
 
   initApplication(): Promise<any> {
-    return new Promise<any>(
-        async (resolve: any, reject: any): Promise<any> => {
-
-          let keyCloakInitialized: boolean;
-          await this.initKeycloak()
-              .then(() => keyCloakInitialized = true)
-              .catch((error: Error) => {
-                keyCloakInitialized = false;
-                console.error(`Couldn\'t initialize Keycloak Service. (Error: ${error})`);
-                reject(error);
-                return;
-              });
-
-          if (keyCloakInitialized) {
-            await this.loadLoggedInUser()
-                .then()
-                .catch((error: Error) => {
-                  console.error(`Couldn\'t load logged in user. (Error: ${error})`);
-                  reject(error);
-                  return;
-                });
-          }
-
-          resolve();
-        }
-    );
+    return new Promise<any>(async (resolve: any, reject: any): Promise<any> => {
+      let keyCloakInitialized: boolean;
+      await this.initKeycloak()
+          .then(() => keyCloakInitialized = true)
+          .catch((error: Error) => {
+            keyCloakInitialized = false;
+            console.error(`Couldn\'t initialize Keycloak Service. (Error: ${error})`);
+            reject(error);
+          });
+      if (keyCloakInitialized) {
+        await this.loadLoggedInUser()
+            .then()
+            .catch((error: Error) => {
+              console.error(`Couldn\'t load logged in user. (Error: ${error})`);
+              reject(error);
+              return;
+            });
+      }
+      resolve();
+    });
   }
 
-  private async initKeycloak(): Promise<any> {
+  private initKeycloak(): Promise<any> {
     return this.keycloakService.init({
       config: environment.keycloak,
       initOptions: {
@@ -55,7 +49,7 @@ export class AppInitializationService {
     });
   }
 
-  private async loadLoggedInUser(): Promise<any> {
+  private loadLoggedInUser(): Promise<any> {
     return this.loggedInUserHelper.loadLoggedInUser();
   }
 }

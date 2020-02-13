@@ -10,7 +10,7 @@ import { BuyerRoutingModule } from 'app/features/buyer/buyer-routing.module';
   ],
   declarations: [
     BuyerHomeComponent
-  ],
+  ]
 })
 export class BuyerModule {
 }

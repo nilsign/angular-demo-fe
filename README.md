@@ -12,7 +12,9 @@ Keycloak and Postgres instance, the Backend must have been started locally also.
 ### Major Tech-Stack
 - Angular
 - TypeScript
-- SASS, SCSS
+- Jasmine tests
+- Bootstrap & SCSS
+- Bootstrap
 - Keycloak
 - Docker
 - Storybook

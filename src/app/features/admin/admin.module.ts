@@ -10,7 +10,7 @@ import { SharedModule } from 'shared/shared.module';
   ],
   declarations: [
     AdminHomeComponent
-  ],
+  ]
 })
 export class AdminModule {
 }

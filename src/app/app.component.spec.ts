@@ -20,8 +20,7 @@ describe('AppComponent', () => {
       providers: [
         HttpClient,
         HttpHandler
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
+      ]
     });
     TestBed.compileComponents();
     fixture = TestBed.createComponent(AppComponent);

@@ -1,5 +1,4 @@
 import {TestBed} from '@angular/core/testing';
-
 import {NavigationHelperService} from './navigation-helper.service';
 import {RoleType} from 'shared/api/dtos/dto-models';
 import {LoggedInUserHelperService} from 'shared/helper/logged-in-user-helper.service';
