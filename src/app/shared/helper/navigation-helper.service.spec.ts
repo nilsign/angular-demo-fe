@@ -5,7 +5,6 @@ import {RoleType} from 'shared/api/dtos/dto-models';
 import {LoggedInUserHelperService} from 'shared/helper/logged-in-user-helper.service';
 import {HttpClient, HttpHandler} from '@angular/common/http';
 import {RouterTestingModule} from '@angular/router/testing';
-import {voidResolvedPromise} from 'testing/data/promise.testing';
 
 describe('NavigationHelperService', () => {
 
@@ -72,7 +71,7 @@ describe('NavigationHelperService', () => {
   });
 
   it('should navigate to admin landing page',  async () => {
-    const spy = spyOn(testObj.router, 'navigate').and.returnValue(voidResolvedPromise);
+    const spy = spyOn(testObj.router, 'navigate').and.returnValue(Promise.resolve(true));
 
     await testObj.navigateToAdminsLandingPage();
 
@@ -81,7 +80,7 @@ describe('NavigationHelperService', () => {
   });
 
   it('should navigate to seller landing page', async () => {
-    const spy = spyOn(testObj.router, 'navigate').and.returnValue(voidResolvedPromise);
+    const spy = spyOn(testObj.router, 'navigate').and.returnValue(Promise.resolve(true));
 
     await testObj.navigateToSellersLandingPage();
 
@@ -90,7 +89,7 @@ describe('NavigationHelperService', () => {
   });
 
   it('should navigate to buyer landing page', async () => {
-    const spy = spyOn(testObj.router, 'navigate').and.returnValue(voidResolvedPromise);
+    const spy = spyOn(testObj.router, 'navigate').and.returnValue(Promise.resolve(true));
 
     await testObj.navigateToBuyersLandingPage();
 

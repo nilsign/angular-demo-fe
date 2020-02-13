@@ -2,14 +2,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { LoggedInUserHelperService } from './logged-in-user-helper.service';
 import {HttpClient, HttpHandler} from '@angular/common/http';
-import {LoggedInUserRestApi} from 'shared/api/logged-in-user-rest-api.service';
-import {BrowserModule} from '@angular/platform-browser';
-import {AdminRoutingModule} from 'app/features/admin/admin-routing.module';
-import {AppRoutingModule} from 'app/app-routing.module';
 import {RoleType} from 'shared/api/dtos/dto-models';
 import {userJpaAdminJpaSeller} from 'testing/data/user-data.testing';
 import {of} from 'rxjs';
-import {voidResolvedPromise} from 'testing/data/promise.testing';
 
 describe('LoggedInUserHelperService', () => {
 
@@ -32,7 +27,7 @@ describe('LoggedInUserHelperService', () => {
 
   it('should request logged in user when logged out', () => {
     const spy1 = spyOn(testObj, 'hasLoggedInUser').and.returnValue(false);
-    const spy2 = spyOn(testObj, 'loadLoggedInUser').and.returnValue(voidResolvedPromise);
+    const spy2 = spyOn(testObj, 'loadLoggedInUser').and.returnValue(Promise.resolve());
 
     testObj.getLoggedInUser();
 

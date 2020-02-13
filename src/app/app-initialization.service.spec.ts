@@ -4,7 +4,6 @@ import { KeycloakService } from 'keycloak-angular';
 import { environment } from 'environments/environment';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.service';
-import { voidResolvedPromise } from 'testing/data/promise.testing';
 
 describe('AppInitializationService', () => {
 
@@ -27,8 +26,8 @@ describe('AppInitializationService', () => {
   });
 
   it('should call keycloak service init', async () => {
-    const spy = spyOn(testObj.keycloakService, 'init').and.returnValue(voidResolvedPromise);
-    spyOn(testObj.loggedInUserHelper, 'loadLoggedInUser').and.returnValue(voidResolvedPromise);
+    const spy = spyOn(testObj.keycloakService, 'init').and.returnValue(Promise.resolve(true));
+    spyOn(testObj.loggedInUserHelper, 'loadLoggedInUser').and.returnValue(Promise.resolve(true));
 
     await testObj.initApplication();
 
@@ -46,8 +45,8 @@ describe('AppInitializationService', () => {
   });
 
   it('should request logged in user', async () => {
-    spyOn(testObj.keycloakService, 'init').and.returnValue(voidResolvedPromise);
-    const spy = spyOn(testObj.loggedInUserHelper, 'loadLoggedInUser').and.returnValue(voidResolvedPromise);
+    spyOn(testObj.keycloakService, 'init').and.returnValue(Promise.resolve(true));
+    const spy = spyOn(testObj.loggedInUserHelper, 'loadLoggedInUser').and.returnValue(Promise.resolve(true));
 
     await testObj.initApplication();
 
