@@ -3,21 +3,23 @@ import { AdminHomeComponent } from './admin-home.component';
 
 describe('AdminHomeComponent', () => {
 
+  let component: AdminHomeComponent;
   let fixture: ComponentFixture<AdminHomeComponent>;
-  let testObj: AdminHomeComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-       AdminHomeComponent
-      ]
-    });
-    TestBed.compileComponents();
-    fixture = TestBed.createComponent(AdminHomeComponent);
-    testObj = fixture.componentInstance;
+      declarations: [ AdminHomeComponent ]
+    })
+    .compileComponents();
   }));
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AdminHomeComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
   it('should create', () => {
-    expect(testObj).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 });

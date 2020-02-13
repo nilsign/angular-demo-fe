@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'seller',
     loadChildren: () => import('./features/seller/seller.module').then(module => module.SellerModule)
   },
+  {
+    path: 'buyer',
+    loadChildren: () => import('./features/buyer/buyer.module').then(module => module.BuyerModule)
+  },
 ];
 
 @NgModule({
