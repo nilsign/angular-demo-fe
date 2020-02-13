@@ -9,7 +9,7 @@ export class AppComponent implements OnInit {
 
   readonly title = 'angular-demo-fe';
 
-  constructor(private navigationHelper: NavigationHelperService) {
+  constructor(public navigationHelper: NavigationHelperService) {
   }
 
   ngOnInit(): void {
