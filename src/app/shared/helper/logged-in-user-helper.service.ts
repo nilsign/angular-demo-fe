@@ -28,9 +28,10 @@ export class LoggedInUserHelperService implements OnDestroy {
   }
 
   getLoggedInUserRoleTypes(): Set<RoleType> {
-    return new Set<RoleType>(
-        this.getLoggedInUser()
-            .roles.map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
+    return !this.hasLoggedInUser()
+        ? new Set<RoleType>()
+        : new Set<RoleType>(this.getLoggedInUser().roles
+            .map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
   }
 
   logout(): void {
@@ -62,23 +63,23 @@ export class LoggedInUserHelperService implements OnDestroy {
   }
 
   isAdmin(): boolean {
-    return this.hasLoggedInUser() && !!this.loggedInUser.roles.find((role: RoleDto) =>
-        role.roleType ===  RoleType.ROLE_REALM_SUPERADMIN
-        || role.roleType === RoleType.ROLE_REALM_CLIENT_ADMIN
-        || role.roleType === RoleType.ROLE_JPA_GLOBALADMIN
-        || role.roleType === RoleType.ROLE_JPA_ADMIN);
+    const roles = this.getLoggedInUserRoleTypes();
+    return roles.has( RoleType.ROLE_REALM_SUPERADMIN)
+        || roles.has(RoleType.ROLE_REALM_CLIENT_ADMIN)
+        || roles.has( RoleType.ROLE_JPA_GLOBALADMIN)
+        || roles.has(RoleType.ROLE_JPA_ADMIN);
   }
 
   isSeller(): boolean {
-    return this.hasLoggedInUser() && !!this.loggedInUser.roles.find((role: RoleDto) =>
-        role.roleType ===  RoleType.ROLE_REALM_CLIENT_SELLER
-        || role.roleType === RoleType.ROLE_JPA_SELLER);
+    const roles = this.getLoggedInUserRoleTypes();
+    return roles.has(RoleType.ROLE_REALM_CLIENT_SELLER)
+        || roles.has(RoleType.ROLE_JPA_SELLER);
   }
 
   isBuyer(): boolean {
-    return this.hasLoggedInUser() && !!this.loggedInUser.roles.find((role: RoleDto) =>
-        role.roleType ===  RoleType.ROLE_REALM_CLIENT_BUYER
-        || role.roleType === RoleType.ROLE_JPA_BUYER);
+    const roles = this.getLoggedInUserRoleTypes();
+    return roles.has(RoleType.ROLE_REALM_CLIENT_BUYER)
+        || roles.has(RoleType.ROLE_JPA_BUYER);
   }
 
   private getSubscriptions(): Subscription {

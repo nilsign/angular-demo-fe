@@ -35,7 +35,8 @@ describe('LoggedInUserHelperService', () => {
     expect(spy2).toHaveBeenCalledTimes(1);
   });
 
-  it ('should request roles from rest api',  () => {
+  it ('should request roles from rest api when there is a logged in user',  () => {
+    spyOn(testObj, 'hasLoggedInUser').and.returnValue(true);
     const spy = spyOn(testObj, 'getLoggedInUser').and.returnValue(userJpaAdminJpaSeller);
 
     const roleTypes = testObj.getLoggedInUserRoleTypes();
@@ -44,6 +45,14 @@ describe('LoggedInUserHelperService', () => {
     expect(roleTypes.has(RoleType.ROLE_JPA_ADMIN)).toBeTruthy();
     expect(roleTypes.has(RoleType.ROLE_JPA_SELLER)).toBeTruthy();
     expect(roleTypes.size).toEqual(2);
+  });
+
+  it ('should return empty role set when there is no logged in user',  () => {
+    spyOn(testObj, 'hasLoggedInUser').and.returnValue(false);
+
+    const roleTypes = testObj.getLoggedInUserRoleTypes();
+
+    expect(roleTypes.size).toEqual(0);
   });
 
   it ('should set logged in user to null on logout',  () => {
@@ -86,4 +95,77 @@ describe('LoggedInUserHelperService', () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
+  it ('should return true if user has admin role ', () => {
+    const roles = new Set<RoleType>()
+        .add(RoleType.ROLE_REALM_CLIENT_SELLER)
+        .add(RoleType.ROLE_JPA_SELLER)
+        .add(RoleType.ROLE_JPA_ADMIN);
+    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+
+    const result = testObj.isAdmin();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(result).toBeTruthy();
+  });
+
+  it ('should return false if user has not admin role ', () => {
+    const roles = new Set<RoleType>()
+      .add(RoleType.ROLE_REALM_CLIENT_SELLER)
+      .add(RoleType.ROLE_JPA_SELLER);
+    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+
+    const result = testObj.isAdmin();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(result).toBeFalsy();
+  });
+
+  it ('should return true if user has seller role ', () => {
+    const roles = new Set<RoleType>()
+      .add(RoleType.ROLE_REALM_CLIENT_ADMIN)
+      .add(RoleType.ROLE_JPA_ADMIN)
+      .add(RoleType.ROLE_JPA_SELLER);
+    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+
+    const result = testObj.isSeller();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(result).toBeTruthy();
+  });
+
+  it ('should return false if user has not seller role ', () => {
+    const roles = new Set<RoleType>()
+    .add(RoleType.ROLE_REALM_CLIENT_ADMIN)
+    .add(RoleType.ROLE_JPA_ADMIN);
+    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+
+    const result = testObj.isSeller();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(result).toBeFalsy();
+  });
+
+  it ('should return true if user has buyer role ', () => {
+    const roles = new Set<RoleType>()
+    .add(RoleType.ROLE_REALM_CLIENT_ADMIN)
+    .add(RoleType.ROLE_JPA_BUYER);
+    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+
+    const result = testObj.isBuyer();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(result).toBeTruthy();
+  });
+
+  it ('should return false if user has not buyer role ', () => {
+    const roles = new Set<RoleType>()
+    .add(RoleType.ROLE_REALM_CLIENT_ADMIN)
+    .add(RoleType.ROLE_JPA_ADMIN);
+    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+
+    const result = testObj.isBuyer();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(result).toBeFalsy();
+  });
 });
