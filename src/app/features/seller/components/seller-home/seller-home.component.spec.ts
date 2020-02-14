@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SellerHomeComponent } from 'app/features/seller/seller-home/seller-home.component';
+import { SellerHomeComponent } from 'features/seller/components/seller-home/seller-home.component';
 
 describe('SellerHomeComponent', () => {
 

@@ -1,6 +1,6 @@
-import { AdminHomeComponent } from 'app/features/admin/component/admin-home/admin-home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { AdminHomeComponent } from 'features/admin/component/admin-home/admin-home.component';
 
 const routes: Routes = [
   {
