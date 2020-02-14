@@ -11,18 +11,22 @@ import {KeycloakAuthGuard, KeycloakService} from 'keycloak-angular';
 })
 export class AuthenticationGuard extends KeycloakAuthGuard {
 
-  constructor(protected router: Router, protected keycloakService: KeycloakService) {
+  constructor(public router: Router, public keycloakService: KeycloakService) {
     super(router, keycloakService);
   }
 
   isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     return new Promise<boolean>(
       async (resolve: any): Promise<boolean> => {
-        if (this.authenticated) {
+        if (this.isAuthenticated()) {
           return resolve(true);
         }
         this.keycloakService.login().then();
         return resolve(false);
       });
+  }
+
+  isAuthenticated(): boolean {
+    return super.authenticated;
   }
 }
