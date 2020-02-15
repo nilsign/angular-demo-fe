@@ -1,9 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { AdminAuthorizationGuard } from './admin-authorization.guard';
-import {KeycloakService} from 'keycloak-angular';
-import {LoggedInUserHelperService} from 'shared/helper/logged-in-user-helper.service';
-import {HttpClient, HttpHandler} from '@angular/common/http';
+import { KeycloakService } from 'keycloak-angular';
+import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('AdminAuthorizationGuard', () => {
   beforeEach(() => {

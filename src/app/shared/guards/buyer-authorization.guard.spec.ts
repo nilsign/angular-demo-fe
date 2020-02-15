@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
-import {KeycloakService} from 'keycloak-angular';
-import {LoggedInUserHelperService} from 'shared/helper/logged-in-user-helper.service';
-import {HttpClient, HttpHandler} from '@angular/common/http';
+import { KeycloakService } from 'keycloak-angular';
+import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { BuyerAuthorizationGuard } from './buyer-authorization.guard';
 
 describe('BuyerAuthorizationGuard', () => {
