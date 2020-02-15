@@ -17,7 +17,7 @@ export class LoggedInUserHelperService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getSubscriptions().unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   getLoggedInUser(): UserDto {
@@ -80,9 +80,5 @@ export class LoggedInUserHelperService implements OnDestroy {
     const roles = this.getLoggedInUserRoleTypes();
     return roles.has(RoleType.ROLE_REALM_CLIENT_BUYER)
         || roles.has(RoleType.ROLE_JPA_BUYER);
-  }
-
-  private getSubscriptions(): Subscription {
-    return this.subscriptions;
   }
 }

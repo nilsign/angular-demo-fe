@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'seller',
-    canActivate: [AuthenticationGuard, AdminAuthorizationGuard, SellerAuthorizationGuard],
+    canActivate: [AuthenticationGuard, SellerAuthorizationGuard],
     loadChildren: () => import('./features/seller/seller.module').then(module => module.SellerModule)
   },
   {
