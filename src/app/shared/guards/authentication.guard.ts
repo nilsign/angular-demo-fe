@@ -27,6 +27,6 @@ export class AuthenticationGuard extends KeycloakAuthGuard {
   }
 
   isAuthenticated(): boolean {
-    return super.authenticated;
+    return this.authenticated;
   }
 }
