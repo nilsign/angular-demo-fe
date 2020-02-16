@@ -21,18 +21,17 @@ export class AppInitializationService {
           .catch((error: Error) => {
             keyCloakInitialized = false;
             console.error(`Couldn\'t initialize Keycloak Service. (Error: ${error})`);
-            reject(error);
+            return reject(error);
           });
       if (keyCloakInitialized) {
         await this.loadLoggedInUser()
             .then()
             .catch((error: Error) => {
               console.error(`Couldn\'t load logged in user. (Error: ${error})`);
-              reject(error);
-              return;
+              return reject(error);
             });
       }
-      resolve();
+      return resolve();
     });
   }
 

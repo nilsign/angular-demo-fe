@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
 import { LoggedInUserRestApi } from 'shared/api/logged-in-user-rest-api.service';
 import { isNil } from 'lodash';
-import {Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +13,11 @@ export class LoggedInUserHelperService implements OnDestroy {
 
   private loggedInUser: UserDto;
 
-
   constructor(public loggedInUserRestApi: LoggedInUserRestApi) {
   }
 
   ngOnDestroy(): void {
-    this.getSubscriptions().unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   getLoggedInUser(): UserDto {
@@ -29,9 +28,10 @@ export class LoggedInUserHelperService implements OnDestroy {
   }
 
   getLoggedInUserRoleTypes(): Set<RoleType> {
-    return new Set<RoleType>(
-        this.getLoggedInUser()
-            .roles.map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
+    return !this.hasLoggedInUser()
+        ? new Set<RoleType>()
+        : new Set<RoleType>(this.getLoggedInUser().roles
+            .map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
   }
 
   logout(): void {
@@ -53,16 +53,32 @@ export class LoggedInUserHelperService implements OnDestroy {
           this.loggedInUserRestApi.requestLoggedInUser().subscribe(
             (loggedInUser: UserDto) => {
               this.loggedInUser = loggedInUser;
-              resolve();
+              return resolve();
             },
             (error: any) => {
-              reject(error);
+              return reject(error);
             })
        );
     });
   }
 
-  private getSubscriptions(): Subscription {
-    return this.subscriptions;
+  isAdmin(): boolean {
+    const roles = this.getLoggedInUserRoleTypes();
+    return roles.has( RoleType.ROLE_REALM_SUPERADMIN)
+        || roles.has(RoleType.ROLE_REALM_CLIENT_ADMIN)
+        || roles.has( RoleType.ROLE_JPA_GLOBALADMIN)
+        || roles.has(RoleType.ROLE_JPA_ADMIN);
+  }
+
+  isSeller(): boolean {
+    const roles = this.getLoggedInUserRoleTypes();
+    return roles.has(RoleType.ROLE_REALM_CLIENT_SELLER)
+        || roles.has(RoleType.ROLE_JPA_SELLER);
+  }
+
+  isBuyer(): boolean {
+    const roles = this.getLoggedInUserRoleTypes();
+    return roles.has(RoleType.ROLE_REALM_CLIENT_BUYER)
+        || roles.has(RoleType.ROLE_JPA_BUYER);
   }
 }

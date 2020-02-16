@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RoleType } from 'shared/api/dtos/dto-models';
 import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.service';
 
 @Injectable({
@@ -14,23 +13,15 @@ export class NavigationHelperService {
   }
 
   navigateToRoleDependentLandingPage(): void {
-    const roleTypes = this.loggedInUserHelper.getLoggedInUserRoleTypes();
-    if (roleTypes.has(RoleType.ROLE_REALM_SUPERADMIN)
-        || roleTypes.has(RoleType.ROLE_REALM_CLIENT_ADMIN)
-        || roleTypes.has(RoleType.ROLE_JPA_GLOBALADMIN)
-        || roleTypes.has(RoleType.ROLE_JPA_ADMIN)) {
+    if (this.loggedInUserHelper.isAdmin()) {
       this.navigateToAdminsLandingPage();
-      return;
-    } else if (roleTypes.has(RoleType.ROLE_REALM_CLIENT_SELLER)
-        || roleTypes.has(RoleType.ROLE_JPA_SELLER)) {
+    } else if (this.loggedInUserHelper.isSeller()) {
       this.navigateToSellersLandingPage();
-      return;
-    }  else if (roleTypes.has(RoleType.ROLE_REALM_CLIENT_BUYER)
-        || roleTypes.has(RoleType.ROLE_JPA_BUYER)) {
+    }  else if (this.loggedInUserHelper.isBuyer()) {
       this.navigateToBuyersLandingPage();
-      return;
+    } else {
+      console.error('Logged in user has not a valid authorization role.');
     }
-    console.error('Logged in user has not a valid authorization role.');
   }
 
   navigateToAdminsLandingPage(): void  {
