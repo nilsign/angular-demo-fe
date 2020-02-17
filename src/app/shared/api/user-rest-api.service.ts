@@ -5,14 +5,14 @@ import { UserDto } from 'shared/api/dtos/dto-models';
 import { getApiBaseUrl } from 'shared/helper/api-helper.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class LoggedInUserRestApiService {
+export class UserRestApiService {
 
   constructor(public http: HttpClient) {
   }
 
-  public getLoggedInUser(): Observable<UserDto> {
-    return this.http.get<UserDto>(`${getApiBaseUrl()}/user/logged-in-user`);
+  public getAllUsers(): Observable<UserDto[]> {
+    return this.http.get<UserDto[]>(`${getApiBaseUrl()}/user`);
   }
 }

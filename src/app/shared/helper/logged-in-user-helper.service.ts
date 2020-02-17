@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
-import { LoggedInUserRestApi } from 'shared/api/logged-in-user-rest-api.service';
+import { LoggedInUserRestApiService } from 'shared/api/logged-in-user-rest-api.service';
 import { isNil } from 'lodash';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class LoggedInUserHelperService implements OnDestroy {
 
   private loggedInUser: UserDto;
 
-  constructor(public loggedInUserRestApi: LoggedInUserRestApi) {
+  constructor(public loggedInUserRestApi: LoggedInUserRestApiService) {
   }
 
   ngOnDestroy(): void {
@@ -50,7 +50,7 @@ export class LoggedInUserHelperService implements OnDestroy {
   loadLoggedInUser(): Promise<any> {
     return new Promise<UserDto>((resolve: any, reject: any): void => {
       this.subscriptions.add(
-          this.loggedInUserRestApi.requestLoggedInUser().subscribe(
+          this.loggedInUserRestApi.getLoggedInUser().subscribe(
             (loggedInUser: UserDto) => {
               this.loggedInUser = loggedInUser;
               return resolve();

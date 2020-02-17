@@ -65,7 +65,7 @@ describe('LoggedInUserHelperService', () => {
   });
 
   it ('should set successfully requested logged in user', async  () => {
-    const spy = spyOn(testObj.loggedInUserRestApi, 'requestLoggedInUser')
+    const spy = spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser')
         .and.returnValue(of(userJpaAdminJpaSeller));
     expect(testObj.hasLoggedInUser()).toBeFalsy();
 
@@ -77,7 +77,7 @@ describe('LoggedInUserHelperService', () => {
 
   it ('should return a rejected promise when logged in user can not be loaded ', async () => {
     const errorMsg = 'error-msg';
-    const spy = spyOn(testObj.loggedInUserRestApi, 'requestLoggedInUser')
+    const spy = spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser')
         .and.returnValue(throwError(errorMsg));
 
     await testObj.loadLoggedInUser()
