@@ -1,33 +1,28 @@
 
 <div class="container-fluid">
-    <h3>User management</h3>
-        <table class="tables table table-striped table-hover">
-            <thead class ="thead-dark">
+    <h3>
+        User management
+    </h3>
+    <table class="tables table table-striped table-hover">
+        <thead class ="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Roles</th>
             </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of allUsers | async">
+                <td>
+                    {{ user.name }}
+                </td>
+                <td>
+                    {{ user.email }}
+                </td>
+                <td>
+                    {{ user.roleNames }}
+                </td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            </tbody>
-        </table>
+        </tbody>
+    </table>
  </div>

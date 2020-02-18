@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { getApiBaseUrl } from 'shared/helper/api-helper.service';
+import { getApiBaseUrl } from 'shared/functions/api-helper.functions';
 import { UserRestApiService } from 'shared/api/user-rest-api.service';
 
 describe('UserRestApiService', () => {

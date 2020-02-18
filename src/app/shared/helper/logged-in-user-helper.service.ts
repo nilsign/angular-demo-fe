@@ -1,8 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
+import { RoleType, UserDto } from 'shared/api/dtos/dto-models';
 import { LoggedInUserRestApiService } from 'shared/api/logged-in-user-rest-api.service';
 import { isNil } from 'lodash';
 import { Subscription } from 'rxjs';
+import {RoleHelperService} from 'shared/helper/role-helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class LoggedInUserHelperService implements OnDestroy {
 
   private loggedInUser: UserDto;
 
-  constructor(public loggedInUserRestApi: LoggedInUserRestApiService) {
+  constructor(
+      public loggedInUserRestApi: LoggedInUserRestApiService,
+      public roleHelper: RoleHelperService) {
   }
 
   ngOnDestroy(): void {
@@ -30,8 +33,7 @@ export class LoggedInUserHelperService implements OnDestroy {
   getLoggedInUserRoleTypes(): Set<RoleType> {
     return !this.hasLoggedInUser()
         ? new Set<RoleType>()
-        : new Set<RoleType>(this.getLoggedInUser().roles
-            .map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
+        : this.roleHelper.getRoleTypes(this.loggedInUser);
   }
 
   logout(): void {
@@ -63,22 +65,20 @@ export class LoggedInUserHelperService implements OnDestroy {
   }
 
   isAdmin(): boolean {
-    const roles = this.getLoggedInUserRoleTypes();
-    return roles.has( RoleType.ROLE_REALM_SUPERADMIN)
-        || roles.has(RoleType.ROLE_REALM_CLIENT_ADMIN)
-        || roles.has( RoleType.ROLE_JPA_GLOBALADMIN)
-        || roles.has(RoleType.ROLE_JPA_ADMIN);
+    return !this.hasLoggedInUser()
+        ? false
+        : this.roleHelper.isAdmin(this.loggedInUser);
   }
 
   isSeller(): boolean {
-    const roles = this.getLoggedInUserRoleTypes();
-    return roles.has(RoleType.ROLE_REALM_CLIENT_SELLER)
-        || roles.has(RoleType.ROLE_JPA_SELLER);
+    return !this.hasLoggedInUser()
+        ? false
+        : this.roleHelper.isSeller(this.loggedInUser);
   }
 
   isBuyer(): boolean {
-    const roles = this.getLoggedInUserRoleTypes();
-    return roles.has(RoleType.ROLE_REALM_CLIENT_BUYER)
-        || roles.has(RoleType.ROLE_JPA_BUYER);
+    return !this.hasLoggedInUser()
+        ? false
+        : this.roleHelper.isBuyer(this.loggedInUser);
   }
 }
