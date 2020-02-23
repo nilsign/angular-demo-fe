@@ -46,7 +46,9 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
   private getUserRoleCategories(user: UserDto): string {
     let roleCategories = '';
-    if (this.roleHelper.isAdmin(user)) {
+    if (this.roleHelper.isSuperAdmin(user)) {
+      roleCategories = 'GLOBALADMIN';
+    } else if (this.roleHelper.isAdmin(user)) {
       roleCategories = 'ADMIN';
     }
     if (this.roleHelper.isSeller(user)) {

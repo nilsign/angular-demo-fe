@@ -11,11 +11,16 @@ export class RoleHelperService {
         user.roles.map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
   }
 
+  isSuperAdmin(user: UserDto): boolean {
+    const roles = this.getRoleTypes(user);
+    return roles.has(RoleType.ROLE_REALM_SUPERADMIN);
+  }
+
   isAdmin(user: UserDto): boolean {
     const roles = this.getRoleTypes(user);
-    return roles.has( RoleType.ROLE_REALM_SUPERADMIN)
+    return roles.has(RoleType.ROLE_REALM_SUPERADMIN)
         || roles.has(RoleType.ROLE_REALM_CLIENT_ADMIN)
-        || roles.has( RoleType.ROLE_JPA_GLOBALADMIN)
+        || roles.has(RoleType.ROLE_JPA_GLOBALADMIN)
         || roles.has(RoleType.ROLE_JPA_ADMIN);
   }
 
