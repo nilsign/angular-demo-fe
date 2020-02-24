@@ -4,6 +4,7 @@ import { LoggedInUserRestApiService } from 'shared/api/logged-in-user-rest-api.s
 import { isNil } from 'lodash';
 import { Subscription } from 'rxjs';
 import { RoleHelperService } from 'shared/helper/role-helper.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class LoggedInUserHelperService implements OnDestroy {
   private loggedInUser: UserDto;
 
   constructor(
+      public keycloakService: KeycloakService,
       public loggedInUserRestApi: LoggedInUserRestApiService,
       public roleHelper: RoleHelperService) {
   }
@@ -37,6 +39,11 @@ export class LoggedInUserHelperService implements OnDestroy {
   }
 
   logout(): void {
+    console.log('LILALOG THE SHIT OUT OF HELL!');
+    this.keycloakService.logout().then(
+        value => console.log(value),
+        error => console.error(error)
+    );
     this.loggedInUser = null;
   }
 
