@@ -1,5 +1,5 @@
 
-<nav class="navbar sticky-top navbar-light alert-dark">
+<nav class="navbar navbar-expand-lg sticky-top navbar-light alert-dark">
     <a class="navbar-brand" href="#">
         <div>
             <img src="assets/icons/favicon.ico" class="app-icon d-inline-block align-top" alt="">
@@ -8,4 +8,39 @@
             </span>
         </div>
     </a>
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="main-menu-item collapse navbar-collapse"
+         id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a
+                        class="nav-link dropdown-toggle"
+                        id="navbarDropdownMenuLink"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    Users Management
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Show all users</a>
+                    <a class="dropdown-item" href="#">Create</a>
+                    <a class="dropdown-item" href="#">Edit</a>
+                    <a class="dropdown-item" href="#">Delete</a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </nav>

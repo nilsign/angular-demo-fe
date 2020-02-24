@@ -1,6 +1,10 @@
 @import "src/assets/styles/mixins";
 @import "src/assets/styles/variables";
 
+.navbar {
+  min-width: 232px;
+}
+
 .app-icon {
   width:  $menu-bar-app-icon-dimension;
   height: $menu-bar-app-icon-dimension;
@@ -10,4 +14,10 @@
   margin-left: $small-margin;
   line-height: $menu-bar-app-icon-dimension - 3;
   vertical-align: bottom;
+}
+
+.main-menu-item {
+  @include fontTextLarge;
+  line-height: $menu-bar-app-icon-dimension - 3;
+  padding-top: 8px;
 }
