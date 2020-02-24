@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {RoleDto, RoleType, UserDto} from 'shared/api/dtos/dto-models';
+import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
 
 @Injectable({
   providedIn: 'root'

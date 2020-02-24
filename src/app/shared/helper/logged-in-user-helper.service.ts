@@ -3,7 +3,7 @@ import { RoleType, UserDto } from 'shared/api/dtos/dto-models';
 import { LoggedInUserRestApiService } from 'shared/api/logged-in-user-rest-api.service';
 import { isNil } from 'lodash';
 import { Subscription } from 'rxjs';
-import {RoleHelperService} from 'shared/helper/role-helper.service';
+import { RoleHelperService } from 'shared/helper/role-helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,19 @@ export class LoggedInUserHelperService implements OnDestroy {
     return !isNil(this.loggedInUser);
   }
 
+
+  isAdmin(): boolean {
+    return this.hasLoggedInUser() && this.roleHelper.isAdmin(this.loggedInUser);
+  }
+
+  isSeller(): boolean {
+    return this.hasLoggedInUser() && this.roleHelper.isSeller(this.loggedInUser);
+  }
+
+  isBuyer(): boolean {
+    return this.hasLoggedInUser() && this.roleHelper.isBuyer(this.loggedInUser);
+  }
+
   /**
    * This function is only executed when the application is initialized, to ensure that the user service has loaded the
    * logged in user data before the first page is rendered. Note, that the APP_INITIALIZER does not support Observable,
@@ -62,23 +75,5 @@ export class LoggedInUserHelperService implements OnDestroy {
             })
        );
     });
-  }
-
-  isAdmin(): boolean {
-    return !this.hasLoggedInUser()
-        ? false
-        : this.roleHelper.isAdmin(this.loggedInUser);
-  }
-
-  isSeller(): boolean {
-    return !this.hasLoggedInUser()
-        ? false
-        : this.roleHelper.isSeller(this.loggedInUser);
-  }
-
-  isBuyer(): boolean {
-    return !this.hasLoggedInUser()
-        ? false
-        : this.roleHelper.isBuyer(this.loggedInUser);
   }
 }
