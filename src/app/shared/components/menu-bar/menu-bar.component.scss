@@ -1,0 +1,13 @@
+@import "src/assets/styles/mixins";
+@import "src/assets/styles/variables";
+
+.app-icon {
+  width:  $menu-bar-app-icon-dimension;
+  height: $menu-bar-app-icon-dimension;
+}
+.role-name {
+  @include fontHeadline2;
+  margin-left: $small-margin;
+  line-height: $menu-bar-app-icon-dimension - 3;
+  vertical-align: bottom;
+}
