@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
+import { LoggedInUserRestApiService } from 'shared/api/logged-in-user-rest-api.service';
+import { getApiBaseUrl } from 'shared/functions/api-helper.functions';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
-import { LoggedInUserRestApi } from 'shared/api/logged-in-user-rest-api.service';
-import {getApiBaseUrl} from 'shared/helper/api-helper.service';
-import {HttpClient, HttpHandler} from '@angular/common/http';
+describe('LoggedInUserRestApiService', () => {
 
-describe('LoggedInUserRepositoryService', () => {
-
-  let testObj: LoggedInUserRestApi;
+  let testObj: LoggedInUserRestApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -15,7 +14,7 @@ describe('LoggedInUserRepositoryService', () => {
         HttpHandler
       ]
     });
-    testObj = TestBed.get(LoggedInUserRestApi);
+    testObj = TestBed.get(LoggedInUserRestApiService);
   });
 
   it('should be created', () => {
@@ -25,7 +24,7 @@ describe('LoggedInUserRepositoryService', () => {
   it('should request logged in via rest api', () => {
     const spy = spyOn (testObj.http, 'get');
 
-    testObj.requestLoggedInUser();
+    testObj.getLoggedInUser();
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(`${getApiBaseUrl()}/user/logged-in-user`);

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-
 import { AppComponent } from 'app/app.component';
 import { KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import { AppInitializationService } from 'app/app-initialization.service';

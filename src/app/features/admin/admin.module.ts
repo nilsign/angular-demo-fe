@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { AdminRoutingModule } from 'features/admin/admin-routing.module';
 import { AdminHomeComponent } from 'features/admin/component/admin-home/admin-home.component';
 import { SharedModule } from 'shared/shared.module';
+import { UserManagementComponent } from './component/user-management/user-management.component';
 
 @NgModule({
   imports: [
@@ -9,7 +10,8 @@ import { SharedModule } from 'shared/shared.module';
     AdminRoutingModule
   ],
   declarations: [
-    AdminHomeComponent
+    AdminHomeComponent,
+    UserManagementComponent
   ]
 })
 export class AdminModule {

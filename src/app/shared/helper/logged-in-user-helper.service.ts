@@ -1,8 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
-import { LoggedInUserRestApi } from 'shared/api/logged-in-user-rest-api.service';
+import { RoleType, UserDto } from 'shared/api/dtos/dto-models';
+import { LoggedInUserRestApiService } from 'shared/api/logged-in-user-rest-api.service';
 import { isNil } from 'lodash';
 import { Subscription } from 'rxjs';
+import { RoleHelperService } from 'shared/helper/role-helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class LoggedInUserHelperService implements OnDestroy {
 
   private loggedInUser: UserDto;
 
-  constructor(public loggedInUserRestApi: LoggedInUserRestApi) {
+  constructor(
+      public loggedInUserRestApi: LoggedInUserRestApiService,
+      public roleHelper: RoleHelperService) {
   }
 
   ngOnDestroy(): void {
@@ -30,8 +33,7 @@ export class LoggedInUserHelperService implements OnDestroy {
   getLoggedInUserRoleTypes(): Set<RoleType> {
     return !this.hasLoggedInUser()
         ? new Set<RoleType>()
-        : new Set<RoleType>(this.getLoggedInUser().roles
-            .map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
+        : this.roleHelper.getRoleTypes(this.loggedInUser);
   }
 
   logout(): void {
@@ -42,6 +44,19 @@ export class LoggedInUserHelperService implements OnDestroy {
     return !isNil(this.loggedInUser);
   }
 
+
+  isAdmin(): boolean {
+    return this.hasLoggedInUser() && this.roleHelper.isAdmin(this.loggedInUser);
+  }
+
+  isSeller(): boolean {
+    return this.hasLoggedInUser() && this.roleHelper.isSeller(this.loggedInUser);
+  }
+
+  isBuyer(): boolean {
+    return this.hasLoggedInUser() && this.roleHelper.isBuyer(this.loggedInUser);
+  }
+
   /**
    * This function is only executed when the application is initialized, to ensure that the user service has loaded the
    * logged in user data before the first page is rendered. Note, that the APP_INITIALIZER does not support Observable,
@@ -50,7 +65,7 @@ export class LoggedInUserHelperService implements OnDestroy {
   loadLoggedInUser(): Promise<any> {
     return new Promise<UserDto>((resolve: any, reject: any): void => {
       this.subscriptions.add(
-          this.loggedInUserRestApi.requestLoggedInUser().subscribe(
+          this.loggedInUserRestApi.getLoggedInUser().subscribe(
             (loggedInUser: UserDto) => {
               this.loggedInUser = loggedInUser;
               return resolve();
@@ -60,25 +75,5 @@ export class LoggedInUserHelperService implements OnDestroy {
             })
        );
     });
-  }
-
-  isAdmin(): boolean {
-    const roles = this.getLoggedInUserRoleTypes();
-    return roles.has( RoleType.ROLE_REALM_SUPERADMIN)
-        || roles.has(RoleType.ROLE_REALM_CLIENT_ADMIN)
-        || roles.has( RoleType.ROLE_JPA_GLOBALADMIN)
-        || roles.has(RoleType.ROLE_JPA_ADMIN);
-  }
-
-  isSeller(): boolean {
-    const roles = this.getLoggedInUserRoleTypes();
-    return roles.has(RoleType.ROLE_REALM_CLIENT_SELLER)
-        || roles.has(RoleType.ROLE_JPA_SELLER);
-  }
-
-  isBuyer(): boolean {
-    const roles = this.getLoggedInUserRoleTypes();
-    return roles.has(RoleType.ROLE_REALM_CLIENT_BUYER)
-        || roles.has(RoleType.ROLE_JPA_BUYER);
   }
 }
