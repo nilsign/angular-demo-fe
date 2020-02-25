@@ -51,6 +51,9 @@ export class LoggedInUserHelperService implements OnDestroy {
     return !isNil(this.loggedInUser);
   }
 
+  isSuperAdmin(): boolean {
+    return this.hasLoggedInUser() && this.roleHelper.isSuperAdmin(this.loggedInUser);
+  }
 
   isAdmin(): boolean {
     return this.hasLoggedInUser() && this.roleHelper.isAdmin(this.loggedInUser);

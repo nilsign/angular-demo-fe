@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.service';
+import {NavigationHelperService} from 'shared/helper/navigation-helper.service';
 
 @Component({
   selector: 'app-menu-bar',
@@ -8,27 +9,36 @@ import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.s
 })
 export class MenuBarComponent {
 
-  constructor(public loggedInUserHelperService: LoggedInUserHelperService) {
+  activeMenuItemIndex = 0;
+
+  constructor(
+      public loggedInUserHelperService: LoggedInUserHelperService,
+      public navigationService: NavigationHelperService) {
   }
 
   dashboardMenuItemPressed(): void {
-    console.log('"Dashboard" MenuItem pressed.');
+    this.navigationService.navigateToDashboard();
+    this.activeMenuItemIndex = 0;
+  }
+
+  settingsMenuItemPressed(): void {
+    this.navigationService.navigateToSettings();
+    this.activeMenuItemIndex = 1;
   }
 
   showAllUsersMenuItemPressed(): void {
-    console.log('"Show all Users" MenuItem pressed.');
+    this.navigationService.navigateToUsers();
+    this.activeMenuItemIndex = 2;
   }
 
   createUserMenuItemPressed(): void {
-    console.log('"Create User" MenuItem pressed.');
+    this.navigationService.navigateToCreateUser();
+    this.activeMenuItemIndex = 2;
   }
 
   editUserMenuItemPressed(): void {
-    console.log('"Edit User" MenuItem pressed.');
-  }
-
-  deleteUserMenuItemPressed(): void {
-    console.log('"Delete User" MenuItem pressed.');
+    this.navigationService.navigateToEditUser();
+    this.activeMenuItemIndex = 2;
   }
 
   logoutMenuItemPressed(): void {

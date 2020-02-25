@@ -2,17 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserRestApiService } from 'shared/api/user-rest-api.service';
 import { UserDto } from 'shared/api/dtos/dto-models';
 import { Observable, Subscription, of } from 'rxjs';
-import { UserTableRowModel } from 'features/admin/component/user-management/user-table-row.model';
+import { UsersTableRowModel } from 'features/admin/component/users/users-table-row.model';
 import { RoleHelperService } from 'shared/helper/role-helper.service';
 
 @Component({
-  selector: 'app-user-management',
-  templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.scss']
+  templateUrl: './show-users.component.html',
+  styleUrls: ['./show-users.component.scss']
 })
-export class UserManagementComponent implements OnInit, OnDestroy {
+export class ShowUsersComponent implements OnInit, OnDestroy {
 
-  allUsers: Observable<UserTableRowModel[]>;
+  allUsers: Observable<UsersTableRowModel[]>;
 
   private subscriptions: Subscription = new Subscription();
 

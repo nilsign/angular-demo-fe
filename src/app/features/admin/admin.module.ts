@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { AdminRoutingModule } from 'features/admin/admin-routing.module';
-import { AdminHomeComponent } from 'features/admin/component/admin-home/admin-home.component';
 import { SharedModule } from 'shared/shared.module';
-import { UserManagementComponent } from './component/user-management/user-management.component';
+import { ShowUsersComponent } from './component/users/show-users.component';
+import { DashboardComponent } from './component/dasboard/dashboard.component';
+import { CreateUserComponent } from './component/create-user/create-user.component';
+import { EditUserComponent } from './component/edit-user/edit-user.component';
+import { SettingsComponent } from './component/settings/settings.component';
 
 @NgModule({
   imports: [
@@ -10,8 +13,11 @@ import { UserManagementComponent } from './component/user-management/user-manage
     AdminRoutingModule
   ],
   declarations: [
-    AdminHomeComponent,
-    UserManagementComponent
+    DashboardComponent,
+    SettingsComponent,
+    ShowUsersComponent,
+    CreateUserComponent,
+    EditUserComponent,
   ]
 })
 export class AdminModule {

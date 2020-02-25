@@ -1,11 +1,9 @@
 <nav class="navbar navbar-expand-lg sticky-top navbar-light alert-dark">
-    <a class="navbar-brand" href="#">
-        <div>
-            <img src="assets/icons/favicon.ico" class="app-icon d-inline-block align-top" alt="">
-            <span class="role-name">
-                Admin
-            </span>
-        </div>
+    <a class="navbar-brand">
+        <img src="assets/icons/favicon.ico" class="app-icon d-inline-block align-top" alt="">
+        <span class="role-name">
+            Admin
+        </span>
     </a>
     <button
             class="navbar-toggler"
@@ -20,11 +18,23 @@
     <div class="main-menu-item collapse navbar-collapse"
          id="navbarNavDropdown">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" (click)="dashboardMenuItemPressed()">
+            <li class="nav-item">
+                <a
+                        class="nav-link"
+                        data-toggle="toggle"
+                        [ngClass]="{'active': activeMenuItemIndex === 0}"
+                        (click)="dashboardMenuItemPressed()">
                     Dashboard
-                    <span class="sr-only">(current)</span>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a
+                        class="nav-link"
+                        data-toggle="toggle"
+                        [ngClass]="{'active': activeMenuItemIndex === 1}"
+                        (click)="settingsMenuItemPressed()">
+                    Settings
+                 </a>
             </li>
             <li class="nav-item dropdown">
                 <a
@@ -33,14 +43,23 @@
                         role="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        [ngClass]="{
+                            'active': activeMenuItemIndex === 2,
+                            'disabled': !loggedInUserHelperService.isSuperAdmin()
+                        }">
                     Users Management
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" (click)="showAllUsersMenuItemPressed()">Show all Users</a>
-                    <a class="dropdown-item" (click)="createUserMenuItemPressed()">Create User</a>
-                    <a class="dropdown-item" (click)="editUserMenuItemPressed()">Edit User</a>
-                    <a class="dropdown-item" (click)="deleteUserMenuItemPressed()">Delete User</a>
+                    <a class="dropdown-item" (click)="showAllUsersMenuItemPressed()">
+                        Show all Users
+                    </a>
+                    <a class="dropdown-item" (click)="createUserMenuItemPressed()">
+                        Create User
+                    </a>
+                    <a class="dropdown-item" (click)="editUserMenuItemPressed()">
+                        Edit User
+                    </a>
                 </div>
             </li>
             <li class="nav-item" (click)="logoutMenuItemPressed()">
