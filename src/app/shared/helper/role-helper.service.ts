@@ -35,4 +35,11 @@ export class RoleHelperService {
     return roles.has(RoleType.ROLE_REALM_CLIENT_BUYER)
         || roles.has(RoleType.ROLE_JPA_BUYER);
   }
+
+  isMultiRole(user: UserDto): boolean {
+    let counter = this.isAdmin(user) ? 1 : 0;
+    counter += this.isSeller(user) ? 1 : 0;
+    counter += this.isBuyer(user) ? 1 : 0;
+    return counter > 1;
+  }
 }

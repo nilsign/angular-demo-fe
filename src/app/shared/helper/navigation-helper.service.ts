@@ -24,6 +24,16 @@ export class NavigationHelperService {
     }
   }
 
+  navigateToActiveViewLandingPage(): void {
+    if (this.loggedInUserHelper.isAdminViewActive()) {
+      this.navigateToAdminsLandingPage();
+    } else if (this.loggedInUserHelper.isSellerViewActive()) {
+      this.navigateToSellersLandingPage();
+    } else if (this.loggedInUserHelper.isBuyerViewActive()) {
+      this.navigateToBuyersLandingPage();
+    }
+  }
+
   // Admin role navigations.
   navigateToAdminsLandingPage(): void  {
     this.navigateToDashboard();

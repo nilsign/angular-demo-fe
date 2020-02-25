@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.service';
-import {NavigationHelperService} from 'shared/helper/navigation-helper.service';
+import { NavigationHelperService } from 'shared/helper/navigation-helper.service';
 
 @Component({
   selector: 'app-menu-bar',
@@ -16,32 +16,43 @@ export class MenuBarComponent {
       public navigationService: NavigationHelperService) {
   }
 
-  dashboardMenuItemPressed(): void {
+  onAppIconClicked(): void {
+    this.navigationService.navigateToActiveViewLandingPage();
+  }
+
+  onRoleNameClicked(): void {
+    if (!this.loggedInUserHelperService.isMultiRole()) {
+      this.onAppIconClicked();
+      return;
+    }
+  }
+
+  onDashboardMenuItemClicked(): void {
     this.navigationService.navigateToDashboard();
     this.activeMenuItemIndex = 0;
   }
 
-  settingsMenuItemPressed(): void {
+  onSettingsMenuItemClicked(): void {
     this.navigationService.navigateToSettings();
     this.activeMenuItemIndex = 1;
   }
 
-  showAllUsersMenuItemPressed(): void {
+  onShowAllUsersMenuItemClicked(): void {
     this.navigationService.navigateToUsers();
     this.activeMenuItemIndex = 2;
   }
 
-  createUserMenuItemPressed(): void {
+  onCreateUserMenuItemClicked(): void {
     this.navigationService.navigateToCreateUser();
     this.activeMenuItemIndex = 2;
   }
 
-  editUserMenuItemPressed(): void {
+  onEditUserMenuItemClicked(): void {
     this.navigationService.navigateToEditUser();
     this.activeMenuItemIndex = 2;
   }
 
-  logoutMenuItemPressed(): void {
+  onLogoutMenuItemClicked(): void {
     this.loggedInUserHelperService.logout();
   }
 }

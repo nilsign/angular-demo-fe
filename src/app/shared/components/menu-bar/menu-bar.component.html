@@ -1,8 +1,12 @@
 <nav class="navbar navbar-expand-lg sticky-top navbar-light alert-dark">
     <a class="navbar-brand">
-        <img src="assets/icons/favicon.ico" class="app-icon d-inline-block align-top" alt="">
-        <span class="role-name">
-            Admin
+        <img
+                class="app-icon d-inline-block align-top"
+                src="assets/icons/favicon.ico"
+                alt=""
+                (click)="onAppIconClicked()">
+        <span class="role-name" (click)="onRoleNameClicked()">
+            {{ loggedInUserHelperService.getActiveRoleDisplayName() }}
         </span>
     </a>
     <button
@@ -23,7 +27,7 @@
                         class="nav-link"
                         data-toggle="toggle"
                         [ngClass]="{'active': activeMenuItemIndex === 0}"
-                        (click)="dashboardMenuItemPressed()">
+                        (click)="onDashboardMenuItemClicked()">
                     Dashboard
                 </a>
             </li>
@@ -32,7 +36,7 @@
                         class="nav-link"
                         data-toggle="toggle"
                         [ngClass]="{'active': activeMenuItemIndex === 1}"
-                        (click)="settingsMenuItemPressed()">
+                        (click)="onSettingsMenuItemClicked()">
                     Settings
                  </a>
             </li>
@@ -51,18 +55,18 @@
                     Users Management
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" (click)="showAllUsersMenuItemPressed()">
+                    <a class="dropdown-item" (click)="onShowAllUsersMenuItemClicked()">
                         Show all Users
                     </a>
-                    <a class="dropdown-item" (click)="createUserMenuItemPressed()">
+                    <a class="dropdown-item" (click)="onCreateUserMenuItemClicked()">
                         Create User
                     </a>
-                    <a class="dropdown-item" (click)="editUserMenuItemPressed()">
+                    <a class="dropdown-item" (click)="onEditUserMenuItemClicked()">
                         Edit User
                     </a>
                 </div>
             </li>
-            <li class="nav-item" (click)="logoutMenuItemPressed()">
+            <li class="nav-item" (click)="onLogoutMenuItemClicked()">
                 <a class="nav-link">Logout</a>
             </li>
         </ul>
