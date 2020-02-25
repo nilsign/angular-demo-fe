@@ -3,8 +3,8 @@ import { RoleType, UserDto } from 'shared/api/dtos/dto-models';
 import { LoggedInUserRestApiService } from 'shared/api/logged-in-user-rest-api.service';
 import { isNil } from 'lodash';
 import { Subscription } from 'rxjs';
-import { RoleHelperService } from 'shared/helper/role-helper.service';
 import { KeycloakService } from 'keycloak-angular';
+import { RoleHelperService } from 'shared/helper/role-helper.service';
 
 @Injectable({
   providedIn: 'root'
