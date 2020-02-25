@@ -2,3 +2,23 @@
 @import 'assets/styles/fonts.scss';
 @import 'assets/styles/colors.scss';
 @import 'assets/styles/mixins.scss';
+
+body {
+  @include fontTextMedium;
+}
+
+h1 {
+  @include fontHeadline1;
+}
+
+h2 {
+  @include fontHeadline2;
+}
+
+h3 {
+  @include fontHeadline3;
+}
+
+h4 {
+  @include fontHeadline4;
+}
