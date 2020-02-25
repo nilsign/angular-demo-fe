@@ -39,11 +39,7 @@ export class LoggedInUserHelperService implements OnDestroy {
   }
 
   logout(): void {
-    console.log('LILALOG THE SHIT OUT OF HELL!');
-    this.keycloakService.logout().then(
-        value => console.log(value),
-        error => console.error(error)
-    );
+    this.keycloakService.logout().then();
     this.loggedInUser = null;
   }
 
