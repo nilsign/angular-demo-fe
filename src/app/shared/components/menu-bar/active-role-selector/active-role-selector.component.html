@@ -1,0 +1,29 @@
+<ng-container *ngIf="loggedInUserHelperService.isMultiRole()">
+    <div class="dropdown show">
+        <a
+                class="navbar-brand dropdown-toggle"
+                id="activeRoleMenuLink"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+            <span class="role-name" (click)="onActiveRoleSelectorLabelClicked()">
+                {{ getActiveRoleSelectorLabel() }}
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="activeRoleMenuLink">
+            <a
+                    *ngFor="let rolePopupItemLabel of activeRoleSelectionPopupModel"
+                    class="dropdown-item"
+                    [ngClass]="{'disabled': isActiveRolePopupItemRepresentingTheActiveView(rolePopupItemLabel)}"
+                    (click)="onActiveRolePopupItemClicked(rolePopupItemLabel)">
+                {{ rolePopupItemLabel }}
+            </a>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="!loggedInUserHelperService.isMultiRole()">
+      <span class="navbar-brand role-name" (click)="onActiveRoleSelectorLabelClicked()">
+            {{ getActiveRoleSelectorLabel() }}
+      </span>
+</ng-container>

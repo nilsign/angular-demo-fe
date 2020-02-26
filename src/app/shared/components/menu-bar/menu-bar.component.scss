@@ -10,15 +10,9 @@
   width:  $menu-bar-app-icon-dimension;
   height: $menu-bar-app-icon-dimension;
 }
-.role-name {
-  @include fontHeadline2;
-  margin-left: $small-margin;
-  line-height: $menu-bar-app-icon-dimension - 3;
-  vertical-align: bottom;
-}
 
 .main-menu-item {
   @include fontTextLarge;
-  line-height: $menu-bar-app-icon-dimension - 3;
+  line-height: $menu-bar-app-icon-dimension - 9;
   padding-top: 9px;
 }

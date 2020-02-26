@@ -24,12 +24,22 @@ export class NavigationHelperService {
     }
   }
 
-  // Admin role navigations.
-  navigateToAdminsLandingPage(): void  {
-    this.navigateToDashboard();
+  navigateToActiveViewLandingPage(): void {
+    if (this.loggedInUserHelper.isAdminViewActive()) {
+      this.navigateToAdminsLandingPage();
+    } else if (this.loggedInUserHelper.isSellerViewActive()) {
+      this.navigateToSellersLandingPage();
+    } else if (this.loggedInUserHelper.isBuyerViewActive()) {
+      this.navigateToBuyersLandingPage();
+    }
   }
 
-  navigateToDashboard(): void  {
+  // Admin role navigations.
+  navigateToAdminsLandingPage(): void  {
+    this.navigateToAdminDashboard();
+  }
+
+  navigateToAdminDashboard(): void  {
     this.router.navigate(['admin/dashboard']).then();
   }
 
@@ -54,10 +64,24 @@ export class NavigationHelperService {
     this.router.navigate(['seller']).then();
   }
 
+  navigateToSellerDashboard(): void {
+    this.router.navigate(['seller/dashboard']).then();
+  }
+
+  navigateToProducts(): void {
+    this.router.navigate(['seller/products']).then();
+  }
+
   // Buyer role navigations.
   navigateToBuyersLandingPage(): void  {
     this.router.navigate(['buyer']).then();
   }
 
+  navigateToShop(): void {
+    this.router.navigate(['buyer/shop']).then();
+  }
 
+  navigateToMyOrders(): void {
+    this.router.navigate(['buyer/my-orders']).then();
+  }
 }

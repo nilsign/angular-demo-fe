@@ -14,10 +14,8 @@ Keycloak and Postgres instance, the Backend must have been started locally also.
 - TypeScript
 - Jasmine tests
 - Bootstrap & SCSS
-- Bootstrap
 - Keycloak
 - Docker
-- Storybook
 - Sonarqube
 
 ### Setup Backend
