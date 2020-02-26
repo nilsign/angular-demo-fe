@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {LoggedInUserHelperService} from 'shared/helper/logged-in-user-helper.service';
-import {NavigationHelperService} from 'shared/helper/navigation-helper.service';
+import { ActiveViewType, LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.service';
+import { NavigationHelperService } from 'shared/helper/navigation-helper.service';
 
 @Component({
   selector: 'app-active-role-selector',
@@ -9,7 +9,11 @@ import {NavigationHelperService} from 'shared/helper/navigation-helper.service';
 })
 export class ActiveRoleSelectorComponent implements OnInit {
 
-  label = '';
+  private readonly adminPopupItemLabel = 'Admin';
+  private readonly sellerPopupItemLabel = 'Seller';
+  private readonly buyerPopupItemLabel = 'Buyer';
+
+  roleSelectionPopupModel: string[] = [];
 
   constructor(
       public loggedInUserHelperService: LoggedInUserHelperService,
@@ -17,6 +21,17 @@ export class ActiveRoleSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.loggedInUserHelperService.isMultiRole()) {
+      if (this.loggedInUserHelperService.isAdmin()) {
+        this.roleSelectionPopupModel.push(this.adminPopupItemLabel);
+      }
+      if (this.loggedInUserHelperService.isSeller()) {
+        this.roleSelectionPopupModel.push(this.sellerPopupItemLabel);
+      }
+      if (this.loggedInUserHelperService.isBuyer()) {
+        this.roleSelectionPopupModel.push(this.buyerPopupItemLabel);
+      }
+    }
   }
 
   getActiveRoleSelectorLabel(): string {
@@ -29,9 +44,28 @@ export class ActiveRoleSelectorComponent implements OnInit {
     return this.loggedInUserHelperService.getActiveRoleDisplayName();
   }
 
-  onRoleNameClicked(): void {
+  onActiveRoleSelectorLabelClicked(): void {
     if (!this.loggedInUserHelperService.isMultiRole()) {
       this.navigationService.navigateToActiveViewLandingPage();
     }
+  }
+
+  onRolePopupItemClicked(rolePopupItemLabel: string): void {
+    if (this.adminPopupItemLabel === rolePopupItemLabel) {
+      this.navigationService.navigateToAdminsLandingPage();
+      this.loggedInUserHelperService.setActiveViewType(ActiveViewType.ADMIN_VIEW);
+    } else if (this.sellerPopupItemLabel === rolePopupItemLabel) {
+      this.navigationService.navigateToSellersLandingPage();
+      this.loggedInUserHelperService.setActiveViewType(ActiveViewType.SELLER_VIEW);
+    } else if (this.buyerPopupItemLabel === rolePopupItemLabel) {
+      this.navigationService.navigateToBuyersLandingPage();
+      this.loggedInUserHelperService.setActiveViewType(ActiveViewType.BUYER_VIEW);
+    }
+  }
+
+  isRolePopupItemRepresentingTheActiveView(rolePopupItemLabel: string): boolean {
+    return this.loggedInUserHelperService.isAdminViewActive() && this.adminPopupItemLabel === rolePopupItemLabel
+        || this.loggedInUserHelperService.isSellerViewActive() && this.sellerPopupItemLabel === rolePopupItemLabel
+        || this.loggedInUserHelperService.isBuyerViewActive() && this.buyerPopupItemLabel === rolePopupItemLabel;
   }
 }
