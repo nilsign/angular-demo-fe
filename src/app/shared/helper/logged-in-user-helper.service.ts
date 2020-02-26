@@ -119,15 +119,7 @@ export class LoggedInUserHelperService implements OnDestroy {
     return this.roleHelper.isMultiRole(this.loggedInUser);
   }
 
-  getActiveRoleDisplayName(): string {
-    if (!this.hasLoggedInUser()) {
-      return '';
-    }
-    switch (this.activeViewType) {
-      case ActiveViewType.ADMIN_VIEW: return 'Admin';
-      case ActiveViewType.SELLER_VIEW: return 'Seller';
-      case ActiveViewType.BUYER_VIEW: return 'Buyer';
-    }
-    return this.loggedInUser.firstName;
+  getActiveRoleDisplayName(): ActiveViewType {
+    return this.activeViewType;
   }
 }

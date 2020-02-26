@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActiveViewType, LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.service';
 import { NavigationHelperService } from 'shared/helper/navigation-helper.service';
+import { isNil } from 'lodash';
 
 @Component({
   selector: 'app-active-role-selector',
@@ -38,10 +39,13 @@ export class ActiveRoleSelectorComponent implements OnInit {
     if (!this.loggedInUserHelperService.hasLoggedInUser()) {
       return 'Bye-bye.';
     }
-    if (this.loggedInUserHelperService.isBuyer()) {
+    const activeViewType = this.loggedInUserHelperService.getActiveRoleDisplayName();
+    if (this.loggedInUserHelperService.isBuyer() || isNil(activeViewType)) {
       return `Hello ${this.loggedInUserHelperService.getLoggedInUser().firstName}`;
     }
-    return this.loggedInUserHelperService.getActiveRoleDisplayName();
+    return activeViewType === ActiveViewType.ADMIN_VIEW
+        ? this.adminPopupItemLabel
+        : this.sellerPopupItemLabel;
   }
 
   onActiveRoleSelectorLabelClicked(): void {
