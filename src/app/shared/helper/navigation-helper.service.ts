@@ -36,10 +36,10 @@ export class NavigationHelperService {
 
   // Admin role navigations.
   navigateToAdminsLandingPage(): void  {
-    this.navigateToDashboard();
+    this.navigateToAdminDashboard();
   }
 
-  navigateToDashboard(): void  {
+  navigateToAdminDashboard(): void  {
     this.router.navigate(['admin/dashboard']).then();
   }
 
@@ -64,10 +64,24 @@ export class NavigationHelperService {
     this.router.navigate(['seller']).then();
   }
 
+  navigateToSellerDashboard(): void {
+    this.router.navigate(['seller/dashboard']).then();
+  }
+
+  navigateToProducts(): void {
+    this.router.navigate(['seller/products']).then();
+  }
+
   // Buyer role navigations.
   navigateToBuyersLandingPage(): void  {
     this.router.navigate(['buyer']).then();
   }
 
+  navigateToShop(): void {
+    this.router.navigate(['buyer/shop']).then();
+  }
 
+  navigateToMyOrders(): void {
+    this.router.navigate(['buyer/my-orders']).then();
+  }
 }

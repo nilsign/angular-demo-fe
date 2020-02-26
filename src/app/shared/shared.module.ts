@@ -3,6 +3,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MenuBarComponent } from 'shared/components/menu-bar/menu-bar.component';
 import { SpinnerComponent } from 'shared/components/spinner/spinner.component';
+import { AdminMenuBarItemsComponent } from './components/menu-bar/admin-menu-bar-items/admin-menu-bar-items.component';
+import { SellerMenuBarItemsComponent } from './components/menu-bar/seller-menu-bar-items/seller-menu-bar-items.component';
+import { BuyerMenuBarItemsComponent } from './components/menu-bar/buyer-menu-bar-items/buyer-menu-bar-items.component';
 
 @NgModule({
   imports: [
@@ -16,7 +19,10 @@ import { SpinnerComponent } from 'shared/components/spinner/spinner.component';
   ],
   declarations: [
       MenuBarComponent,
-      SpinnerComponent
+      SpinnerComponent,
+      AdminMenuBarItemsComponent,
+      SellerMenuBarItemsComponent,
+      BuyerMenuBarItemsComponent
   ]
 })
 export class SharedModule {

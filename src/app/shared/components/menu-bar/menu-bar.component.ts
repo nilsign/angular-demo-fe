@@ -9,8 +9,6 @@ import { NavigationHelperService } from 'shared/helper/navigation-helper.service
 })
 export class MenuBarComponent {
 
-  activeMenuItemIndex = 0;
-
   constructor(
       public loggedInUserHelperService: LoggedInUserHelperService,
       public navigationService: NavigationHelperService) {
@@ -27,32 +25,17 @@ export class MenuBarComponent {
     }
   }
 
-  onDashboardMenuItemClicked(): void {
-    this.navigationService.navigateToDashboard();
-    this.activeMenuItemIndex = 0;
-  }
-
-  onSettingsMenuItemClicked(): void {
-    this.navigationService.navigateToSettings();
-    this.activeMenuItemIndex = 1;
-  }
-
-  onShowAllUsersMenuItemClicked(): void {
-    this.navigationService.navigateToUsers();
-    this.activeMenuItemIndex = 2;
-  }
-
-  onCreateUserMenuItemClicked(): void {
-    this.navigationService.navigateToCreateUser();
-    this.activeMenuItemIndex = 2;
-  }
-
-  onEditUserMenuItemClicked(): void {
-    this.navigationService.navigateToEditUser();
-    this.activeMenuItemIndex = 2;
-  }
-
   onLogoutMenuItemClicked(): void {
     this.loggedInUserHelperService.logout();
+  }
+
+  getAppIconLabel(): string {
+    if (!this.loggedInUserHelperService.hasLoggedInUser()) {
+      return 'Bye-bye.';
+    }
+    if (this.loggedInUserHelperService.isBuyer()) {
+      return `Hello ${this.loggedInUserHelperService.getLoggedInUser().firstName}`;
+    }
+    return this.loggedInUserHelperService.getActiveRoleDisplayName();
   }
 }
