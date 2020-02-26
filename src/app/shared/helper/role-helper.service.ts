@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
+import { isNil } from 'lodash';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +9,9 @@ import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
 export class RoleHelperService {
 
   getRoleTypes(user: UserDto): Set<RoleType> {
-    return new Set<RoleType>(
-        user.roles.map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
+    return isNil(user)
+        ? new Set<RoleType>()
+        : new Set<RoleType>(user.roles.map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
   }
 
   isSuperAdmin(user: UserDto): boolean {
