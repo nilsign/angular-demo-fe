@@ -10,8 +10,8 @@ describe('UserRestApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        HttpClient,
-        HttpHandler
+          HttpClient,
+          HttpHandler
       ]
     });
     testObj = TestBed.get(UserRestApiService);

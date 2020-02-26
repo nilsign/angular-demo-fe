@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { AuthenticationGuard } from './authentication.guard';
-import {RouterTestingModule} from '@angular/router/testing';
-import {KeycloakAuthGuard, KeycloakService} from 'keycloak-angular';
+import { RouterTestingModule } from '@angular/router/testing';
+import { KeycloakAuthGuard, KeycloakService} from 'keycloak-angular';
 
 describe('AuthenticationGuard', () => {
   beforeEach(() => {
@@ -10,17 +10,17 @@ describe('AuthenticationGuard', () => {
           RouterTestingModule
       ],
       providers: [
-        RouterTestingModule,
-        {
-          provide: KeycloakAuthGuard,
-          useValue: class {
-            authenticated = false;
+          RouterTestingModule,
+          {
+            provide: KeycloakAuthGuard,
+            useValue: class {
+              authenticated = false;
+            }
+          },
+          {
+            provide: KeycloakService,
+            useValue: new KeycloakService()
           }
-        },
-        {
-          provide: KeycloakService,
-          useValue: new KeycloakService()
-        }
       ]
     });
   });

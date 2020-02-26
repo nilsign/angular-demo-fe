@@ -11,12 +11,12 @@ describe('NavigationHelperService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+          RouterTestingModule
       ],
       providers: [
-        LoggedInUserHelperService,
-        HttpClient,
-        HttpHandler,
+          LoggedInUserHelperService,
+          HttpClient,
+          HttpHandler,
       ]
     });
     testObj = TestBed.get(NavigationHelperService);

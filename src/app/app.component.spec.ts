@@ -15,16 +15,16 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-       RouterTestingModule,
-       SharedModule,
+          RouterTestingModule,
+          SharedModule,
       ],
       declarations: [
-        AppComponent,
+          AppComponent,
       ],
       providers: [
-        HttpClient,
-        HttpHandler,
-        KeycloakService
+          HttpClient,
+          HttpHandler,
+          KeycloakService
       ]
     });
     TestBed.compileComponents();

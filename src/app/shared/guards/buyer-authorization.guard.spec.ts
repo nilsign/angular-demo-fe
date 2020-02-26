@@ -8,14 +8,14 @@ describe('BuyerAuthorizationGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        BuyerAuthorizationGuard,
-        LoggedInUserHelperService,
-        HttpClient,
-        HttpHandler,
-        {
-          provide: KeycloakService,
-          useValue: new KeycloakService()
-        }
+          BuyerAuthorizationGuard,
+          LoggedInUserHelperService,
+          HttpClient,
+          HttpHandler,
+          {
+            provide: KeycloakService,
+            useValue: new KeycloakService()
+          }
       ]
     });
   });

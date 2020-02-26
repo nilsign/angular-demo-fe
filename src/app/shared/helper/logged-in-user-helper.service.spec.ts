@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { LoggedInUserHelperService } from './logged-in-user-helper.service';
 import {HttpClient, HttpHandler} from '@angular/common/http';
 import {RoleType} from 'shared/api/dtos/dto-models';
@@ -13,8 +12,8 @@ describe('LoggedInUserHelperService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        HttpClient,
-        HttpHandler
+          HttpClient,
+          HttpHandler
       ]
     });
     testObj = TestBed.get(LoggedInUserHelperService);

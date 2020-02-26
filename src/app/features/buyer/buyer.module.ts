@@ -6,12 +6,12 @@ import { MyOrdersComponent } from './component/my-orders/my-orders.component';
 
 @NgModule({
   imports: [
-    SharedModule,
-    BuyerRoutingModule
+      SharedModule,
+      BuyerRoutingModule
   ],
   declarations: [
-    ShopComponent,
-    MyOrdersComponent
+      ShopComponent,
+      MyOrdersComponent
   ]
 })
 export class BuyerModule {

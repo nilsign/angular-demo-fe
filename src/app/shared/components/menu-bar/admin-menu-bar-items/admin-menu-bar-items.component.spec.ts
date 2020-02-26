@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminMenuBarItemsComponent } from './admin-menu-bar-items.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { KeycloakService } from 'keycloak-angular';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AdminMenuBarItemsComponent', () => {
 
@@ -8,7 +11,17 @@ describe('AdminMenuBarItemsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminMenuBarItemsComponent ]
+      imports: [
+          RouterTestingModule
+      ],
+      declarations: [
+          AdminMenuBarItemsComponent
+      ],
+      providers: [
+          HttpClient,
+          HttpHandler,
+          KeycloakService
+      ]
     })
     .compileComponents();
   }));

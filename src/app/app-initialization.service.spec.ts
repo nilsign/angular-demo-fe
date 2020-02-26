@@ -12,10 +12,10 @@ describe('AppInitializationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        KeycloakService,
-        LoggedInUserHelperService,
-        HttpClient,
-        HttpHandler
+          KeycloakService,
+          LoggedInUserHelperService,
+          HttpClient,
+          HttpHandler
       ]
     });
     testObj = TestBed.get(AppInitializationService);
