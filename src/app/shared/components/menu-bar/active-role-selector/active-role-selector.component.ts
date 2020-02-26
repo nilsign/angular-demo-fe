@@ -13,7 +13,7 @@ export class ActiveRoleSelectorComponent implements OnInit {
   private readonly sellerPopupItemLabel = 'Seller';
   private readonly buyerPopupItemLabel = 'Buyer';
 
-  roleSelectionPopupModel: string[] = [];
+  activeRoleSelectionPopupModel: string[] = [];
 
   constructor(
       public loggedInUserHelperService: LoggedInUserHelperService,
@@ -23,13 +23,13 @@ export class ActiveRoleSelectorComponent implements OnInit {
   ngOnInit(): void {
     if (this.loggedInUserHelperService.isMultiRole()) {
       if (this.loggedInUserHelperService.isAdmin()) {
-        this.roleSelectionPopupModel.push(this.adminPopupItemLabel);
+        this.activeRoleSelectionPopupModel.push(this.adminPopupItemLabel);
       }
       if (this.loggedInUserHelperService.isSeller()) {
-        this.roleSelectionPopupModel.push(this.sellerPopupItemLabel);
+        this.activeRoleSelectionPopupModel.push(this.sellerPopupItemLabel);
       }
       if (this.loggedInUserHelperService.isBuyer()) {
-        this.roleSelectionPopupModel.push(this.buyerPopupItemLabel);
+        this.activeRoleSelectionPopupModel.push(this.buyerPopupItemLabel);
       }
     }
   }
@@ -50,7 +50,7 @@ export class ActiveRoleSelectorComponent implements OnInit {
     }
   }
 
-  onRolePopupItemClicked(rolePopupItemLabel: string): void {
+  onActiveRolePopupItemClicked(rolePopupItemLabel: string): void {
     if (this.adminPopupItemLabel === rolePopupItemLabel) {
       this.navigationService.navigateToAdminsLandingPage();
       this.loggedInUserHelperService.setActiveViewType(ActiveViewType.ADMIN_VIEW);
@@ -63,7 +63,7 @@ export class ActiveRoleSelectorComponent implements OnInit {
     }
   }
 
-  isRolePopupItemRepresentingTheActiveView(rolePopupItemLabel: string): boolean {
+  isActiveRolePopupItemRepresentingTheActiveView(rolePopupItemLabel: string): boolean {
     return this.loggedInUserHelperService.isAdminViewActive() && this.adminPopupItemLabel === rolePopupItemLabel
         || this.loggedInUserHelperService.isSellerViewActive() && this.sellerPopupItemLabel === rolePopupItemLabel
         || this.loggedInUserHelperService.isBuyerViewActive() && this.buyerPopupItemLabel === rolePopupItemLabel;

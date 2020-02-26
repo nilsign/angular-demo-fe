@@ -20,11 +20,11 @@ import { ActiveRoleSelectorComponent } from './components/menu-bar/active-role-s
   ],
   declarations: [
       MenuBarComponent,
-      SpinnerComponent,
+      ActiveRoleSelectorComponent,
       AdminMenuBarItemsComponent,
       SellerMenuBarItemsComponent,
       BuyerMenuBarItemsComponent,
-      ActiveRoleSelectorComponent
+      SpinnerComponent
   ]
 })
 export class SharedModule {
