@@ -18,24 +18,7 @@ export class MenuBarComponent {
     this.navigationService.navigateToActiveViewLandingPage();
   }
 
-  onRoleNameClicked(): void {
-    if (!this.loggedInUserHelperService.isMultiRole()) {
-      this.onAppIconClicked();
-      return;
-    }
-  }
-
   onLogoutMenuItemClicked(): void {
     this.loggedInUserHelperService.logout();
-  }
-
-  getAppIconLabel(): string {
-    if (!this.loggedInUserHelperService.hasLoggedInUser()) {
-      return 'Bye-bye.';
-    }
-    if (this.loggedInUserHelperService.isBuyer()) {
-      return `Hello ${this.loggedInUserHelperService.getLoggedInUser().firstName}`;
-    }
-    return this.loggedInUserHelperService.getActiveRoleDisplayName();
   }
 }

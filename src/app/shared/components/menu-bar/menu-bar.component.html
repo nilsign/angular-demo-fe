@@ -5,10 +5,8 @@
                 src="assets/icons/favicon.ico"
                 alt=""
                 (click)="onAppIconClicked()">
-        <span class="role-name" (click)="onRoleNameClicked()">
-            {{ getAppIconLabel() }}
-        </span>
     </a>
+    <app-active-role-selector></app-active-role-selector>
     <button
             class="navbar-toggler"
             type="button"
