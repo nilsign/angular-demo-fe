@@ -13,13 +13,13 @@ export class NavigationHelperService {
   }
 
   navigateToRoleDependentLandingPage(): void {
-    if (this.loggedInUserHelper.isAdmin()) {
-      this.navigateToAdminsLandingPage();
+    if (this.loggedInUserHelper.isBuyer()) {
+      this.navigateToBuyersLandingPage();
     } else if (this.loggedInUserHelper.isSeller()) {
       this.navigateToSellersLandingPage();
-    }  else if (this.loggedInUserHelper.isBuyer()) {
-      this.navigateToBuyersLandingPage();
-    } else {
+    } else if (this.loggedInUserHelper.isAdmin()) {
+      this.navigateToAdminsLandingPage();
+    } else  {
       console.error('Logged in user has not a valid authorization role.');
     }
   }
@@ -61,7 +61,7 @@ export class NavigationHelperService {
 
   // Seller role navigations.
   navigateToSellersLandingPage(): void  {
-    this.router.navigate(['seller']).then();
+    this.navigateToSellerDashboard();
   }
 
   navigateToSellerDashboard(): void {
@@ -74,7 +74,7 @@ export class NavigationHelperService {
 
   // Buyer role navigations.
   navigateToBuyersLandingPage(): void  {
-    this.router.navigate(['buyer']).then();
+    this.navigateToShop();
   }
 
   navigateToShop(): void {

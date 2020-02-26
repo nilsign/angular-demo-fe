@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'shared/shared.module';
 import { SellerRoutingModule } from 'features/seller/seller-routing.module';
-import { SellerHomeComponent } from 'features/seller/components/seller-home/seller-home.component';
+import { DashboardComponent } from 'features/seller/components/dashboard/dashboard.component';
+import { ProductsComponent } from './components/products/products.component';
 
 @NgModule({
   imports: [
@@ -9,7 +10,8 @@ import { SellerHomeComponent } from 'features/seller/components/seller-home/sell
     SellerRoutingModule
   ],
   declarations: [
-    SellerHomeComponent
+    DashboardComponent,
+    ProductsComponent
   ]
 })
 export class SellerModule {
