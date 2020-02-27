@@ -83,6 +83,10 @@ export class LoggedInUserHelperService implements OnDestroy {
     return !isNil(this.loggedInUser);
   }
 
+  isMultiRole(): boolean {
+    return this.roleHelper.isMultiRole(this.loggedInUser);
+  }
+
   isSuperAdmin(): boolean {
     return this.hasLoggedInUser() && this.roleHelper.isSuperAdmin(this.loggedInUser);
   }
@@ -115,11 +119,7 @@ export class LoggedInUserHelperService implements OnDestroy {
     this.activeViewType = activeViewType;
   }
 
-  isMultiRole(): boolean {
-    return this.roleHelper.isMultiRole(this.loggedInUser);
-  }
-
-  getActiveRoleDisplayName(): ActiveViewType {
+  getActiveViewType(): ActiveViewType {
     return this.activeViewType;
   }
 }

@@ -39,7 +39,7 @@ export class ActiveRoleSelectorComponent implements OnInit {
     if (!this.loggedInUserHelperService.hasLoggedInUser()) {
       return 'Bye-bye.';
     }
-    const activeViewType = this.loggedInUserHelperService.getActiveRoleDisplayName();
+    const activeViewType = this.loggedInUserHelperService.getActiveViewType();
     if (this.loggedInUserHelperService.isBuyer() || isNil(activeViewType)) {
       return `Hello ${this.loggedInUserHelperService.getLoggedInUser().firstName}`;
     }
