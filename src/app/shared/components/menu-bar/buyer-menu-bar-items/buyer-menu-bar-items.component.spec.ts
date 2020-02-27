@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 describe('BuyerMenuBarItemsComponent', () => {
 
-  let component: BuyerMenuBarItemsComponent;
+  let testObj: BuyerMenuBarItemsComponent;
   let fixture: ComponentFixture<BuyerMenuBarItemsComponent>;
 
   beforeEach(async(() => {
@@ -28,11 +28,29 @@ describe('BuyerMenuBarItemsComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BuyerMenuBarItemsComponent);
-    component = fixture.componentInstance;
+    testObj = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    expect(testObj).toBeTruthy();
+  });
+
+  it('should navigate to shop and set active menu index', async () => {
+    const spy = spyOn(testObj.navigationService, 'navigateToShop').and.stub();
+
+    testObj.onShopClicked();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(testObj.activeMenuItemIndex).toBe(0);
+  });
+
+  it('should navigate to my orders and set active menu index', async () => {
+    const spy = spyOn(testObj.navigationService, 'navigateToMyOrders').and.stub();
+
+    testObj.onMyOrdersMenuItemClicked();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(testObj.activeMenuItemIndex).toBe(1);
   });
 });
