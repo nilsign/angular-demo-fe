@@ -40,7 +40,7 @@ describe('MenuBarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', async () => {
     expect(testObj).toBeTruthy();
   });
 
