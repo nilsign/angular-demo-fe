@@ -12,7 +12,7 @@ describe('ActiveRoleSelectorComponent', () => {
   let fixture: ComponentFixture<ActiveRoleSelectorComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({q
+    TestBed.configureTestingModule({
       imports: [
           RouterTestingModule
       ],
