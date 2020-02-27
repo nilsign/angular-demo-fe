@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MenuBarComponent', () => {
 
-  let component: MenuBarComponent;
+  let testObj: MenuBarComponent;
   let fixture: ComponentFixture<MenuBarComponent>;
 
   beforeEach(async(() => {
@@ -36,11 +36,27 @@ describe('MenuBarComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MenuBarComponent);
-    component = fixture.componentInstance;
+    testObj = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(testObj).toBeTruthy();
+  });
+
+  it('should navigate to active views landing page on app icon click', async () => {
+    const spy = spyOn(testObj.navigationService, 'navigateToActiveViewLandingPage').and.stub();
+
+    testObj.onAppIconClicked();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should logout on logout menu item click', async () => {
+    const spy = spyOn(testObj. loggedInUserHelperService, 'logout').and.stub();
+
+    testObj.onLogoutMenuItemClicked();
+
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });
