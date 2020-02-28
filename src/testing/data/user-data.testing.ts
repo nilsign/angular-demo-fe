@@ -51,7 +51,7 @@ export const userJpaAdmin: UserDto = {
   customerId: null
 };
 
-export const userRealmSuperAdmin: UserDto = {
+export const userSuperAdmin: UserDto = {
   id: 7,
   roles: [ superAdminRoleDto ],
   email: 'super admin email',

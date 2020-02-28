@@ -7,7 +7,7 @@ import {
   userJpaAdminJpaSeller,
   userJpaBuyer,
   userJpaSeller,
-  userRealmSuperAdmin
+  userSuperAdmin
 } from 'testing/data/user-data.testing';
 import { of, throwError } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
@@ -135,7 +135,7 @@ describe('LoggedInUserHelperService', async () => {
   });
 
   it ('should return true when user is super admin', async () => {
-    spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser').and.returnValue(of(userRealmSuperAdmin));
+    spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser').and.returnValue(of(userSuperAdmin));
 
     await testObj.loadLoggedInUser();
 
