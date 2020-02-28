@@ -9,15 +9,15 @@ import { SettingsComponent } from 'features/admin/component/settings/settings.co
 
 @NgModule({
   imports: [
-    SharedModule,
-    AdminRoutingModule
+      SharedModule,
+      AdminRoutingModule
   ],
   declarations: [
-    DashboardComponent,
-    SettingsComponent,
-    ShowUsersComponent,
-    CreateUserComponent,
-    EditUserComponent,
+      DashboardComponent,
+      SettingsComponent,
+      ShowUsersComponent,
+      CreateUserComponent,
+      EditUserComponent
   ]
 })
 export class AdminModule {

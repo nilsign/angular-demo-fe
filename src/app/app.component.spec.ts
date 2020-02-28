@@ -1,8 +1,9 @@
 import { AppComponent } from 'app/app.component';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClient, HttpHandler} from '@angular/common/http';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { SharedModule } from 'shared/shared.module';
+import { KeycloakService } from 'keycloak-angular';
 
 describe('AppComponent', () => {
 
@@ -12,14 +13,16 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-       RouterTestingModule
+          RouterTestingModule,
+          SharedModule
       ],
       declarations: [
-        AppComponent
+          AppComponent
       ],
       providers: [
-        HttpClient,
-        HttpHandler
+          HttpClient,
+          HttpHandler,
+          KeycloakService
       ]
     });
     TestBed.compileComponents();

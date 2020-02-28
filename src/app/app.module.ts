@@ -8,24 +8,26 @@ import { SharedModule} from 'shared/shared.module';
 
 @NgModule({
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    KeycloakAngularModule,
-    SharedModule
+      BrowserModule,
+      AppRoutingModule,
+      KeycloakAngularModule,
+      SharedModule
   ],
   declarations: [
-    AppComponent
+     AppComponent
   ],
   providers: [
-    KeycloakService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInitializerFactory,
-      multi: true,
-      deps: [AppInitializationService]
-    }
+      KeycloakService,
+      {
+        provide: APP_INITIALIZER,
+        useFactory: appInitializerFactory,
+        multi: true,
+        deps: [AppInitializationService]
+      }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+      AppComponent
+  ]
 })
 export class AppModule {
 }

@@ -39,7 +39,7 @@ export class ActiveRoleSelectorComponent implements OnInit {
     if (!this.loggedInUserHelperService.hasLoggedInUser()) {
       return 'Bye-bye.';
     }
-    const activeViewType = this.loggedInUserHelperService.getActiveRoleDisplayName();
+    const activeViewType = this.loggedInUserHelperService.getActiveViewType();
     if (this.loggedInUserHelperService.isBuyer() || isNil(activeViewType)) {
       return `Hello ${this.loggedInUserHelperService.getLoggedInUser().firstName}`;
     }
@@ -56,14 +56,14 @@ export class ActiveRoleSelectorComponent implements OnInit {
 
   onActiveRolePopupItemClicked(rolePopupItemLabel: string): void {
     if (this.adminPopupItemLabel === rolePopupItemLabel) {
-      this.navigationService.navigateToAdminsLandingPage();
       this.loggedInUserHelperService.setActiveViewType(ActiveViewType.ADMIN_VIEW);
+      this.navigationService.navigateToAdminsLandingPage();
     } else if (this.sellerPopupItemLabel === rolePopupItemLabel) {
-      this.navigationService.navigateToSellersLandingPage();
       this.loggedInUserHelperService.setActiveViewType(ActiveViewType.SELLER_VIEW);
+      this.navigationService.navigateToSellersLandingPage();
     } else if (this.buyerPopupItemLabel === rolePopupItemLabel) {
-      this.navigationService.navigateToBuyersLandingPage();
       this.loggedInUserHelperService.setActiveViewType(ActiveViewType.BUYER_VIEW);
+      this.navigationService.navigateToBuyersLandingPage();
     }
   }
 

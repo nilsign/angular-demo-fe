@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
 import { isNil } from 'lodash';
 
-
 @Injectable({
   providedIn: 'root'
 })

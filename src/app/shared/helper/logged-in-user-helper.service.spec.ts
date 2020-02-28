@@ -1,20 +1,27 @@
 import { TestBed } from '@angular/core/testing';
+import { ActiveViewType, LoggedInUserHelperService } from './logged-in-user-helper.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { RoleType } from 'shared/api/dtos/dto-models';
+import {
+  userJpaAdmin,
+  userJpaAdminJpaSeller,
+  userJpaBuyer,
+  userJpaSeller,
+  userSuperAdmin
+} from 'testing/data/user-data.testing';
+import { of, throwError } from 'rxjs';
+import { KeycloakService } from 'keycloak-angular';
 
-import { LoggedInUserHelperService } from './logged-in-user-helper.service';
-import {HttpClient, HttpHandler} from '@angular/common/http';
-import {RoleType} from 'shared/api/dtos/dto-models';
-import {userJpaAdminJpaSeller} from 'testing/data/user-data.testing';
-import {of, throwError} from 'rxjs';
-
-describe('LoggedInUserHelperService', () => {
+describe('LoggedInUserHelperService', async () => {
 
   let testObj: LoggedInUserHelperService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        HttpClient,
-        HttpHandler
+          HttpClient,
+          HttpHandler,
+          KeycloakService
       ]
     });
     testObj = TestBed.get(LoggedInUserHelperService);
@@ -25,7 +32,7 @@ describe('LoggedInUserHelperService', () => {
     expect(testObj.hasLoggedInUser()).toBeFalsy();
   });
 
-  it('should request logged in user when logged out', () => {
+  it('should request logged in user when logged out', async () => {
     const spy1 = spyOn(testObj, 'hasLoggedInUser').and.returnValue(false);
     const spy2 = spyOn(testObj, 'loadLoggedInUser').and.returnValue(Promise.resolve());
 
@@ -35,19 +42,27 @@ describe('LoggedInUserHelperService', () => {
     expect(spy2).toHaveBeenCalledTimes(1);
   });
 
-  it ('should request roles from rest api when there is a logged in user',  () => {
+  it ('should return logged in user roles when there is a logged in user', async () => {
     spyOn(testObj, 'hasLoggedInUser').and.returnValue(true);
-    const spy = spyOn(testObj, 'getLoggedInUser').and.returnValue(userJpaAdminJpaSeller);
+    const spy = spyOn(testObj.roleHelper, 'getRoleTypes');
 
-    const roleTypes = testObj.getLoggedInUserRoleTypes();
+    testObj.getLoggedInUserRoleTypes();
 
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(roleTypes.has(RoleType.ROLE_JPA_ADMIN)).toBeTruthy();
-    expect(roleTypes.has(RoleType.ROLE_JPA_SELLER)).toBeTruthy();
-    expect(roleTypes.size).toEqual(2);
   });
 
-  it ('should return empty role set when there is no logged in user',  () => {
+  it ('should return an empty role set when there is no logged in user', async () => {
+    spyOn(testObj, 'hasLoggedInUser').and.returnValue(false);
+    const spy = spyOn(testObj.roleHelper, 'getRoleTypes');
+
+    const result = testObj.getLoggedInUserRoleTypes();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(result).toEqual(new Set<RoleType>());
+  });
+
+
+  it ('should return empty role set when there is no logged in user', async () => {
     spyOn(testObj, 'hasLoggedInUser').and.returnValue(false);
 
     const roleTypes = testObj.getLoggedInUserRoleTypes();
@@ -55,7 +70,7 @@ describe('LoggedInUserHelperService', () => {
     expect(roleTypes.size).toEqual(0);
   });
 
-  it ('should set logged in user to null on logout',  () => {
+  it ('should set logged in user to null on logout', async () => {
     spyOn(testObj, 'getLoggedInUser').and.returnValue(userJpaAdminJpaSeller);
     testObj.getLoggedInUser();
 
@@ -75,6 +90,30 @@ describe('LoggedInUserHelperService', () => {
     expect(testObj.hasLoggedInUser).toBeTruthy();
   });
 
+  it ('should set active admin view after logged in user has been loaded,', async () => {
+    spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser').and.returnValue(of(userJpaAdmin));
+
+    await testObj.loadLoggedInUser();
+
+    expect(testObj.getActiveViewType()).toEqual(ActiveViewType.ADMIN_VIEW);
+  });
+
+  it ('should set active seller view after logged in user has been loaded,', async () => {
+    spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser').and.returnValue(of(userJpaAdminJpaSeller));
+
+    await testObj.loadLoggedInUser();
+
+    expect(testObj.getActiveViewType()).toEqual(ActiveViewType.SELLER_VIEW);
+  });
+
+  it ('should set active buyer view after logged in user has been loaded,', async () => {
+    spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser').and.returnValue(of(userJpaBuyer));
+
+    await testObj.loadLoggedInUser();
+
+    expect(testObj.getActiveViewType()).toEqual(ActiveViewType.BUYER_VIEW);
+  });
+
   it ('should return a rejected promise when logged in user can not be loaded ', async () => {
     const errorMsg = 'error-msg';
     const spy = spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser')
@@ -87,7 +126,7 @@ describe('LoggedInUserHelperService', () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it ('should unsubscribe on destroy', () => {
+  it ('should unsubscribe on destroy', async() => {
     const spy = spyOn<any>(testObj.subscriptions, 'unsubscribe');
 
     testObj.ngOnDestroy();
@@ -95,77 +134,79 @@ describe('LoggedInUserHelperService', () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it ('should return true if user has admin role ', () => {
-    const roles = new Set<RoleType>()
-        .add(RoleType.ROLE_REALM_CLIENT_SELLER)
-        .add(RoleType.ROLE_JPA_SELLER)
-        .add(RoleType.ROLE_JPA_ADMIN);
-    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+  it ('should return true when user is super admin', async () => {
+    spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser').and.returnValue(of(userSuperAdmin));
 
-    const result = testObj.isAdmin();
+    await testObj.loadLoggedInUser();
 
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(result).toBeTruthy();
+    expect(testObj.isSuperAdmin()).toBeTruthy();
+    expect(testObj.isAdmin()).toBeTruthy();
+    expect(testObj.isSeller()).toBeFalsy();
+    expect(testObj.isBuyer()).toBeFalsy();
   });
 
-  it ('should return false if user has not admin role ', () => {
-    const roles = new Set<RoleType>()
-      .add(RoleType.ROLE_REALM_CLIENT_SELLER)
-      .add(RoleType.ROLE_JPA_SELLER);
-    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+  it ('should return true when user is admin', async () => {
+    spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser').and.returnValue(of(userJpaAdmin));
 
-    const result = testObj.isAdmin();
+    await testObj.loadLoggedInUser();
 
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(result).toBeFalsy();
+    expect(testObj.isSuperAdmin()).toBeFalsy();
+    expect(testObj.isAdmin()).toBeTruthy();
+    expect(testObj.isSeller()).toBeFalsy();
+    expect(testObj.isBuyer()).toBeFalsy();
   });
 
-  it ('should return true if user has seller role ', () => {
-    const roles = new Set<RoleType>()
-      .add(RoleType.ROLE_REALM_CLIENT_ADMIN)
-      .add(RoleType.ROLE_JPA_ADMIN)
-      .add(RoleType.ROLE_JPA_SELLER);
-    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+  it ('should return true when user is seller', async () => {
+    spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser').and.returnValue(of(userJpaSeller));
 
-    const result = testObj.isSeller();
+    await testObj.loadLoggedInUser();
 
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(result).toBeTruthy();
+    expect(testObj.isSuperAdmin()).toBeFalsy();
+    expect(testObj.isAdmin()).toBeFalsy();
+    expect(testObj.isSeller()).toBeTruthy();
+    expect(testObj.isBuyer()).toBeFalsy();
   });
 
-  it ('should return false if user has not seller role ', () => {
-    const roles = new Set<RoleType>()
-    .add(RoleType.ROLE_REALM_CLIENT_ADMIN)
-    .add(RoleType.ROLE_JPA_ADMIN);
-    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+  it ('should return true when user is buyer', async () => {
+    spyOn(testObj.loggedInUserRestApi, 'getLoggedInUser').and.returnValue(of(userJpaBuyer));
 
-    const result = testObj.isSeller();
+    await testObj.loadLoggedInUser();
 
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(result).toBeFalsy();
+    expect(testObj.isSuperAdmin()).toBeFalsy();
+    expect(testObj.isAdmin()).toBeFalsy();
+    expect(testObj.isSeller()).toBeFalsy();
+    expect(testObj.isBuyer()).toBeTruthy();
   });
 
-  it ('should return true if user has buyer role ', () => {
-    const roles = new Set<RoleType>()
-    .add(RoleType.ROLE_REALM_CLIENT_ADMIN)
-    .add(RoleType.ROLE_JPA_BUYER);
-    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+  it ('should return whether admin view is active', async () => {
+    testObj.setActiveViewType(ActiveViewType.ADMIN_VIEW);
 
-    const result = testObj.isBuyer();
-
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(result).toBeTruthy();
+    expect(testObj.isBuyerViewActive()).toBeFalsy();
+    expect(testObj.isSellerViewActive()).toBeFalsy();
+    expect(testObj.isAdminViewActive()).toBeTruthy();
   });
 
-  it ('should return false if user has not buyer role ', () => {
-    const roles = new Set<RoleType>()
-    .add(RoleType.ROLE_REALM_CLIENT_ADMIN)
-    .add(RoleType.ROLE_JPA_ADMIN);
-    const spy = spyOn(testObj, 'getLoggedInUserRoleTypes').and.returnValue(roles);
+  it ('should return whether seller view is active', async () => {
+    testObj.setActiveViewType(ActiveViewType.SELLER_VIEW);
 
-    const result = testObj.isBuyer();
+    expect(testObj.isBuyerViewActive()).toBeFalsy();
+    expect(testObj.isSellerViewActive()).toBeTruthy();
+    expect(testObj.isAdminViewActive()).toBeFalsy();
+  });
 
-    expect(spy).toHaveBeenCalledTimes(1);
-    expect(result).toBeFalsy();
+  it ('should return whether buyer view is active', async () => {
+    testObj.setActiveViewType(ActiveViewType.BUYER_VIEW);
+
+    expect(testObj.isBuyerViewActive()).toBeTruthy();
+    expect(testObj.isSellerViewActive()).toBeFalsy();
+    expect(testObj.isAdminViewActive()).toBeFalsy();
+  });
+
+  it ('should return active view type', async () => {
+      testObj.setActiveViewType(ActiveViewType.BUYER_VIEW);
+
+      const result = testObj.getActiveViewType();
+
+      expect(result).toEqual(ActiveViewType.BUYER_VIEW);
   });
 });
