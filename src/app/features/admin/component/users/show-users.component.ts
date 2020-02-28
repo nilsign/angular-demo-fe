@@ -56,9 +56,6 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
     if (this.roleHelper.isBuyer(user)) {
       roleCategories += roleCategories.length ? ', BUYER' : 'BUYER';
     }
-    if (!roleCategories.length) {
-      return 'UNKNOWN';
-    }
     return roleCategories;
   }
 }

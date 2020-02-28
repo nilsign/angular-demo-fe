@@ -2,13 +2,29 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShowUsersComponent } from './show-users.component';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { KeycloakService } from 'keycloak-angular';
+import {
+  userJpaAdmin,
+  userJpaAdminJpaSeller,
+  userJpaBuyer,
+  userJpaSeller,
+  userSuperAdmin
+} from 'testing/data/user-data.testing';
+import { of } from 'rxjs';
 
 describe('ShowUsersComponent', () => {
 
-  let component: ShowUsersComponent;
+  const userDtos = [
+    userSuperAdmin,
+    userJpaAdmin,
+    userJpaAdminJpaSeller,
+    userJpaSeller,
+    userJpaBuyer
+  ];
+
+  let testObj: ShowUsersComponent;
   let fixture: ComponentFixture<ShowUsersComponent>;
 
-  let loadAllUsersSpy: jasmine.Spy;
+  let userRestApiGetAllUsersSpy: jasmine.Spy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,15 +42,22 @@ describe('ShowUsersComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ShowUsersComponent);
-    component = fixture.componentInstance;
+    testObj = fixture.componentInstance;
 
-    loadAllUsersSpy = spyOn(component, 'loadAllUsers').and.stub();
+    userRestApiGetAllUsersSpy = spyOn(testObj.userRestApi, 'getAllUsers').and.returnValue(of(userDtos));
 
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-    expect(loadAllUsersSpy).toHaveBeenCalledTimes(1);
+  it('should create', async () => {
+    expect(testObj).toBeTruthy();
+  });
+
+  it ('should load all users on initialization', async () => {
+    const spy = spyOn(testObj, 'loadAllUsers').and.stub();
+
+    testObj.ngOnInit();
+
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });
