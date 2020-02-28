@@ -14,10 +14,10 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
           RouterTestingModule,
-          SharedModule,
+          SharedModule
       ],
       declarations: [
-          AppComponent,
+          AppComponent
       ],
       providers: [
           HttpClient,

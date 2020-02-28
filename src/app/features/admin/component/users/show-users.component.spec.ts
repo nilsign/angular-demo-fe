@@ -10,7 +10,7 @@ import {
   userSuperAdmin
 } from 'testing/data/user-data.testing';
 import { of } from 'rxjs';
-import {UsersTableRowModel} from 'features/admin/component/users/users-table-row.model';
+import { UsersTableRowModel } from 'features/admin/component/users/users-table-row.model';
 
 describe('ShowUsersComponent', () => {
 
@@ -74,7 +74,6 @@ describe('ShowUsersComponent', () => {
         () => {
           expect(spy).toHaveBeenCalledTimes(1);
           expect(testObj.allUsers).not.toBeNull();
-
           testObj.allUsers.subscribe((userTableRowModels: UsersTableRowModel[]) => {
             expect(userTableRowModels.length).toBe(5);
             expect(userTableRowModels[0].roleNames).toEqual('GLOBALADMIN');

@@ -17,7 +17,7 @@ import { SettingsComponent } from 'features/admin/component/settings/settings.co
       SettingsComponent,
       ShowUsersComponent,
       CreateUserComponent,
-      EditUserComponent,
+      EditUserComponent
   ]
 })
 export class AdminModule {

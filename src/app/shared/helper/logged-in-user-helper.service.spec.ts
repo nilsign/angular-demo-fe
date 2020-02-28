@@ -42,7 +42,7 @@ describe('LoggedInUserHelperService', async () => {
     expect(spy2).toHaveBeenCalledTimes(1);
   });
 
-  it ('should return logged in user roles when there is a logged in user',  async () => {
+  it ('should return logged in user roles when there is a logged in user', async () => {
     spyOn(testObj, 'hasLoggedInUser').and.returnValue(true);
     const spy = spyOn(testObj.roleHelper, 'getRoleTypes');
 
@@ -51,7 +51,7 @@ describe('LoggedInUserHelperService', async () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it ('should return an empty role set when there is no logged in user',  async() => {
+  it ('should return an empty role set when there is no logged in user', async () => {
     spyOn(testObj, 'hasLoggedInUser').and.returnValue(false);
     const spy = spyOn(testObj.roleHelper, 'getRoleTypes');
 
@@ -62,7 +62,7 @@ describe('LoggedInUserHelperService', async () => {
   });
 
 
-  it ('should return empty role set when there is no logged in user',  async () => {
+  it ('should return empty role set when there is no logged in user', async () => {
     spyOn(testObj, 'hasLoggedInUser').and.returnValue(false);
 
     const roleTypes = testObj.getLoggedInUserRoleTypes();
@@ -70,7 +70,7 @@ describe('LoggedInUserHelperService', async () => {
     expect(roleTypes.size).toEqual(0);
   });
 
-  it ('should set logged in user to null on logout',  async() => {
+  it ('should set logged in user to null on logout', async () => {
     spyOn(testObj, 'getLoggedInUser').and.returnValue(userJpaAdminJpaSeller);
     testObj.getLoggedInUser();
 
@@ -126,7 +126,7 @@ describe('LoggedInUserHelperService', async () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it ('should unsubscribe on destroy', () => {
+  it ('should unsubscribe on destroy', async() => {
     const spy = spyOn<any>(testObj.subscriptions, 'unsubscribe');
 
     testObj.ngOnDestroy();

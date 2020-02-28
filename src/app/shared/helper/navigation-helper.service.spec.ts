@@ -64,7 +64,7 @@ describe('NavigationHelperService', async () => {
     expect(spy2).toHaveBeenCalledTimes(1);
   });
 
-  it('should log error when not landing page is available for the users roles', async () => {
+  it('should log error when no landing page is available for the given users roles', async () => {
     const spy1 = spyOn(testObj.loggedInUserHelper, 'isBuyer').and.returnValue(false);
     const spy2 = spyOn(testObj.loggedInUserHelper, 'isSeller').and.returnValue(false);
     const spy3 = spyOn(testObj.loggedInUserHelper, 'isAdmin').and.returnValue(false);
@@ -110,7 +110,7 @@ describe('NavigationHelperService', async () => {
   });
 
 
-  it('should navigate to admin landing page', async () => {
+  it('should navigate to admins landing page', async () => {
     const spy = spyOn(testObj, 'navigateToAdminDashboard').and.stub();
 
     testObj.navigateToAdminsLandingPage();
@@ -163,7 +163,7 @@ describe('NavigationHelperService', async () => {
     expect(spy).toHaveBeenCalledWith(['admin/edit-user']);
   });
 
-  it('should navigate to seller landing page', async () => {
+  it('should navigate to sellers landing page', async () => {
     const spy = spyOn(testObj, 'navigateToSellerDashboard').and.stub();
 
     await testObj.navigateToSellersLandingPage();
@@ -189,7 +189,7 @@ describe('NavigationHelperService', async () => {
     expect(spy).toHaveBeenCalledWith(['seller/products']);
   });
 
-  it('should navigate to buyer landing page', async () => {
+  it('should navigate to buyers landing page', async () => {
     const spy = spyOn(testObj, 'navigateToShop').and.stub();
 
     await testObj.navigateToBuyersLandingPage();
