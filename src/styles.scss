@@ -22,3 +22,11 @@ h3 {
 h4 {
   @include fontHeadline4;
 }
+
+.field-label {
+  @include fontTextLarge;
+}
+
+.field-info {
+    @include fontTextSmall;
+}
