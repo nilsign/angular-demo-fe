@@ -2,4 +2,38 @@
     <h2>
         Create User
     </h2>
+
+    <form>
+
+        <app-text-input
+                [value]="''"
+                [label]="'Email'"
+                [placeholder]="'Email'"
+                [fieldInfo]="'Please enter your email address.'"
+        >
+        </app-text-input>
+
+        <app-text-input
+            [value]="''"
+            [label]="'First Name'"
+            [placeholder]="'First Name'"
+            [fieldInfo]="''"
+        >
+        </app-text-input>
+
+        <app-text-input
+                [value]="''"
+                [label]="'Family Name'"
+                [placeholder]="'Family'"
+                [fieldInfo]="''"
+        >
+        </app-text-input>
+
+        <button
+                class="btn btn-primary"
+                type="submit">
+            Create User
+        </button>
+    </form>
+
 </div>

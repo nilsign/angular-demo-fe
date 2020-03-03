@@ -7,6 +7,10 @@ import { SellerMenuBarItemsComponent } from 'shared/components/menu-bar/seller-m
 import { BuyerMenuBarItemsComponent } from 'shared/components/menu-bar/buyer-menu-bar-items/buyer-menu-bar-items.component';
 import { ActiveRoleSelectorComponent } from 'shared/components/menu-bar/active-role-selector/active-role-selector.component';
 import { SpinnerComponent } from 'shared/components/spinner/spinner.component';
+import { InputTextComponent } from './components/input/input-text/input-text.component';
+import { InputCheckboxComponent } from './components/input/input-checkbox/input-checkbox.component';
+import { FieldLabelComponent } from './components/input/field-label/field-label.component';
+import { FieldInfoComponent } from './components/input/field-info/field-info.component';
 
 @NgModule({
   imports: [
@@ -16,7 +20,8 @@ import { SpinnerComponent } from 'shared/components/spinner/spinner.component';
   exports: [
       CommonModule,
       MenuBarComponent,
-      SpinnerComponent
+      SpinnerComponent,
+      InputTextComponent
   ],
   declarations: [
       MenuBarComponent,
@@ -24,7 +29,11 @@ import { SpinnerComponent } from 'shared/components/spinner/spinner.component';
       AdminMenuBarItemsComponent,
       SellerMenuBarItemsComponent,
       BuyerMenuBarItemsComponent,
-      SpinnerComponent
+      SpinnerComponent,
+      InputTextComponent,
+      InputCheckboxComponent,
+      FieldLabelComponent,
+      FieldInfoComponent
   ]
 })
 export class SharedModule {
