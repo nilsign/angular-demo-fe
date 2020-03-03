@@ -9,12 +9,4 @@ export abstract class InputBaseComponent {
 
   inputFieldId = generate();
   inputFieldInfoId = generate();
-
-  protected constructor() {
-    console.log('InputBaseComponent: ');
-    console.log('Label: ', this.label);
-    console.log('inputFieldId: ', this.inputFieldId);
-    console.log('inputFieldInfoId: ', this.inputFieldInfoId);
-    console.log('---');
-  }
 }

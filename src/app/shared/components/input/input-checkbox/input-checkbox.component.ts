@@ -11,5 +11,4 @@ export class InputCheckboxComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
