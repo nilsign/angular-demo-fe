@@ -7,6 +7,8 @@ export abstract class InputBaseComponent {
   @Input() label: string;
   @Input() fieldInfo: string;
 
+  @Input() disabled: boolean;
+
   inputFieldId = generate();
   inputFieldInfoId = generate();
 }

@@ -5,29 +5,53 @@
 
     <form>
 
-        <app-text-input
+        <app-input-text
                 [value]="''"
                 [label]="'Email'"
                 [placeholder]="'Email'"
                 [fieldInfo]="'Please enter your email address.'"
         >
-        </app-text-input>
+        </app-input-text>
 
-        <app-text-input
+        <app-input-text
             [value]="''"
             [label]="'First Name'"
             [placeholder]="'First Name'"
             [fieldInfo]="''"
         >
-        </app-text-input>
+        </app-input-text>
 
-        <app-text-input
+        <app-input-text
                 [value]="''"
                 [label]="'Family Name'"
                 [placeholder]="'Family'"
                 [fieldInfo]="''"
         >
-        </app-text-input>
+        </app-input-text>
+
+        <app-input-checkbox
+                [value]="false"
+                [label]="'Assign Super Admin Role'"
+        >
+        </app-input-checkbox>
+
+        <app-input-checkbox
+                [value]="false"
+                [label]="'Assign Admin Role'"
+        >
+        </app-input-checkbox>
+
+        <app-input-checkbox
+                [value]="false"
+                [label]="'Assign Seller Role'"
+        >
+        </app-input-checkbox>
+
+        <app-input-checkbox
+                [value]="false"
+                [label]="'Assign Buyer Role'"
+        >
+        </app-input-checkbox>
 
         <button
                 class="btn btn-primary"

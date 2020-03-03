@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InputTextBaseComponent } from 'shared/components/input/input-text/input-text-base.component';
 
 @Component({
-  selector: 'app-text-input',
+  selector: 'app-input-text',
   templateUrl: './input-text.component.html',
   styleUrls: ['./input-text.component.scss']
 })

@@ -1,0 +1,16 @@
+<div class="form-group">
+    <div class="d-flex flex-nowrap align-items-center">
+        <input
+                class="form-control"
+                type="checkbox"
+                [id]="inputFieldId"
+                [checked]="value"
+                [disabled]="disabled"
+        />
+        <app-field-label
+                class="d-flex align-items-center"
+                [fieldId]="inputFieldId"
+                [fieldLabel]="label">
+        </app-field-label>
+    </div>
+</div>

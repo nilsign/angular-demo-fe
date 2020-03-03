@@ -21,7 +21,8 @@ import { FieldInfoComponent } from './components/input/field-info/field-info.com
       CommonModule,
       MenuBarComponent,
       SpinnerComponent,
-      InputTextComponent
+      InputTextComponent,
+      InputCheckboxComponent
   ],
   declarations: [
       MenuBarComponent,
