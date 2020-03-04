@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { InputTextBaseComponent } from 'shared/components/input/input-text/input-text-base.component';
 
 @Component({
@@ -6,12 +6,9 @@ import { InputTextBaseComponent } from 'shared/components/input/input-text/input
   templateUrl: './input-text.component.html',
   styleUrls: ['./input-text.component.scss']
 })
-export class InputTextComponent extends InputTextBaseComponent implements OnInit {
+export class InputTextComponent extends InputTextBaseComponent {
 
   constructor() {
     super();
-  }
-
-  ngOnInit() {
   }
 }

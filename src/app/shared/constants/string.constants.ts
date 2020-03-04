@@ -5,12 +5,12 @@ export class StringConstants {
   }
 
   static readonly formControlNames = {
-    inputEmail: 'inputEmail',
-    inputFirstName: 'inputFirstName',
-    inputFamilyName: 'inputFamilyName',
-    inputSuperAdminRole: 'inputSuperAdminRole',
-    inputAdminRole: 'inputAdminRole',
-    inputSellerRole: 'inputSellerRole',
-    inputBuyerRole: 'inputBuyerRole'
+    email: 'inputEmail',
+    firstName: 'inputFirstName',
+    familyName: 'inputFamilyName',
+    superAdminRole: 'inputSuperAdminRole',
+    adminRole: 'inputAdminRole',
+    sellerRole: 'inputSellerRole',
+    buyerRole: 'inputBuyerRole'
   };
 }

@@ -8,13 +8,13 @@ import { StringConstants } from 'shared/constants/string.constants';
 })
 export class CreateUserComponent {
 
-  readonly emailControlName = StringConstants.formControlNames.inputEmail;
-  readonly firstNameControlName = StringConstants.formControlNames.inputFirstName;
-  readonly familyNameControlName = StringConstants.formControlNames.inputFamilyName;
-  readonly superAdminControlName = StringConstants.formControlNames.inputSuperAdminRole;
-  readonly adminControlName = StringConstants.formControlNames.inputAdminRole;
-  readonly sellerControlName = StringConstants.formControlNames.inputSellerRole;
-  readonly buyerControlName = StringConstants.formControlNames.inputSellerRole;
+  readonly emailControlName = StringConstants.formControlNames.email;
+  readonly firstNameControlName = StringConstants.formControlNames.firstName;
+  readonly familyNameControlName = StringConstants.formControlNames.familyName;
+  readonly superAdminControlName = StringConstants.formControlNames.superAdminRole;
+  readonly adminControlName = StringConstants.formControlNames.adminRole;
+  readonly sellerControlName = StringConstants.formControlNames.sellerRole;
+  readonly buyerControlName = StringConstants.formControlNames.buyerRole;
 
   readonly formGroup = new FormGroup({
     [this.emailControlName]: new FormControl('', Validators.required),
