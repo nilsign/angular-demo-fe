@@ -6,7 +6,8 @@
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
-                aria-expanded="false">
+                aria-expanded="false"
+        >
             <span class="role-name" (click)="onActiveRoleSelectorLabelClicked()">
                 {{ getActiveRoleSelectorLabel() }}
             </span>
@@ -16,7 +17,8 @@
                     *ngFor="let rolePopupItemLabel of activeRoleSelectionPopupModel"
                     class="dropdown-item"
                     [ngClass]="{'disabled': isActiveRolePopupItemRepresentingTheActiveView(rolePopupItemLabel)}"
-                    (click)="onActiveRolePopupItemClicked(rolePopupItemLabel)">
+                    (click)="onActiveRolePopupItemClicked(rolePopupItemLabel)"
+            >
                 {{ rolePopupItemLabel }}
             </a>
         </div>

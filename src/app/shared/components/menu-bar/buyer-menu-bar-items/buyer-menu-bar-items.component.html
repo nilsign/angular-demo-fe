@@ -4,7 +4,8 @@
                 class="nav-link"
                 data-toggle="toggle"
                 [ngClass]="{'active': activeMenuItemIndex === 0}"
-                (click)="onShopClicked()">
+                (click)="onShopClicked()"
+        >
             Shop
         </a>
     </li>
@@ -13,7 +14,8 @@
                 class="nav-link"
                 data-toggle="toggle"
                 [ngClass]="{'active': activeMenuItemIndex === 1}"
-                (click)="onMyOrdersMenuItemClicked()">
+                (click)="onMyOrdersMenuItemClicked()"
+        >
             My Orders
         </a>
     </li>
