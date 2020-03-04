@@ -2,4 +2,72 @@
     <h2>
         Create User
     </h2>
+
+    <form [formGroup]="formGroup">
+
+        <app-input-text
+                [parentFormGroup]="formGroup"
+                [inputControlName]="emailControlName"
+                [label]="'Email'"
+                [placeholder]="'Email'"
+                [fieldInfo]="'Please enter your email address.'"
+        >
+        </app-input-text>
+
+        <app-input-text
+                [parentFormGroup]="formGroup"
+                [inputControlName]="firstNameControlName"
+                [label]="'First Name'"
+                [placeholder]="'First Name'"
+                [fieldInfo]="''"
+        >
+        </app-input-text>
+
+        <app-input-text
+                [parentFormGroup]="formGroup"
+                [inputControlName]="familyNameControlName"
+                [label]="'Family Name'"
+                [placeholder]="'Family'"
+                [fieldInfo]="''"
+        >
+        </app-input-text>
+
+        <app-input-checkbox
+                [parentFormGroup]="formGroup"
+                [inputControlName]="superAdminControlName"
+                [label]="'Assign Super Admin Role'"
+        >
+        </app-input-checkbox>
+
+        <app-input-checkbox
+                [parentFormGroup]="formGroup"
+                [inputControlName]="adminControlName"
+                [label]="'Assign Admin Role'"
+        >
+        </app-input-checkbox>
+
+        <app-input-checkbox
+                [parentFormGroup]="formGroup"
+                [inputControlName]="sellerControlName"
+                [label]="'Assign Seller Role'"
+        >
+        </app-input-checkbox>
+
+        <app-input-checkbox
+                [parentFormGroup]="formGroup"
+                [inputControlName]="buyerControlName"
+                [label]="'Assign Buyer Role'"
+        >
+        </app-input-checkbox>
+
+        <button
+                class="btn btn-primary"
+                type="submit"
+                (click)="onCreateUserClicked()"
+        >
+            Create User
+        </button>
+    </form>
+
 </div>
+

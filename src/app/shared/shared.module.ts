@@ -1,22 +1,31 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MenuBarComponent } from 'shared/components/menu-bar/menu-bar.component';
 import { AdminMenuBarItemsComponent } from 'shared/components/menu-bar/admin-menu-bar-items/admin-menu-bar-items.component';
 import { SellerMenuBarItemsComponent } from 'shared/components/menu-bar/seller-menu-bar-items/seller-menu-bar-items.component';
 import { BuyerMenuBarItemsComponent } from 'shared/components/menu-bar/buyer-menu-bar-items/buyer-menu-bar-items.component';
 import { ActiveRoleSelectorComponent } from 'shared/components/menu-bar/active-role-selector/active-role-selector.component';
 import { SpinnerComponent } from 'shared/components/spinner/spinner.component';
+import { InputTextComponent } from 'shared/components/input/input-text/input-text.component';
+import { InputCheckboxComponent } from 'shared/components/input/input-checkbox/input-checkbox.component';
+import { FieldLabelComponent } from 'shared/components/input/field-label/field-label.component';
+import { FieldInfoComponent } from 'shared//components/input/field-info/field-info.component';
 
 @NgModule({
   imports: [
-      CommonModule,
-      HttpClientModule
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [
       CommonModule,
+      ReactiveFormsModule,
       MenuBarComponent,
-      SpinnerComponent
+      SpinnerComponent,
+      InputTextComponent,
+      InputCheckboxComponent
   ],
   declarations: [
       MenuBarComponent,
@@ -24,7 +33,11 @@ import { SpinnerComponent } from 'shared/components/spinner/spinner.component';
       AdminMenuBarItemsComponent,
       SellerMenuBarItemsComponent,
       BuyerMenuBarItemsComponent,
-      SpinnerComponent
+      SpinnerComponent,
+      InputTextComponent,
+      InputCheckboxComponent,
+      FieldLabelComponent,
+      FieldInfoComponent
   ]
 })
 export class SharedModule {

@@ -37,7 +37,7 @@
 }
 
 @mixin fontTextTiny {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 16px;
   font-weight: $default-font-weight;
   :lang(en) {
@@ -46,7 +46,7 @@
 }
 
 @mixin fontTextTinyBold {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 16px;
   font-weight: $bold-font-weight;
   :lang(en) {
@@ -55,7 +55,7 @@
 }
 
 @mixin fontTextSmall {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
   font-weight: $default-font-weight;
   :lang(en) {
@@ -63,7 +63,7 @@
   }
 }
 @mixin fontTextSmallBold {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
   font-weight: $bold-font-weight;
   :lang(en) {
@@ -72,7 +72,7 @@
 }
 
 @mixin fontTextMedium {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 24px;
   font-weight: $default-font-weight;
   :lang(en) {
@@ -81,7 +81,7 @@
 }
 
 @mixin fontTextMediumBold {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 24px;
   font-weight: $bold-font-weight;
   :lang(en) {
@@ -90,7 +90,7 @@
 }
 
 @mixin fontTextLarge {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 28px;
   font-weight: $default-font-weight;
   :lang(en) {
@@ -99,7 +99,7 @@
 }
 
 @mixin fontTextLargeBold {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 28px;
   font-weight: $bold-font-weight;
   :lang(en) {

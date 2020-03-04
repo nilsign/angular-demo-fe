@@ -4,7 +4,8 @@
                 class="nav-link"
                 data-toggle="toggle"
                 [ngClass]="{'active': activeMenuItemIndex === 0}"
-                (click)="onDashboardMenuItemClicked()">
+                (click)="onDashboardMenuItemClicked()"
+        >
             Dashboard
         </a>
     </li>
@@ -13,7 +14,8 @@
                 class="nav-link"
                 data-toggle="toggle"
                 [ngClass]="{'active': activeMenuItemIndex === 1}"
-                (click)="onProductsMenuItemClicked()">
+                (click)="onProductsMenuItemClicked()"
+        >
             Products
         </a>
     </li>

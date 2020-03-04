@@ -1,0 +1,21 @@
+<form [formGroup]="parentFormGroup" class="form-group">
+    <app-field-label
+            [fieldId]="inputFieldId"
+            [fieldLabel]="label"
+    >
+    </app-field-label>
+    <input
+            class="form-control"
+            type="text"
+            [id]="inputFieldId"
+            [formControlName]="inputControlName"
+            [maxlength]="getMaxLength()"
+            [placeholder]="placeholder"
+            [attr.aria-describedby]="inputFieldInfoId"
+    >
+    <app-field-info
+        [fieldId]="inputFieldInfoId"
+        [fieldInfo]="fieldInfo"
+    >
+    </app-field-info>
+</form>
