@@ -1,4 +1,4 @@
-<div class="form-group">
+<form [formGroup]="parentFormGroup" class="form-group">
     <app-field-label
             [fieldId]="inputFieldId"
             [fieldLabel]="label">
@@ -7,7 +7,8 @@
             class="form-control"
             type="text"
             [id]="inputFieldId"
-            [value]="value"
+            [formControlName]="inputControlName"
+            [maxlength]="getMaxLength()"
             [placeholder]="placeholder"
             [attr.aria-describedby]="inputFieldInfoId"
     >
@@ -15,4 +16,4 @@
         [fieldId]="inputFieldInfoId"
         [fieldInfo]="fieldInfo">
     </app-field-info>
-</div>
+</form>
