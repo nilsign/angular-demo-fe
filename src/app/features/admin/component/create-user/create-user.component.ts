@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { StringConstants } from 'shared/constants/string.constants';
+import { getEmailValidator, getRequiredValidation } from 'shared/functions/form-validator-helper.functions';
+
 
 @Component({
   templateUrl: './create-user.component.html',
@@ -17,9 +19,11 @@ export class CreateUserComponent {
   readonly buyerControlName = StringConstants.formControlNames.buyerRole;
 
   readonly formGroup = new FormGroup({
-    [this.emailControlName]: new FormControl('', Validators.required),
-    [this.firstNameControlName]: new FormControl('', Validators.required),
-    [this.familyNameControlName]: new FormControl('', Validators.required),
+    [this.emailControlName]: new FormControl('', [
+        getRequiredValidation(),
+        getEmailValidator()]),
+    [this.firstNameControlName]: new FormControl('', getRequiredValidation()),
+    [this.familyNameControlName]: new FormControl('', getRequiredValidation()),
     [this.superAdminControlName]: new FormControl(false),
     [this.adminControlName]: new FormControl(false),
     [this.sellerControlName]: new FormControl(false),

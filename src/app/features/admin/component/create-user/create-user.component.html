@@ -4,10 +4,9 @@
     </h2>
 
     <form [formGroup]="formGroup">
-
         <app-input-text
-                [parentFormGroup]="formGroup"
-                [inputControlName]="emailControlName"
+                [formGroup]="formGroup"
+                [controlName]="emailControlName"
                 [label]="'Email'"
                 [placeholder]="'Email'"
                 [fieldInfo]="'Please enter your email address.'"
@@ -15,8 +14,8 @@
         </app-input-text>
 
         <app-input-text
-                [parentFormGroup]="formGroup"
-                [inputControlName]="firstNameControlName"
+                [formGroup]="formGroup"
+                [controlName]="firstNameControlName"
                 [label]="'First Name'"
                 [placeholder]="'First Name'"
                 [fieldInfo]="''"
@@ -24,8 +23,8 @@
         </app-input-text>
 
         <app-input-text
-                [parentFormGroup]="formGroup"
-                [inputControlName]="familyNameControlName"
+                [formGroup]="formGroup"
+                [controlName]="familyNameControlName"
                 [label]="'Family Name'"
                 [placeholder]="'Family'"
                 [fieldInfo]="''"
@@ -33,29 +32,29 @@
         </app-input-text>
 
         <app-input-checkbox
-                [parentFormGroup]="formGroup"
-                [inputControlName]="superAdminControlName"
+                [formGroup]="formGroup"
+                [controlName]="superAdminControlName"
                 [label]="'Assign Super Admin Role'"
         >
         </app-input-checkbox>
 
         <app-input-checkbox
-                [parentFormGroup]="formGroup"
-                [inputControlName]="adminControlName"
+                [formGroup]="formGroup"
+                [controlName]="adminControlName"
                 [label]="'Assign Admin Role'"
         >
         </app-input-checkbox>
 
         <app-input-checkbox
-                [parentFormGroup]="formGroup"
-                [inputControlName]="sellerControlName"
+                [formGroup]="formGroup"
+                [controlName]="sellerControlName"
                 [label]="'Assign Seller Role'"
         >
         </app-input-checkbox>
 
         <app-input-checkbox
-                [parentFormGroup]="formGroup"
-                [inputControlName]="buyerControlName"
+                [formGroup]="formGroup"
+                [controlName]="buyerControlName"
                 [label]="'Assign Buyer Role'"
         >
         </app-input-checkbox>

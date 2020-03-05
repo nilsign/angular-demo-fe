@@ -1,8 +1,15 @@
-<ng-container *ngIf="hasFieldInfo()">
+<ng-container *ngIf="hasFieldInfo() && !hasErrorInfo()">
     <div
             class="field-info form-text text-muted"
             [id]="fieldId"
     >
-        {{ fieldInfo }}
+        {{ getFieldInfo() }}
+    </div>
+</ng-container>
+<ng-container *ngIf="hasErrorInfo()">
+    <div
+            *ngIf="hasErrorInfo()"
+            class="field-info form-text text-muted invalid">
+        {{ getErrorInfo() }}
     </div>
 </ng-container>
