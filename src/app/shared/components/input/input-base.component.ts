@@ -1,6 +1,6 @@
 import { Input } from '@angular/core';
 import { generate } from 'shortid';
-import { FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 export abstract class InputBaseComponent {
 
