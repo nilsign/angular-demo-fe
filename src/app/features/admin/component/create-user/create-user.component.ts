@@ -29,8 +29,20 @@ export class CreateUserComponent {
     [this.buyerControlName]: new FormControl(false)
   });
 
+  clickedCreateUserButton = false;
+
   onCreateUserClicked(): void {
+    this.clickedCreateUserButton = true;
+    this.formGroup.markAllAsTouched();
+    if (this.canCreateUser()) {
+      // TODO(nilsheumer): Create user, show success notification and empty form, or handle failure gracefully.
+      this.clickedCreateUserButton = false;
+    }
     console.log(this.formGroup);
+  }
+
+  canCreateUser(): boolean {
+    return !this.formGroup.invalid && !this.markRoleSelectionContainerAsInvalid();
   }
 
   markRoleSelectionContainerAsInvalid(): boolean {

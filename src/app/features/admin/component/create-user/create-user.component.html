@@ -9,6 +9,7 @@
                 [controlName]="emailControlName"
                 [label]="'Email'"
                 [placeholder]="'Email'"
+                [maxLength]="320"
                 [fieldInfo]="'Please enter your email address.'"
         >
         </app-input-text>
@@ -18,6 +19,7 @@
                 [controlName]="firstNameControlName"
                 [label]="'First Name'"
                 [placeholder]="'First Name'"
+                [maxLength]="64"
         >
         </app-input-text>
 
@@ -26,6 +28,7 @@
                 [controlName]="familyNameControlName"
                 [label]="'Family Name'"
                 [placeholder]="'Family'"
+                [maxLength]="64"
         >
         </app-input-text>
 
@@ -68,6 +71,7 @@
         <button
                 class="btn btn-primary"
                 type="submit"
+                [disabled]="!canCreateUser() && clickedCreateUserButton"
                 (click)="onCreateUserClicked()"
         >
             Create User
