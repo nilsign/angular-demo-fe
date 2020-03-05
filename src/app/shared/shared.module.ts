@@ -12,6 +12,7 @@ import { InputTextComponent } from 'shared/components/input/input-text/input-tex
 import { InputCheckboxComponent } from 'shared/components/input/input-checkbox/input-checkbox.component';
 import { FieldLabelComponent } from 'shared/components/input/field-label/field-label.component';
 import { FieldInfoComponent } from 'shared//components/input/field-info/field-info.component';
+import { InputContainerComponent } from './components/input/input-container/input-container.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { FieldInfoComponent } from 'shared//components/input/field-info/field-in
       ReactiveFormsModule,
       MenuBarComponent,
       SpinnerComponent,
+      InputContainerComponent,
       InputTextComponent,
       InputCheckboxComponent
   ],
@@ -34,10 +36,11 @@ import { FieldInfoComponent } from 'shared//components/input/field-info/field-in
       SellerMenuBarItemsComponent,
       BuyerMenuBarItemsComponent,
       SpinnerComponent,
-      InputTextComponent,
-      InputCheckboxComponent,
+      FieldInfoComponent,
       FieldLabelComponent,
-      FieldInfoComponent
+      InputContainerComponent,
+      InputTextComponent,
+      InputCheckboxComponent
   ]
 })
 export class SharedModule {

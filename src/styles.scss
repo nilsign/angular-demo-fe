@@ -3,6 +3,7 @@
 @import 'assets/styles/colors.scss';
 @import 'assets/styles/mixins.scss';
 
+// HTML Tags
 body {
   @include fontTextMedium;
 }
@@ -25,4 +26,9 @@ h4 {
 
 label {
   margin-bottom: 0;
+}
+
+// Classes
+.invalid {
+  color: $error-text-bootstrap-color !important;
 }

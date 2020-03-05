@@ -7,8 +7,4 @@ import { InputBaseComponent } from 'shared/components/input/input-base.component
   styleUrls: ['./input-checkbox.component.scss']
 })
 export class InputCheckboxComponent extends InputBaseComponent {
-
-  constructor() {
-    super();
-  }
 }

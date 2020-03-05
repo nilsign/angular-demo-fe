@@ -1,10 +1,10 @@
-<div [formGroup]="parentFormGroup" class="form-group">
+<div [formGroup]="formGroup" class="form-group">
     <div class="d-flex flex-nowrap align-items-center">
         <input
                 class="form-control"
                 type="checkbox"
                 [id]="inputFieldId"
-                [formControlName]="inputControlName"
+                [formControlName]="controlName"
         />
         <app-field-label
                 class="d-flex align-items-center"

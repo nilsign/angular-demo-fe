@@ -7,10 +7,6 @@ export abstract class InputTextBaseComponent extends InputBaseComponent {
   @Input() placeholder: string;
   @Input() maxLength: number = undefined;
 
-  protected constructor() {
-    super();
-  }
-
   getMaxLength(): string {
     return isNil(this.maxLength)
       ? undefined

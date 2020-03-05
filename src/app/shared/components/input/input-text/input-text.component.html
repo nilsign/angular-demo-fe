@@ -1,4 +1,4 @@
-<form [formGroup]="parentFormGroup" class="form-group">
+<form [formGroup]="formGroup" class="form-group">
     <app-field-label
             [fieldId]="inputFieldId"
             [fieldLabel]="label"
@@ -8,14 +8,16 @@
             class="form-control"
             type="text"
             [id]="inputFieldId"
-            [formControlName]="inputControlName"
+            [formControlName]="controlName"
             [maxlength]="getMaxLength()"
             [placeholder]="placeholder"
             [attr.aria-describedby]="inputFieldInfoId"
+            [ngClass]="{'is-invalid': isInvalidAndTouched()}"
     >
     <app-field-info
         [fieldId]="inputFieldInfoId"
         [fieldInfo]="fieldInfo"
+        [control]="getFormControl()"
     >
     </app-field-info>
 </form>
