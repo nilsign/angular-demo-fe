@@ -1,0 +1,27 @@
+
+<div class="input-container">
+    <ng-container *ngIf="hasLabel()">
+        <app-field-label
+                [fieldId]="inputContainerId"
+                [fieldLabel]="label"
+        >
+        </app-field-label>
+    </ng-container>
+    <div
+            class="form-control"
+            [id]="inputContainerId"
+            [attr.aria-describedby]="inputContainerInfoId"
+            [ngClass]="{'is-invalid': markedInvalid}">
+        <div class="input-container-content">
+            <ng-content></ng-content>
+        </div>
+    </div>
+    <ng-container *ngIf="hasInfo()">
+        <div
+                class="input-container-info field-info form-text text-muted"
+                [id]="inputContainerId"
+                [ngClass]="{'invalid': markedInvalid}">
+            {{ info }}
+        </div>
+    </ng-container>
+</div>

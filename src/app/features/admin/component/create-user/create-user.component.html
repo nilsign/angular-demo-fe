@@ -18,7 +18,6 @@
                 [controlName]="firstNameControlName"
                 [label]="'First Name'"
                 [placeholder]="'First Name'"
-                [fieldInfo]="''"
         >
         </app-input-text>
 
@@ -27,37 +26,44 @@
                 [controlName]="familyNameControlName"
                 [label]="'Family Name'"
                 [placeholder]="'Family'"
-                [fieldInfo]="''"
         >
         </app-input-text>
 
-        <app-input-checkbox
-                [formGroup]="formGroup"
-                [controlName]="superAdminControlName"
-                [label]="'Assign Super Admin Role'"
+        <app-input-container
+                [label]="'User Roles'"
+                [markedInvalid]="markRoleSelectionContainerAsInvalid()"
+                [info]="getRoleSelectionContainerInfo()"
         >
-        </app-input-checkbox>
 
-        <app-input-checkbox
-                [formGroup]="formGroup"
-                [controlName]="adminControlName"
-                [label]="'Assign Admin Role'"
-        >
-        </app-input-checkbox>
+            <app-input-checkbox
+                    [formGroup]="formGroup"
+                    [controlName]="superAdminControlName"
+                    [label]="'Assign Super Admin Role'"
+            >
+            </app-input-checkbox>
 
-        <app-input-checkbox
-                [formGroup]="formGroup"
-                [controlName]="sellerControlName"
-                [label]="'Assign Seller Role'"
-        >
-        </app-input-checkbox>
+            <app-input-checkbox
+                    [formGroup]="formGroup"
+                    [controlName]="adminControlName"
+                    [label]="'Assign Admin Role'"
+            >
+            </app-input-checkbox>
 
-        <app-input-checkbox
-                [formGroup]="formGroup"
-                [controlName]="buyerControlName"
-                [label]="'Assign Buyer Role'"
-        >
-        </app-input-checkbox>
+            <app-input-checkbox
+                    [formGroup]="formGroup"
+                    [controlName]="sellerControlName"
+                    [label]="'Assign Seller Role'"
+            >
+            </app-input-checkbox>
+
+            <app-input-checkbox
+                    [formGroup]="formGroup"
+                    [controlName]="buyerControlName"
+                    [label]="'Assign Buyer Role'"
+            >
+            </app-input-checkbox>
+
+        </app-input-container>
 
         <button
                 class="btn btn-primary"

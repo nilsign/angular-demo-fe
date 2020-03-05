@@ -3,7 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { StringConstants } from 'shared/constants/string.constants';
 import { getEmailValidator, getRequiredValidation } from 'shared/functions/form-validator-helper.functions';
 
-
 @Component({
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
@@ -32,5 +31,20 @@ export class CreateUserComponent {
 
   onCreateUserClicked(): void {
     console.log(this.formGroup);
+  }
+
+  markRoleSelectionContainerAsInvalid(): boolean {
+    const superAdminControl = this.formGroup.controls[this.superAdminControlName];
+    const adminControl = this.formGroup.controls[this.adminControlName];
+    const sellerControl = this.formGroup.controls[this.sellerControlName];
+    const buyerControl = this.formGroup.controls[this.buyerControlName];
+    return !superAdminControl.value && !adminControl.value && !sellerControl.value && !buyerControl.value
+      && (superAdminControl.touched || adminControl.touched || sellerControl.touched || buyerControl.touched);
+  }
+
+  getRoleSelectionContainerInfo() {
+    return this.markRoleSelectionContainerAsInvalid()
+        ? 'The created user needs at least one assigned role.'
+        : 'Assign a role to the user.';
   }
 }
