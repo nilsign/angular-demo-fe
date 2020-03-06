@@ -7,14 +7,6 @@ import {UserRestApiService} from 'shared/api/user-rest-api.service';
 import {Subscription} from 'rxjs';
 import {RoleDto, RoleType, UserDto} from 'shared/api/dtos/dto-models';
 
-function buildRoleDto(roleType: RoleType): RoleDto {
-  return {
-    id: null,
-    roleType,
-    roleName: null
-  };
-}
-
 @Component({
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
@@ -110,7 +102,6 @@ export class CreateUserComponent {
     }
     if (getFormControlValue(this.formGroup, this.adminControlName)) {
       roleDtos.push(buildRoleDto(RoleType.ROLE_JPA_ADMIN));
-
     }
     if (getFormControlValue(this.formGroup, this.sellerControlName)) {
       roleDtos.push(buildRoleDto(RoleType.ROLE_JPA_SELLER));
@@ -120,4 +111,12 @@ export class CreateUserComponent {
     }
     return roleDtos;
   }
+}
+
+function buildRoleDto(roleType: RoleType): RoleDto {
+  return {
+    id: null,
+    roleType,
+    roleName: null
+  };
 }
