@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {StringConstants} from 'shared/constants/string.constants';
-import {getEmailValidator, getRequiredValidation} from 'shared/functions/form-validator-helper.functions';
-import {getFormControlValue} from 'shared/functions/form-helper.functions';
-import {UserRestApiService} from 'shared/api/user-rest-api.service';
-import {Subscription} from 'rxjs';
-import {RoleDto, RoleType, UserDto} from 'shared/api/dtos/dto-models';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { StringConstants } from 'shared/constants/string.constants';
+import { getEmailValidator, getRequiredValidation } from 'shared/functions/form-validator-helper.functions';
+import { getFormControlValue } from 'shared/functions/form-helper.functions';
+import { UserRestApiService } from 'shared/api/user-rest-api.service';
+import { Subscription } from 'rxjs';
+import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
 
 @Component({
   templateUrl: './create-user.component.html',
@@ -117,6 +117,6 @@ function buildRoleDto(roleType: RoleType): RoleDto {
   return {
     id: null,
     roleType,
-    roleName: null
+    roleName: ''
   };
 }
