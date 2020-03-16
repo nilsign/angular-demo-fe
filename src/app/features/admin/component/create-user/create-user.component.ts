@@ -47,7 +47,6 @@ export class CreateUserComponent {
       this.saveUser();
       this.clickedCreateUserButton = false;
     }
-    console.log(this.formGroup);
   }
 
   canCreateUser(): boolean {
