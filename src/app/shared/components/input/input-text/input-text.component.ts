@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { InputTextBaseComponent } from 'shared/components/input/input-text/input-text-base.component';
+import { InputCharacterBaseComponent } from 'shared/components/input/input-character-base.component';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './input-text.component.html',
   styleUrls: ['./input-text.component.scss']
 })
-export class InputTextComponent extends InputTextBaseComponent implements OnInit, OnDestroy {
+export class InputTextComponent extends InputCharacterBaseComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription = new Subscription();
 

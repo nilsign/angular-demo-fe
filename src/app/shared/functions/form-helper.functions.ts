@@ -1,5 +1,5 @@
 import { isNil } from 'lodash';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 export function hasErrorInfo(formControl: FormControl): boolean {
   return !isNil(formControl)
@@ -17,3 +17,12 @@ export function getErrorInfo(formControl: FormControl): string {
   }
   return errorInfo;
 }
+
+export function getFormControl(formGroup: FormGroup, controlName: string): FormControl {
+  return formGroup.controls[controlName] as FormControl;
+}
+
+export function getFormControlValue(formGroup: FormGroup, controlName: string): any {
+  return formGroup.controls[controlName].value;
+}
+
