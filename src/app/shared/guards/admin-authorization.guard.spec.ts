@@ -5,6 +5,7 @@ import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.s
 import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('AdminAuthorizationGuard', () => {
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -12,10 +13,7 @@ describe('AdminAuthorizationGuard', () => {
           LoggedInUserHelperService,
           HttpClient,
           HttpHandler,
-          {
-            provide: KeycloakService,
-            useValue: new KeycloakService()
-          }
+          KeycloakService
       ]
     });
   });
@@ -53,5 +51,5 @@ describe('AdminAuthorizationGuard', () => {
         guard.canActivate();
 
         expect(spy).toHaveBeenCalledTimes(1);
-      }));
+   }));
 });

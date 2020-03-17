@@ -12,10 +12,7 @@ describe('BuyerAuthorizationGuard', () => {
           LoggedInUserHelperService,
           HttpClient,
           HttpHandler,
-          {
-            provide: KeycloakService,
-            useValue: new KeycloakService()
-          }
+          KeycloakService
       ]
     });
   });

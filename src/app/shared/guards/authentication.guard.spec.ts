@@ -11,15 +11,12 @@ describe('AuthenticationGuard', () => {
       ],
       providers: [
           RouterTestingModule,
+          KeycloakService,
           {
             provide: KeycloakAuthGuard,
             useValue: class {
               authenticated = false;
             }
-          },
-          {
-            provide: KeycloakService,
-            useValue: new KeycloakService()
           }
       ]
     });

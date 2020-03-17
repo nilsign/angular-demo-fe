@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { InputTextComponent } from './input-text.component';
+import {FieldInfoComponent} from 'shared/components/input/field-info/field-info.component';
+import {FieldLabelComponent} from 'shared/components/input/field-label/field-label.component';
 
 describe('TextInputComponent', () => {
 
@@ -8,7 +10,11 @@ describe('TextInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputTextComponent ]
+      declarations: [
+          InputTextComponent,
+          FieldLabelComponent,
+          FieldInfoComponent
+      ]
     })
     .compileComponents();
   }));

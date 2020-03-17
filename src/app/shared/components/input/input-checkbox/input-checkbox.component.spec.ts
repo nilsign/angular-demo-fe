@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { InputCheckboxComponent } from './input-checkbox.component';
+import {FieldLabelComponent} from 'shared/components/input/field-label/field-label.component';
 
 describe('InputCheckboxComponent', () => {
 
@@ -8,7 +9,10 @@ describe('InputCheckboxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputCheckboxComponent ]
+      declarations: [
+          InputCheckboxComponent,
+          FieldLabelComponent
+      ]
     })
     .compileComponents();
   }));
