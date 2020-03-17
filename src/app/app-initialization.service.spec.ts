@@ -64,7 +64,7 @@ describe('AppInitializationService', () => {
     await testObj.initApplication().catch(() => { return; });
 
     expect(spy1).toHaveBeenCalledTimes(1);
-    expect(spy2).not.toHaveBeenCalled();
+    expect(spy2).toHaveBeenCalledTimes(0);
     expect(spy3).toHaveBeenCalledTimes(1);
     expect(spy3).toHaveBeenCalledWith(`Couldn\'t initialize Keycloak Service. (Error: ${errorMsg})`);
   });

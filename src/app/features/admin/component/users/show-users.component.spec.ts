@@ -33,9 +33,9 @@ describe('ShowUsersComponent', () => {
           ShowUsersComponent
       ],
       providers: [
+          KeycloakService,
           HttpClient,
-          HttpHandler,
-          KeycloakService
+          HttpHandler
       ]
     })
     .compileComponents();
@@ -45,7 +45,11 @@ describe('ShowUsersComponent', () => {
     fixture = TestBed.createComponent(ShowUsersComponent);
     testObj = fixture.componentInstance;
 
-    userRestApiGetAllUsersSpy = spyOn(testObj.userRestApi, 'getAllUsers').and.returnValue(of(userDtos));
+    // This is required, because any single test here recreates the component from scratch, which triggers a call of the
+    // on init function, where all users that are going to be displayed are loaded.
+    userRestApiGetAllUsersSpy = spyOn(testObj.userRestApi, 'getAllUsers')
+        .and.stub()
+        .and.returnValue(of(userDtos));
 
     fixture.detectChanges();
   });
@@ -54,7 +58,7 @@ describe('ShowUsersComponent', () => {
     expect(testObj).toBeTruthy();
   });
 
-  it ('should load all users on initialization', async () => {
+  it ('should call load all users on component initialization', async () => {
     const spy = spyOn(testObj, 'loadAllUsers').and.stub();
 
     testObj.ngOnInit();
@@ -62,26 +66,15 @@ describe('ShowUsersComponent', () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-
-  it ('should initialize all users member on load all users', async () => {
-    const spy = spyOn(testObj.userRestApi.getAllUsers(), 'subscribe');
-
-    testObj.loadAllUsers();
-
-    testObj.userRestApi.getAllUsers().subscribe(
-        () => {},
-        () => {},
-        () => {
-          expect(spy).toHaveBeenCalledTimes(1);
-          expect(testObj.allUsers).not.toBeNull();
-          testObj.allUsers.subscribe((userTableRowModels: UsersTableRowModel[]) => {
-            expect(userTableRowModels.length).toBe(5);
-            expect(userTableRowModels[0].roleNames).toEqual('GLOBALADMIN');
-            expect(userTableRowModels[1].roleNames).toEqual('ADMIN');
-            expect(userTableRowModels[2].roleNames).toEqual('ADMIN, SELLER');
-            expect(userTableRowModels[3].roleNames).toEqual('SELLER');
-            expect(userTableRowModels[4].roleNames).toEqual('BUYER');
-          });
-        });
+  it ('should initialize all users on component initialization', async () => {
+    testObj.allUsers.subscribe(  (userTableRowModels: UsersTableRowModel[]) => {
+      expect(testObj.allUsers).not.toBeNull();
+      expect(userTableRowModels.length).toBe(5);
+      expect(userTableRowModels[0].roleNames).toEqual('GLOBALADMIN');
+      expect(userTableRowModels[1].roleNames).toEqual('ADMIN');
+      expect(userTableRowModels[2].roleNames).toEqual('ADMIN, SELLER');
+      expect(userTableRowModels[3].roleNames).toEqual('SELLER');
+      expect(userTableRowModels[4].roleNames).toEqual('BUYER');
+    });
   });
 });

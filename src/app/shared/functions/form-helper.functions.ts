@@ -26,3 +26,7 @@ export function getFormControlValue(formGroup: FormGroup, controlName: string): 
   return formGroup.controls[controlName].value;
 }
 
+export function setFormControlValue(formGroup: FormGroup, controlName: string, value: any): void {
+  formGroup.controls[controlName].setValue(value);
+}
+

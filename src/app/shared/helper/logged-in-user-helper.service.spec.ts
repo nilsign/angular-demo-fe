@@ -57,7 +57,7 @@ describe('LoggedInUserHelperService', async () => {
 
     const result = testObj.getLoggedInUserRoleTypes();
 
-    expect(spy).not.toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledTimes(0);
     expect(result).toEqual(new Set<RoleType>());
   });
 

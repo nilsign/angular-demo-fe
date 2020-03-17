@@ -29,8 +29,12 @@ export class ShowUsersComponent implements OnInit, OnDestroy {
   }
 
   loadAllUsers(): void {
+
+    const allUsesRequest = this.userRestApi.getAllUsers();
+
     this.subscriptions.add(
-        this.userRestApi.getAllUsers().subscribe((users: UserDto[]) => {
+        // this.userRestApi.getAllUsers().subscribe((users: UserDto[]) => {
+        allUsesRequest.subscribe((users: UserDto[]) => {
           this.allUsers = of(
               users.map((user: UserDto) => {
                 return {
