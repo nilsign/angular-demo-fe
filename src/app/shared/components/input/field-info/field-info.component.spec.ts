@@ -3,7 +3,7 @@ import { FieldInfoComponent } from './field-info.component';
 
 describe('FieldInfoComponent', () => {
 
-  let component: FieldInfoComponent;
+  let testObj: FieldInfoComponent;
   let fixture: ComponentFixture<FieldInfoComponent>;
 
   beforeEach(async(() => {
@@ -15,11 +15,20 @@ describe('FieldInfoComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FieldInfoComponent);
-    component = fixture.componentInstance;
+    testObj = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', async () => {
-    expect(component).toBeTruthy();
+    expect(testObj).toBeTruthy();
+  });
+
+  it('should call error info function on errors', async () => {
+    spyOn(testObj, 'hasErrorInfo').and.stub().and.returnValue(true);
+    const spy = spyOn(testObj, 'getErrorInfo');
+
+    fixture.detectChanges();
+
+    expect(spy).toHaveBeenCalled();
   });
 });

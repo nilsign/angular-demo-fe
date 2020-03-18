@@ -29,7 +29,7 @@ export class FieldInfoComponent {
   }
 
   getFieldInfo(): string {
-    const errorInfo = getErrorInfo(this.control);
+    const errorInfo = this.getErrorInfo();
     return !isNil(errorInfo) && this.control.touched
         ? errorInfo
         : this.fieldInfo;

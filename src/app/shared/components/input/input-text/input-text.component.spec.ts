@@ -46,8 +46,6 @@ describe('TextInputComponent', () => {
 
     testObj.formGroup.controls[controlName].setValue('');
 
-    testObj.formGroup.controls[controlName].valueChanges.subscribe((value: string) => {
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });
