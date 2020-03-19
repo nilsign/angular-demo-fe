@@ -46,7 +46,7 @@ describe('UserRestApiService', () => {
     }
 
     expect(spy1).toHaveBeenCalledTimes(1);
-    expect(spy2).not.toHaveBeenCalled();
+    expect(spy2).toHaveBeenCalledTimes(0);
   });
 
   it('should save users via rest api', async () => {

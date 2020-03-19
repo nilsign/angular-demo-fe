@@ -55,7 +55,7 @@ describe('AdminMenuBarItemsComponent', () => {
   });
 
   it('should navigate to show users and set active menu index', async () => {
-    const spy = spyOn(testObj.navigationService, 'navigateToUsers').and.stub();
+    const spy = spyOn(testObj.navigationService, 'navigateToShowUsers').and.stub();
 
     testObj.onShowAllUsersMenuItemClicked();
 

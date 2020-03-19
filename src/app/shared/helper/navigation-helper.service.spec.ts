@@ -139,7 +139,7 @@ describe('NavigationHelperService', async () => {
   it('should navigate to admins show users', async () => {
     const spy = spyOn(testObj.router, 'navigate').and.returnValue(Promise.resolve(true));
 
-    testObj.navigateToUsers();
+    testObj.navigateToShowUsers();
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(['admin/show-users']);

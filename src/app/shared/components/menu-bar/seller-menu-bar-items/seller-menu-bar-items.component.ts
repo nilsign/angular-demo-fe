@@ -3,8 +3,7 @@ import { NavigationHelperService } from 'shared/helper/navigation-helper.service
 
 @Component({
   selector: 'app-seller-menu-bar-items',
-  templateUrl: './seller-menu-bar-items.component.html',
-  styleUrls: ['./seller-menu-bar-items.component.scss']
+  templateUrl: './seller-menu-bar-items.component.html'
 })
 export class SellerMenuBarItemsComponent {
 

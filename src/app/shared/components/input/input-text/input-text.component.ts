@@ -4,8 +4,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-input-text',
-  templateUrl: './input-text.component.html',
-  styleUrls: ['./input-text.component.scss']
+  templateUrl: './input-text.component.html'
 })
 export class InputTextComponent extends InputCharacterBaseComponent implements OnInit, OnDestroy {
 

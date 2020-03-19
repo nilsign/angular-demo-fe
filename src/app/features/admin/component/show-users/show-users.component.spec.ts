@@ -10,7 +10,7 @@ import {
   userSuperAdmin
 } from 'testing/data/user-data.testing';
 import { of } from 'rxjs';
-import { UsersTableRowModel } from 'features/admin/component/users/users-table-row.model';
+import { UsersTableRowModel } from 'features/admin/component/show-users/users-table-row.model';
 
 describe('ShowUsersComponent', () => {
 
