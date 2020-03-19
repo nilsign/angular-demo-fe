@@ -3,6 +3,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { SellerAuthorizationGuard } from './seller-authorization.guard';
+import { KeycloakServiceStub } from 'testing/stubs';
 
 describe('SellerAuthorizationGuard', () => {
   beforeEach(() => {
@@ -12,18 +13,21 @@ describe('SellerAuthorizationGuard', () => {
           LoggedInUserHelperService,
           HttpClient,
           HttpHandler,
-          KeycloakService
+          {
+            provide: KeycloakService,
+            useClass: KeycloakServiceStub
+          }
       ]
     });
   });
 
   it('should be created',
-      inject([SellerAuthorizationGuard], (guard: SellerAuthorizationGuard) => {
+      inject([SellerAuthorizationGuard], async (guard: SellerAuthorizationGuard) => {
         expect(guard).toBeTruthy();
       }));
 
   it('should authorize when logged in user has seller role',
-      inject([SellerAuthorizationGuard], (guard: SellerAuthorizationGuard) => {
+      inject([SellerAuthorizationGuard], async (guard: SellerAuthorizationGuard) => {
         const spy = spyOn(guard.loggedInUserService, 'isSeller').and.returnValue(true);
 
         const result = guard.canActivate();
@@ -33,7 +37,7 @@ describe('SellerAuthorizationGuard', () => {
       }));
 
   it('should not authorize when logged in user has not weller role',
-      inject([SellerAuthorizationGuard], (guard: SellerAuthorizationGuard) => {
+      inject([SellerAuthorizationGuard], async (guard: SellerAuthorizationGuard) => {
         const spy = spyOn(guard.loggedInUserService, 'isSeller').and.returnValue(false);
 
         const result = guard.canActivate();
@@ -43,7 +47,7 @@ describe('SellerAuthorizationGuard', () => {
       }));
 
   it('should redirect to login page when logged in user has not seller role',
-      inject([SellerAuthorizationGuard], (guard: SellerAuthorizationGuard) => {
+      inject([SellerAuthorizationGuard], async (guard: SellerAuthorizationGuard) => {
         spyOn(guard.loggedInUserService, 'isSeller').and.returnValue(false);
         const spy = spyOn(guard.keycloakService, 'login').and.stub().and.returnValue(Promise.resolve());
 

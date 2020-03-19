@@ -36,7 +36,7 @@ describe('AuthenticationGuard', () => {
 
     expect(promise.valueOf()).toBeTruthy();
     expect(spy1).toHaveBeenCalledTimes(1);
-    expect(spy2).not.toHaveBeenCalled();
+    expect(spy2).toHaveBeenCalledTimes(0);
   }));
 
   it ('should resolve with false if user is not authenticated',
