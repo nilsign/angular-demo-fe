@@ -3,7 +3,7 @@ import { SpinnerComponent } from './spinner.component';
 
 describe('SpinnerComponent', () => {
 
-  let component: SpinnerComponent;
+  let testObj: SpinnerComponent;
   let fixture: ComponentFixture<SpinnerComponent>;
 
   beforeEach(async(() => {
@@ -15,11 +15,11 @@ describe('SpinnerComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SpinnerComponent);
-    component = fixture.componentInstance;
+    testObj = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    expect(testObj).toBeTruthy();
   });
 });

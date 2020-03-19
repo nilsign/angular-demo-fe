@@ -42,8 +42,7 @@ describe('AuthenticationGuard', () => {
   it ('should resolve with false if user is not authenticated',
       inject([AuthenticationGuard], async (guard: AuthenticationGuard) => {
     const spy1 = spyOn(guard, 'isAuthenticated').and.returnValue(false);
-    const spy2 = spyOn(guard.keycloakService, 'login').and.callFake(
-        () => Promise.resolve());
+    const spy2 = spyOn(guard.keycloakService, 'login').and.stub().and.returnValue(Promise.resolve());
 
     const promise = await guard.isAccessAllowed(null, null);
 

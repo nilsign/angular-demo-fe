@@ -56,8 +56,7 @@ describe('AppInitializationService', () => {
 
   it('should log error on failed keycloak initialization', async () => {
     const errorMsg = 'error-msg';
-    const spy1 = spyOn(testObj.keycloakService, 'init').and.callFake(
-        () => Promise.reject(errorMsg));
+    const spy1 = spyOn(testObj.keycloakService, 'init').and.stub().and.returnValue(Promise.reject(errorMsg));
     const spy2 = spyOn(testObj.loggedInUserHelper, 'loadLoggedInUser');
     const spy3 = spyOn(console, 'error');
 
@@ -71,10 +70,12 @@ describe('AppInitializationService', () => {
 
   it('should log error on failed logged in user request', async () => {
     const errorMsg = 'error-msg';
-    const spy1 = spyOn(testObj.keycloakService, 'init').and.callFake(
-        () => Promise.resolve(true));
-    const spy2 = spyOn(testObj.loggedInUserHelper, 'loadLoggedInUser').and.callFake(
-        () => Promise.reject(errorMsg));
+    const spy1 = spyOn(testObj.keycloakService, 'init')
+        .and.stub()
+        .and.returnValue(Promise.resolve(true));
+    const spy2 = spyOn(testObj.loggedInUserHelper, 'loadLoggedInUser')
+        .and.stub()
+        .and.returnValue(Promise.reject(errorMsg));
     const spy3 = spyOn(console, 'error');
 
     await testObj.initApplication().catch(() => { return; });
@@ -84,5 +85,4 @@ describe('AppInitializationService', () => {
     expect(spy3).toHaveBeenCalledTimes(1);
     expect(spy3).toHaveBeenCalledWith(`Couldn\'t load logged in user. (Error: ${errorMsg})`);
   });
-
 });

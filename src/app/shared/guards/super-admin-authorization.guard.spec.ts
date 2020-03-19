@@ -45,7 +45,7 @@ describe('SuperAdminAuthorizationGuard', () => {
   it('should redirect to login page when logged in user has not super admin role',
       inject([SuperAdminAuthorizationGuard], (guard: SuperAdminAuthorizationGuard) => {
         spyOn(guard.loggedInUserService, 'isSuperAdmin').and.returnValue(false);
-        const spy = spyOn(guard.keycloakService, 'login').and.callFake(() => Promise.resolve());
+        const spy = spyOn(guard.keycloakService, 'login').and.stub().and.returnValue(Promise.resolve());
 
         guard.canActivate();
 

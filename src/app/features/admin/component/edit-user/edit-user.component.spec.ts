@@ -3,7 +3,7 @@ import { EditUserComponent } from './edit-user.component';
 
 describe('EditUserComponent', () => {
 
-  let component: EditUserComponent;
+  let testObj: EditUserComponent;
   let fixture: ComponentFixture<EditUserComponent>;
 
   beforeEach(async(() => {
@@ -15,11 +15,11 @@ describe('EditUserComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EditUserComponent);
-    component = fixture.componentInstance;
+    testObj = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    expect(testObj).toBeTruthy();
   });
 });

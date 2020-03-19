@@ -3,7 +3,7 @@ import { FieldLabelComponent } from './field-label.component';
 
 describe('FieldLabelComponent', () => {
 
-  let component: FieldLabelComponent;
+  let testObj: FieldLabelComponent;
   let fixture: ComponentFixture<FieldLabelComponent>;
 
   beforeEach(async(() => {
@@ -15,11 +15,11 @@ describe('FieldLabelComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FieldLabelComponent);
-    component = fixture.componentInstance;
+    testObj = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', async () => {
-    expect(component).toBeTruthy();
+    expect(testObj).toBeTruthy();
   });
 });

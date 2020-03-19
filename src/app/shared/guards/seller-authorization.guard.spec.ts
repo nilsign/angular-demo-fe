@@ -45,7 +45,7 @@ describe('SellerAuthorizationGuard', () => {
   it('should redirect to login page when logged in user has not seller role',
       inject([SellerAuthorizationGuard], (guard: SellerAuthorizationGuard) => {
         spyOn(guard.loggedInUserService, 'isSeller').and.returnValue(false);
-        const spy = spyOn(guard.keycloakService, 'login').and.callFake(() => Promise.resolve());
+        const spy = spyOn(guard.keycloakService, 'login').and.stub().and.returnValue(Promise.resolve());
 
         guard.canActivate();
 
