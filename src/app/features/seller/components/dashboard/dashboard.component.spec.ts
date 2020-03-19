@@ -3,7 +3,7 @@ import { DashboardComponent } from 'features/seller/components/dashboard/dashboa
 
 describe('DashboardComponent', () => {
 
-  let component: DashboardComponent;
+  let testObj: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(async(() => {
@@ -15,11 +15,11 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
-    component = fixture.componentInstance;
+    testObj = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    expect(testObj).toBeTruthy();
   });
 });

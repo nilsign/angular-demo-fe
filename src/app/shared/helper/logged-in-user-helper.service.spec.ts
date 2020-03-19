@@ -11,6 +11,7 @@ import {
 } from 'testing/data/user-data.testing';
 import { of, throwError } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
+import { KeycloakServiceStub } from 'testing/stubs';
 
 describe('LoggedInUserHelperService', async () => {
 
@@ -21,7 +22,10 @@ describe('LoggedInUserHelperService', async () => {
       providers: [
           HttpClient,
           HttpHandler,
-          KeycloakService
+          {
+            provide: KeycloakService,
+            useClass: KeycloakServiceStub
+          }
       ]
     });
     testObj = TestBed.get(LoggedInUserHelperService);
@@ -57,7 +61,7 @@ describe('LoggedInUserHelperService', async () => {
 
     const result = testObj.getLoggedInUserRoleTypes();
 
-    expect(spy).not.toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledTimes(0);
     expect(result).toEqual(new Set<RoleType>());
   });
 
@@ -126,7 +130,7 @@ describe('LoggedInUserHelperService', async () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it ('should unsubscribe on destroy', async() => {
+  it ('should unsubscribe on destroy', async () => {
     const spy = spyOn<any>(testObj.subscriptions, 'unsubscribe');
 
     testObj.ngOnDestroy();

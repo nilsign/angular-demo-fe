@@ -8,8 +8,7 @@ import { Subscription } from 'rxjs';
 import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
 
 @Component({
-  templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss']
+  templateUrl: './create-user.component.html'
 })
 export class CreateUserComponent {
 

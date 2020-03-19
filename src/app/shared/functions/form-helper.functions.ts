@@ -18,11 +18,10 @@ export function getErrorInfo(formControl: FormControl): string {
   return errorInfo;
 }
 
-export function getFormControl(formGroup: FormGroup, controlName: string): FormControl {
-  return formGroup.controls[controlName] as FormControl;
-}
-
 export function getFormControlValue(formGroup: FormGroup, controlName: string): any {
   return formGroup.controls[controlName].value;
 }
 
+export function setFormControlValue(formGroup: FormGroup, controlName: string, value: any): void {
+  formGroup.controls[controlName].setValue(value);
+}

@@ -47,7 +47,7 @@ export class NavigationHelperService {
     this.router.navigate(['admin/settings']).then();
   }
 
-  navigateToUsers(): void  {
+  navigateToShowUsers(): void  {
     this.router.navigate(['admin/show-users']).then();
   }
 

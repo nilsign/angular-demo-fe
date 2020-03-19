@@ -4,8 +4,7 @@ import { LoggedInUserHelperService } from 'shared/helper/logged-in-user-helper.s
 
 @Component({
   selector: 'app-admin-menu-bar-items',
-  templateUrl: './admin-menu-bar-items.component.html',
-  styleUrls: ['./admin-menu-bar-items.component.scss']
+  templateUrl: './admin-menu-bar-items.component.html'
 })
 export class AdminMenuBarItemsComponent {
 
@@ -27,7 +26,7 @@ export class AdminMenuBarItemsComponent {
   }
 
   onShowAllUsersMenuItemClicked(): void {
-    this.navigationService.navigateToUsers();
+    this.navigationService.navigateToShowUsers();
     this.activeMenuItemIndex = 2;
   }
 

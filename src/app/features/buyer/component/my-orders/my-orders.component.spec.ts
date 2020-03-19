@@ -3,7 +3,7 @@ import { MyOrdersComponent } from './my-orders.component';
 
 describe('MyOrdersComponent', () => {
 
-  let component: MyOrdersComponent;
+  let testObj: MyOrdersComponent;
   let fixture: ComponentFixture<MyOrdersComponent>;
 
   beforeEach(async(() => {
@@ -15,11 +15,11 @@ describe('MyOrdersComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MyOrdersComponent);
-    component = fixture.componentInstance;
+    testObj = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    expect(testObj).toBeTruthy();
   });
 });
