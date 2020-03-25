@@ -1,4 +1,4 @@
-# Angular Demo Fe
+# ANGULAR DEMO FRONTEND
 
 This Angular Demo project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.x and
 demonstrates several aspects of Angular and the surrounding technologies. It might be a good starting point for Angular
