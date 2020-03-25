@@ -2,5 +2,22 @@
     <h2>
         Edit User
     </h2>
+    <form [formGroup]="formGroup">
+        <div class="row">
+            <app-input-text
+                    class="col"
+                    [formGroup]="formGroup"
+                    [controlName]="searchUserControlName"
+                    [placeholder]="'Search'"
+                    [maxLength]="64"
+                    [fieldInfo]="'Search for a user to edit.'"
+            >
+            </app-input-text>
+            <button
+                    class="col-md-auto btn btn-primary search-button"
+                    [disabled]="isSearchButtonDisabled()">
+                Search
+            </button>
+        </div>
+    </form>
 </div>
-

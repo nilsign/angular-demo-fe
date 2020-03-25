@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditUserComponent } from './edit-user.component';
+import { SharedModule } from 'shared/shared.module';
 
 describe('EditUserComponent', () => {
 
@@ -8,6 +9,9 @@ describe('EditUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        SharedModule
+      ],
       declarations: [ EditUserComponent ]
     })
     .compileComponents();

@@ -1,17 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateUserComponent } from './create-user.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { InputTextComponent } from 'shared/components/input/input-text/input-text.component';
-import { InputContainerComponent } from 'shared/components/input/input-container/input-container.component';
-import { InputCheckboxComponent } from 'shared/components/input/input-checkbox/input-checkbox.component';
-import { FieldLabelComponent } from 'shared/components/input/field-label/field-label.component';
-import { FieldInfoComponent } from 'shared/components/input/field-info/field-info.component';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { KeycloakService } from 'keycloak-angular';
 import { of, throwError } from 'rxjs';
 import { setFormControlValue } from 'shared/functions/form-helper.functions';
 import { StringConstants } from 'shared/constants/string.constants';
 import { RoleType } from 'shared/api/dtos/dto-models';
+import { SharedModule } from 'shared/shared.module';
 
 describe('CreateUserComponent', () => {
 
@@ -21,15 +16,10 @@ describe('CreateUserComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule
+          SharedModule
       ],
       declarations: [
-          CreateUserComponent,
-          InputTextComponent,
-          InputContainerComponent,
-          InputCheckboxComponent,
-          FieldLabelComponent,
-          FieldInfoComponent
+          CreateUserComponent
       ],
       providers: [
           KeycloakService,

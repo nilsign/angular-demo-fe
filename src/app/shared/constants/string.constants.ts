@@ -11,6 +11,7 @@ export class StringConstants {
     superAdminRole: 'inputSuperAdminRole',
     adminRole: 'inputAdminRole',
     sellerRole: 'inputSellerRole',
-    buyerRole: 'inputBuyerRole'
+    buyerRole: 'inputBuyerRole',
+    searchUser: 'inputSearchUser'
   };
 }
