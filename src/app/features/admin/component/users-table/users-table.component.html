@@ -1,0 +1,22 @@
+<table class="tables table table-striped table-hover">
+    <thead class ="thead-dark">
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rowModel of tableModel">
+        <td>
+            {{ rowModel.name }}
+        </td>
+        <td>
+            {{ rowModel.email }}
+        </td>
+        <td>
+            {{ rowModel.roleNames }}
+        </td>
+    </tr>
+    </tbody>
+</table>

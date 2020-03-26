@@ -10,7 +10,7 @@ import {
   userSuperAdmin
 } from 'testing/data/user-data.testing';
 import { of } from 'rxjs';
-import { UsersTableRowModel } from 'features/admin/views/show-users/users-table-row.model';
+import { UsersTableRowModel } from 'features/admin/component/users-table/users-table-row.model';
 
 describe('ShowUsersComponent', () => {
 
@@ -67,8 +67,8 @@ describe('ShowUsersComponent', () => {
   });
 
   it ('should initialize all users on component initialization', async () => {
-    testObj.allUsers.subscribe(  (userTableRowModels: UsersTableRowModel[]) => {
-      expect(testObj.allUsers).not.toBeNull();
+    testObj.userDtos.subscribe(  (userTableRowModels: UsersTableRowModel[]) => {
+      expect(testObj.userDtos).not.toBeNull();
       expect(userTableRowModels.length).toBe(5);
       expect(userTableRowModels[0].roleNames).toEqual('GLOBALADMIN');
       expect(userTableRowModels[1].roleNames).toEqual('ADMIN');
