@@ -15,7 +15,8 @@
             </app-input-text>
             <button
                     class="col-md-auto btn btn-primary search-button"
-                    [disabled]="isSearchButtonDisabled()">
+                    [disabled]="isSearchButtonDisabled()"
+                    (click)="onSearchButtonClicked()">
                 Search
             </button>
         </div>

@@ -12,7 +12,7 @@ export class LoggedInUserRestApiService {
   constructor(public http: HttpClient) {
   }
 
-  public getLoggedInUser(): Observable<UserDto> {
+  getLoggedInUser(): Observable<UserDto> {
     return this.http.get<UserDto>(`${getApiBaseUrl()}/user/logged-in-user`);
   }
 }
