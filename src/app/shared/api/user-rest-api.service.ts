@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserDto } from 'shared/api/dtos/dto-models';
-import { getApiBaseUrl, buildHttpPathParams } from 'shared/functions/api-helper.functions';
+import { getApiBaseUrl } from 'shared/functions/api-helper.functions';
 import { SuperAdminAuthorizationGuard } from 'shared/guards/super-admin-authorization.guard';
 import { AdminAuthorizationGuard } from 'shared/guards/admin-authorization.guard';
 
@@ -35,7 +35,7 @@ export class UserRestApiService {
     if (this.adminAuthGuard.canActivate()) {
       return this.http.get<UserDto[]>(
           `${getApiBaseUrl()}/user/search`,
-          { params: buildHttpPathParams({ text: searchText }) });
+          { params: { text: searchText } });
     }
     throw Error('Authorization failed. Illegal RestAPI request.');
   }
