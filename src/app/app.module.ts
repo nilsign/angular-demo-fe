@@ -6,6 +6,7 @@ import { AppInitializationService } from 'app/app-initialization.service';
 import { AppRoutingModule } from 'app/app-routing.module';
 import { SharedModule} from 'shared/shared.module';
 
+
 @NgModule({
   imports: [
       BrowserModule,

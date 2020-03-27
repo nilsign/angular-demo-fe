@@ -28,6 +28,10 @@ label {
   margin-bottom: 0;
 }
 
+.table td, .table th {
+  vertical-align: middle !important;
+}
+
 // Classes
 .invalid {
   color: $error-text-bootstrap-color !important;

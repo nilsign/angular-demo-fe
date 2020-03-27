@@ -6,7 +6,8 @@ import { isNil } from 'lodash';
 
 @Component({
   selector: 'app-users-table',
-  templateUrl: './users-table.component.html'
+  templateUrl: './users-table.component.html',
+  styleUrls: ['./users-table.component.scss']
 })
 export class UsersTableComponent implements OnChanges {
 
@@ -15,7 +16,7 @@ export class UsersTableComponent implements OnChanges {
   static readonly ROLES_COLUMN_NAME = 'Roles';
   static readonly EDIT_ICON_COLUMN_NAME = 'Edit';
 
-  readonly nameColumnName = UsersTableComponent.EMAIL_COLUMN_NAME;
+  readonly nameColumnName = UsersTableComponent.NAME_COLUMN_NAME;
   readonly emailColumnName = UsersTableComponent.EMAIL_COLUMN_NAME;
   readonly rolesColumnName = UsersTableComponent.ROLES_COLUMN_NAME;
   readonly editIconColumnName = UsersTableComponent.EDIT_ICON_COLUMN_NAME;
