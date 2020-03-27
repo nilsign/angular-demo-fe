@@ -1,19 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserRestApiService } from 'shared/api/user-rest-api.service';
 import { UserDto } from 'shared/api/dtos/dto-models';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './show-users.component.html'
 })
-export class ShowUsersComponent implements OnInit {
+export class ShowUsersComponent implements OnInit, OnDestroy {
 
-  userDtos: Observable<UserDto[]>;
+  userDtos: UserDto[];
+
+  private subscriptions: Subscription = new Subscription();
 
   constructor(public userRestApi: UserRestApiService) {
   }
 
   ngOnInit(): void {
-    this.userDtos = this.userRestApi.getAllUsers();
+    this.subscriptions.add(
+        this.userRestApi.getAllUsers().subscribe((userDtos: UserDto[]) => {
+           this.userDtos = userDtos;
+        })
+     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

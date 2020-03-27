@@ -21,4 +21,9 @@
             </button>
         </div>
     </form>
+    <hr>
+    <ng-container *ngIf="userDtos">
+        <app-users-table [userDtos]="userDtos">
+        </app-users-table>
+    </ng-container>
 </div>

@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import { StringConstants } from 'shared/constants/string.constants';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getFormControlValue } from 'shared/functions/form-helper.functions';
 import { isNil } from 'lodash';
 import { UserRestApiService } from 'shared/api/user-rest-api.service';
 import { UserDto } from 'shared/api/dtos/dto-models';
+import { Subscription} from 'rxjs';
 
 @Component({
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']
 })
-export class EditUserComponent {
+export class EditUserComponent implements OnDestroy {
 
   static readonly MINIMAL_USER_SEARCH_TEXT_LENGTH = 3;
 
@@ -20,11 +21,19 @@ export class EditUserComponent {
     [this.searchUserControlName]: new FormControl('')
   });
 
+  userDtos: UserDto[];
+
+  private subscriptions: Subscription = new Subscription();
+
   get searchText(): string {
     return getFormControlValue(this.formGroup, this.searchUserControlName);
   }
 
   constructor(public userRestApiService: UserRestApiService) {
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   isSearchButtonDisabled(): boolean {
@@ -33,11 +42,10 @@ export class EditUserComponent {
   }
 
   onSearchButtonClicked(): void {
-    this.userRestApiService.searchUser(this.searchText).subscribe((users: UserDto[]) => {
-      users.forEach((user: UserDto) => {
-        // TODO(nilsheumer): Display returned users for selection.
-        console.log(user.email);
-      });
-    });
+    this.subscriptions.add(this.userRestApiService.searchUser(this.searchText)
+        .subscribe((userDtos: UserDto[]) => {
+          this.userDtos = userDtos;
+        })
+    );
   }
 }
