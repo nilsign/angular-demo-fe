@@ -1,22 +1,50 @@
 <table class="tables table table-striped table-hover">
     <thead class ="thead-dark">
     <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Roles</th>
+        <ng-container *ngIf="showColumn(nameColumnName)">
+            <th scope="col">
+                {{ nameColumnName }}
+            </th>
+        </ng-container>
+        <ng-container *ngIf="showColumn(emailColumnName)">
+            <th scope="col">
+                {{ emailColumnName }}
+            </th>
+        </ng-container>
+        <ng-container *ngIf="showColumn(rolesColumnName)">
+            <th scope="col">
+                {{ rolesColumnName }}
+            </th>
+        </ng-container>
+        <ng-container *ngIf="showColumn(editIconColumnName)">
+            <th scope="col">
+                {{ editIconColumnName }}
+            </th>
+        </ng-container>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let rowModel of tableModel">
-        <td>
-            {{ rowModel.name }}
-        </td>
-        <td>
-            {{ rowModel.email }}
-        </td>
-        <td>
-            {{ rowModel.roleNames }}
-        </td>
-    </tr>
+        <tr *ngFor="let rowModel of tableRowModel">
+            <ng-container *ngIf="showColumn(nameColumnName)">
+                <td>
+                    {{ rowModel.name }}
+                </td>
+            </ng-container>
+            <ng-container *ngIf="showColumn(emailColumnName)">
+                <td>
+                    {{ rowModel.email }}
+                </td>
+            </ng-container>
+            <ng-container *ngIf="showColumn(rolesColumnName)">
+                <td>
+                    {{ rowModel.roleNames }}
+                </td>
+            </ng-container>
+            <ng-container *ngIf="showColumn(editIconColumnName)">
+                <td>
+                    <i class="as fa-edit"></i>
+                </td>
+            </ng-container>
+        </tr>
     </tbody>
 </table>
