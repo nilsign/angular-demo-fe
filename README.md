@@ -1,114 +1,124 @@
-# Angular Demo Fe
+# ANGULAR DEMO FRONTEND
 
-This Angular Demo project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23 and
+This Angular Demo project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.x and
 demonstrates several aspects of Angular and the surrounding technologies. It might be a good starting point for Angular
-projects with a similar technology stack, or just can be used to write PoCs in order to test new technologies or
-potential solutions for Angular related problems.
+projects with a similar technology stack, or just can be used to test new technologies or potential solutions for
+Angular related problems.
 
-Actually the Angular Demo Frontend is the counter part to this
+Actually the Angular Demo Frontend is the counter part of this
 [String Boot Demo](https://github.com/nilsign/spring-boot-demo-be) backend project. So besides a locally running
-Keycloak and Postgres instance, the Backend must have been started locally also.
+Keycloak and Postgres instance, the Backend must have been started, also locally.
 
 ### Major Tech-Stack
 - Angular
 - TypeScript
-- Jasmine tests
-- Bootstrap & SCSS
 - Keycloak
+- RxJS
+- Bootstrap & SCSS (& Responsive design)
+- Jasmine tests (almost 100% code coverage)
 - Docker
 - Sonarqube
 
+## BACKEND
+
+An appropriate [Spring Boot Demo](https://github.com/nilsign/spring-boot-demo-be) backend is available within my GitHub
+account.
+
+## SETUP
+
 ### Setup Backend
 
-Please follow the setup instructions of the [String Boot Demo](https://github.com/nilsign/spring-boot-demo-be) backend
-project.
+Please follow the setup instructions of the [Spring Boot Demo](https://github.com/nilsign/spring-boot-demo-be) backend
+project. Afterwards ensure that the backend itself and the required Docker images are running in Docker containers
+locally.
 
 ### Setup Keycloak Docker Container
 
 If you have chosen the pre-configured Keycloak Docker option during in the
-[String Boot Demo](https://github.com/nilsign/spring-boot-demo-be) backend project setup, this part can be skipped. Just
-start the Keycloak Docker container from the backend project and the Keycloak frontend requirements are there already.
+[Spring Boot Demo](https://github.com/nilsign/spring-boot-demo-be) backend project setup, the part "Manual Configuration
+of the Keycloak Docker Container" below can be skipped. Just start the Keycloak Docker container of the backend project
+and the Keycloak frontend requirements are there out of the box.
 
 In case you have chosen the manual option while setting up the Keycloak Docker container during the backend setup, the
 following additional steps are required to make Keycloak usable for the frontend.
 
 #### Manual Configuration of the Keycloak Docker Container
 
-1. Ensure that the Docker container that has been created during the backend project setup is running.
+##### Start Keycloak and access the Keycloak Management Console
 
-    $ docker ps
-    $ docker ps -a
-    $ docker start demo-project-keycloak
+1. Ensure that the Docker container, that has been created during the backend project setup, is running.
 
-2. Open to http://localhost:8100, login as `nilsign@gmail.com` with `root` as password (or whatever has been chosen as
-Keycloak administrator) and navigate to the Administration Console.
-
-3. Ensure that you are in the `DemoProjectRealm` realm
-
-4. Add a new client to the realm named: `DemoProjectAngularFrontendClient`
-   DemoProjectRealm->Configure->Clients->Create
-    - Enter as "Valid Redirect URIs": `http://localhost:4200/*`
-    - Enter as "Web Origins": `+`
-    
-5. Add the new client role 
-    DemoProjectRealm->Configure->Clients->DemoProjectAngularFrontendClient->Roles
-    - Enter as Role Name: `ROLE_CLIENT_ADMIN`
-    - Repeat with the role names: `ROLE_CLIENT_SELLER`
-    - Repeat with the role names: `ROLE_CLIENT_BUYER`
-
-6. DemoProjectRealm>Configure->Manage->Users-> ...
-- ... nilsign->Role Mappings->Client Roles->DemoProjectAngularFrontendClient
-    - Select `ROLE_CLIENT_ADMIN` and press "Add selected"
-- ... ada->Role Mappings->Client Roles->DemoProjectAngularFrontendClient
-    - Select `ROLE_CLIENT_ADMIN` and press "Add selected"
-- ... selma->Role Mappings->Client Roles->DemoProjectAngularFrontendClient
-    - Select `ROLE_CLIENT_SELLER` and press "Add selected"
-- ... bud->Role Mappings->Client Roles->DemoProjectAngularFrontendClient
-    - Select `ROLE_CLIENT_BUYER` and press "Add selected"
-
-7. (Optional) Commit the running Keycloak Docker container to a new Docker image.
-
-        $ docker ps -a
-        $ docker commit [CONTAINER ID] jboss/keycloak:demo-project-v3
-
-8. (Requires: 7) To start the new jboss/keycloak:demo-project-v3 Docker image again when it was
-shut down execute
-
-        $ docker run -p 8100:8080 jboss/keycloak:demo-project-v3
-
-9. To start a stopped container (e.g. after reboot, etc...) call start with the container name or container id.
-
-        $ docker ps -a
-
+        $ docker ps<br>
+        $ docker ps -a<br>
         $ docker start demo-project-keycloak
-        $ docker start [CONTAINER ID]
 
-10. Open `the environment.ts` files (at least the DEV) and set the correct (your) Keycloak's "client-secret".
+        http://localhost:8100/auth/admin/master/console/#/realms/DemoProjectRealm
 
-Note, the client secret can be found at
-DemoProjectRealm->Configure->Clients->Account->Credentials
+2. To access the Keycloak Administration Console navigate to http://localhost:8100 and enter the
+following credentials
 
-11. (Optional) Test the Keycloak instance with Postman
+    Username: `nilsign@gmail.com`<br>
+    Password: `root`
 
-    POST REQUEST: http://localhost:8100/auth/realms/DemoProjectRealm/protocol/openid-connect/token
+    Note, that the password for all other Keycloak Realm users is also `root`. This includes also new users that have
+    been created via the UI of this frontend.
 
-    BODY: x-www-form-urlencoded
+##### Create a Keycloak Realm Client (Frontend)
 
-    KEY: `client_id` => VALUE: `DemoProjectAngularFrontendClient`<br>
-    KEY: `username` => VALUE: `nilsign@nilsign.com`<br>
-    KEY: `password` => VALUE: `root`<br>
-    KEY: `grant_type` => VALUE: `password`<br>
-    KEY: `client_secret` => VALUE: `6a06b69f-8108-4d40-af64-ed1325385c5d` <br>
+1. Switch the realm to `DemoProjectRealm`
 
-    Note, the correct client secret can be found at
-    DemoProjectRealm->Configure->Clients->Account->Credentials
+2. Click to DemoProjectRealm->Configure->Clients->"Create"<br>
 
-### Setup Sonarqube
+    Client ID: `DemoProjectAngularFrontendClient`
 
-1. Get [Sonarqube Docker Image](https://hub.docker.com/_/sonarqube/) and run it in a Docker container.
+3. Click to DemoProjectRealm->Configure->Clients->"DemoProjectAngularFrontendClient"<br>
 
-        $ docker pull sonarqube
-        $ docker run -d --name sonarqube -p 9000:9000 sonarqube
+    Enabled: ON<br>
+    Valid Redirect URIs: `http://localhost:4200/*`<br>
+    Web Origins: `+`
+
+##### Create and assign Keycloak DemoProjectRealm Client Roles
+
+1. Click to DemoProjectRealm->Configure->Clients->DemoProjectAngularFrontendClient->Roles->"Add Role"<br>
+
+    Role Name: `ROLE_REALM_CLIENT_ADMIN`
+
+    Repeat 1. with Role Name: `ROLE_REALM_CLIENT_SELLER`<br>
+    Repeat 1. with the Role Name: `ROLE_REALM_CLIENT_BUYER`<br>
+
+2. Click to DemoProjectRealm->Manage->Users-> ...
+
+   ... nilsign->Role Mappings->Client Roles->"DemoProjectAngularFrontendClient"
+
+   Select role `ROLE_REALM_CLIENT_ADMIN` and press "Add selected"
+
+   ... ada->Role Mappings->Client Roles->"DemoProjectAngularFrontendClient"
+
+   Select role `ROLE_REALM_CLIENT_ADMIN` and press "Add selected"<br>
+   Select role `ROLE_REALM_CLIENT_SELLER` and press "Add selected"
+
+   ... selma->Role Mappings->Client Roles->"DemoProjectAngularFrontendClient"
+
+   Select role `ROLE_REALM_CLIENT_SELLER` and press "Add selected"
+
+   ... bud->Role Mappings->Client Roles->"DemoProjectAngularFrontendClient"
+
+   Select role `ROLE_REALM_CLIENT_BUYER` and press "Add se
+
+##### Update Keycloak's Client Authenticator Secret in the Code
+
+Open the `'environment.ts` files (at least for DEV) and set the correct (your) Keycloak's "client-secret".
+
+Note, that the (in case of a manual setup) correct client secret can be found at<br>
+
+DemoProjectRealm->Configure->Clients->Account->"Credentials"
+
+## DEV TOOLS
+
+### Code Analysis
+
+1. The backend's Sonarqube instance can be shared and will hold two projects, the backend and this frontend project,
+once the frontend code analysis has been executed the first time.
 
 2. Run test with code coverage (to update Sonarqubes coverage information).
 
@@ -118,27 +128,31 @@ DemoProjectRealm->Configure->Clients->Account->Credentials
 
         $ npm run sonar
 
-3. Navigate to the to http://localhost:9000 and enter the default credentials to inspect the results
-- Username: `admin`
-- Password: `admin`
+4. Navigate to the to http://localhost:9000 and enter the default credentials to inspect the results
 
-To customize the Sonarqube setup configuration adapt the `sonar-project.properties`.
+    Username: `admin`<br>
+    Password: `admin`
 
-More detailed information can be found on the official [Sonarqube](https://sonarqube.org) pages.
+    More detailed information can be found on the official [Sonarqube](https://docs.sonarqube.org/latest/)
+    and [Sonarqube Docker](https://hub.docker.com/_/sonarqube/) pages
+
+    To customize the Sonarqube setup configuration adapt the `sonar-project.properties`.
 
 ### Development Server
 
-Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change
+any of the source files.
 
 ### Build Project
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag
+for a production build.
 
 ### Running Unit Tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-### Running End-to-End Tests
+### Running End-to-End Tests (Not maintained)
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
@@ -146,4 +160,14 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 Run `ng run sonar` to analyse and measure the code quality. To see the results navigate to http://localhost:9000.
 
-Note, that a locally running Sonarqube server instance is required. See [Setup Sonarqube](#Setup Sonarqube).
+Note, that the locally running Sonarqube server instance of the backend can be used here as well. To setup an instance
+please have a look at the backend's readme.
+
+## POTENTIAL ROAD MAP
+
++ Update to Angular 9.x
++ Error Handling
++ Buyer and seller content
++ Integration tests (Cypress and/or Protractor)
++ Redux (or a more lightweight solution)
++ Storybook
