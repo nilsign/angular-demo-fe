@@ -3,6 +3,7 @@ import { UsersTableRowModel } from 'features/admin/component/users-table/users-t
 import { UserDto } from 'shared/api/dtos/dto-models';
 import { RoleHelperService } from 'shared/helper/role-helper.service';
 import { isNil } from 'lodash';
+import { UserTableColumnType } from 'features/admin/component/users-table/user-table-column-type.enum';
 
 @Component({
   selector: 'app-users-table',
@@ -11,23 +12,18 @@ import { isNil } from 'lodash';
 })
 export class UsersTableComponent implements OnChanges {
 
-  static readonly NAME_COLUMN_NAME = 'Name';
-  static readonly EMAIL_COLUMN_NAME = 'Email';
-  static readonly ROLES_COLUMN_NAME = 'Roles';
-  static readonly EDIT_ICON_COLUMN_NAME = 'Edit';
-
-  readonly nameColumnName = UsersTableComponent.NAME_COLUMN_NAME;
-  readonly emailColumnName = UsersTableComponent.EMAIL_COLUMN_NAME;
-  readonly rolesColumnName = UsersTableComponent.ROLES_COLUMN_NAME;
-  readonly editIconColumnName = UsersTableComponent.EDIT_ICON_COLUMN_NAME;
+  readonly nameColumnName = UserTableColumnType.NAME_COLUMN_NAME;
+  readonly emailColumnName = UserTableColumnType.EMAIL_COLUMN_NAME;
+  readonly rolesColumnName = UserTableColumnType.ROLES_COLUMN_NAME;
+  readonly editIconColumnName = UserTableColumnType.EDIT_ICON_COLUMN_NAME;
 
   @Input() userDtos: UserDto[];
 
-  @Input() columns: Set<string> = new Set([
-    UsersTableComponent.NAME_COLUMN_NAME,
-    UsersTableComponent.EMAIL_COLUMN_NAME,
-    UsersTableComponent.ROLES_COLUMN_NAME,
-    UsersTableComponent.EDIT_ICON_COLUMN_NAME
+  @Input() columns: Set<UserTableColumnType> = new Set([
+    UserTableColumnType.NAME_COLUMN_NAME,
+    UserTableColumnType.EMAIL_COLUMN_NAME,
+    UserTableColumnType.ROLES_COLUMN_NAME,
+    UserTableColumnType.EDIT_ICON_COLUMN_NAME
   ]);
 
   tableRowModel: UsersTableRowModel[];
@@ -49,7 +45,17 @@ export class UsersTableComponent implements OnChanges {
   }
 
   showColumn(columnName: string): boolean {
-    return this.columns.has(columnName);
+    switch (columnName) {
+      case UserTableColumnType.NAME_COLUMN_NAME.toString():
+        return this.columns.has(UserTableColumnType.NAME_COLUMN_NAME);
+      case UserTableColumnType.EMAIL_COLUMN_NAME.toString():
+        return this.columns.has(UserTableColumnType.EMAIL_COLUMN_NAME);
+      case UserTableColumnType.ROLES_COLUMN_NAME.toString():
+        return this.columns.has(UserTableColumnType.ROLES_COLUMN_NAME);
+      case UserTableColumnType.EDIT_ICON_COLUMN_NAME.toString():
+        return this.columns.has(UserTableColumnType.EDIT_ICON_COLUMN_NAME);
+    }
+    return false;
   }
 
   private getUserRoleCategories(user: UserDto): string {

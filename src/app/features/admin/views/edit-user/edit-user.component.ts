@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { StringConstants } from 'shared/constants/string.constants';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getFormControlValue } from 'shared/functions/form-helper.functions';
@@ -6,6 +6,7 @@ import { isNil } from 'lodash';
 import { UserRestApiService } from 'shared/api/user-rest-api.service';
 import { UserDto } from 'shared/api/dtos/dto-models';
 import { Subscription} from 'rxjs';
+import { UserTableColumnType } from 'features/admin/component/users-table/user-table-column-type.enum';
 
 @Component({
   templateUrl: './edit-user.component.html',
@@ -22,6 +23,11 @@ export class EditUserComponent implements OnDestroy {
   });
 
   userDtos: UserDto[];
+  columns = new Set<UserTableColumnType> ([
+    UserTableColumnType.NAME_COLUMN_NAME,
+    UserTableColumnType.EMAIL_COLUMN_NAME,
+    UserTableColumnType.EDIT_ICON_COLUMN_NAME
+  ]);
 
   private subscriptions: Subscription = new Subscription();
 

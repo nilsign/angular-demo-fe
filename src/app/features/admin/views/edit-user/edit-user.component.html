@@ -16,14 +16,18 @@
             <button
                     class="col-md-auto btn btn-primary search-button"
                     [disabled]="isSearchButtonDisabled()"
-                    (click)="onSearchButtonClicked()">
+                    (click)="onSearchButtonClicked()"
+            >
                 Search
             </button>
         </div>
     </form>
     <hr class="line-separator">
     <ng-container *ngIf="userDtos">
-        <app-users-table [userDtos]="userDtos">
+        <app-users-table
+                [userDtos]="userDtos"
+                [columns]="columns"
+        >
         </app-users-table>
     </ng-container>
 </div>
