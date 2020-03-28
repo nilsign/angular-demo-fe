@@ -11,6 +11,7 @@
                     [placeholder]="'Search'"
                     [maxLength]="64"
                     [fieldInfo]="'Search for a user to edit.'"
+                    (keydown.enter)="onSearchButtonClicked()"
             >
             </app-input-text>
             <button
