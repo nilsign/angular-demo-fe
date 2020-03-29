@@ -1,3 +1,4 @@
+import { SimpleChange} from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsersTableComponent } from './users-table.component';
 import {
@@ -8,7 +9,6 @@ import {
   userSuperAdmin
 } from 'testing/data/user-data.testing';
 import { SharedModule } from 'shared/shared.module';
-import { AdminModule } from 'features/admin/admin.module';
 
 describe('UsersTableComponent', () => {
 
@@ -27,7 +27,6 @@ describe('UsersTableComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,
-        AdminModule
       ],
       declarations: [
           UsersTableComponent
@@ -39,9 +38,6 @@ describe('UsersTableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UsersTableComponent);
     testObj = fixture.componentInstance;
-
-    testObj.userDtos = userDtos;
-
     fixture.detectChanges();
   });
 
@@ -50,11 +46,19 @@ describe('UsersTableComponent', () => {
   });
 
   it ('should initialize all users on component initialization', async () => {
-    expect(testObj.tableRowModel.length).toBe(5);
+    testObj.ngOnChanges({
+      userDtos: new SimpleChange(null, userDtos, true)
+    });
+
     expect(testObj.tableRowModel[0].roleNames).toEqual('GLOBALADMIN');
     expect(testObj.tableRowModel[1].roleNames).toEqual('ADMIN');
     expect(testObj.tableRowModel[2].roleNames).toEqual('ADMIN, SELLER');
     expect(testObj.tableRowModel[3].roleNames).toEqual('SELLER');
     expect(testObj.tableRowModel[4].roleNames).toEqual('BUYER');
+    expect(testObj.tableRowModel.length).toBe(5);
+  });
+
+  it ('should return false when show column gets an unknown column name', async () => {
+    expect(testObj.showColumn('unknown-column-name')).toBeFalsy();
   });
 });
