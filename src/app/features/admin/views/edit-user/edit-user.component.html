@@ -24,10 +24,11 @@
         </div>
     </form>
     <hr class="line-separator">
-    <ng-container *ngIf="userDtos">
+    <ng-container *ngIf="hasSearchResult">
         <app-users-table
                 [userDtos]="userDtos"
                 [columns]="columns"
+                [noDataMessage]="noUserFoundMessage"
         >
         </app-users-table>
     </ng-container>

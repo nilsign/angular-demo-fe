@@ -50,3 +50,8 @@
         </tbody>
     </table>
 </div>
+<ng-container *ngIf="hasNoDataMessage">
+    <div class="no-data-message">
+        {{ noDataMessage }}
+    </div>
+</ng-container>

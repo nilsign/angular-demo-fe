@@ -30,9 +30,28 @@ export class EditUserComponent implements OnDestroy {
   ]);
 
   private subscriptions: Subscription = new Subscription();
+  private lastSearchText: string;
 
   get searchText(): string {
     return getFormControlValue(this.formGroup, this.searchUserControlName);
+  }
+
+  get hasSearchResult(): boolean {
+    return !isNil(this.userDtos) && this.searchText === this.lastSearchText;
+  }
+
+  get hasNoUsersFoundMessage(): boolean {
+    return !this.isSearchButtonDisabled()
+        && !isNil(this.lastSearchText)
+        && this.lastSearchText === this.searchText
+        && this.userDtos
+        && this.userDtos.length === 0;
+  }
+
+  get noUserFoundMessage(): string {
+    return this.hasNoUsersFoundMessage
+        ? `No users found for '${this.searchText}'.`
+        : null;
   }
 
   constructor(public userRestApiService: UserRestApiService) {
@@ -43,11 +62,14 @@ export class EditUserComponent implements OnDestroy {
   }
 
   isSearchButtonDisabled(): boolean {
-    const searchText: string  = getFormControlValue(this.formGroup, this.searchUserControlName);
-    return isNil(searchText) || searchText.trim().length < EditUserComponent.MINIMAL_USER_SEARCH_TEXT_LENGTH;
+    return isNil(this.searchText) || this.searchText.trim().length < EditUserComponent.MINIMAL_USER_SEARCH_TEXT_LENGTH;
   }
 
   onSearchButtonClicked(): void {
+    if (this.isSearchButtonDisabled()) {
+      return;
+    }
+    this.lastSearchText = this.searchText.trim();
     this.subscriptions.add(this.userRestApiService.searchUser(this.searchText)
         .subscribe((userDtos: UserDto[]) => {
           this.userDtos = userDtos;

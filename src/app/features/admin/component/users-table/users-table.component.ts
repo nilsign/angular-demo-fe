@@ -26,7 +26,15 @@ export class UsersTableComponent implements OnChanges {
     UserTableColumnType.EDIT_ICON_COLUMN_NAME
   ]);
 
+  @Input() noDataMessage: string;
+
   tableRowModel: UsersTableRowModel[];
+
+  get hasNoDataMessage(): boolean {
+    return !isNil(this.noDataMessage)
+        && !isNil(this.tableRowModel)
+        && this.tableRowModel.length === 0;
+  }
 
   constructor(public roleHelper: RoleHelperService) {
   }
