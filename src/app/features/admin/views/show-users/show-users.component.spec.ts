@@ -11,7 +11,7 @@ import {
 } from 'testing/data/user-data.testing';
 import { of } from 'rxjs';
 import { SharedModule } from 'shared/shared.module';
-import { AdminModule } from 'features/admin/admin.module';
+import { UsersTableComponent } from 'features/admin/components/users-table/users-table.component';
 
 describe('ShowUsersComponent', () => {
 
@@ -31,11 +31,11 @@ describe('ShowUsersComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-          SharedModule,
-          AdminModule
+          SharedModule
       ],
       declarations: [
-          ShowUsersComponent
+          ShowUsersComponent,
+          UsersTableComponent
       ],
       providers: [
           KeycloakService,

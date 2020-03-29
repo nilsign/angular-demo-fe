@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditUserComponent } from './edit-user.component';
 import { SharedModule } from 'shared/shared.module';
+import { KeycloakService } from 'keycloak-angular';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { UsersTableComponent } from 'features/admin/components/users-table/users-table.component';
 
 describe('EditUserComponent', () => {
 
@@ -10,9 +13,17 @@ describe('EditUserComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule
+          SharedModule
       ],
-      declarations: [ EditUserComponent ]
+      declarations: [
+          EditUserComponent,
+          UsersTableComponent
+      ],
+      providers: [
+          KeycloakService,
+          HttpClient,
+          HttpHandler
+      ]
     })
     .compileComponents();
   }));
