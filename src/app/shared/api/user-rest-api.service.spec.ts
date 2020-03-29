@@ -73,4 +73,32 @@ describe('UserRestApiService', () => {
     expect(spy1).toHaveBeenCalledTimes(1);
     expect(spy2).not.toHaveBeenCalled();
   });
+
+  it('should search users via rest api', async () => {
+    const searchText = 'text';
+    const spy1 = spyOn(testObj.adminAuthGuard, 'canActivate').and.returnValue(true);
+    const spy2 = spyOn (testObj.http, 'get').and.stub();
+
+    testObj.searchUser(searchText);
+
+    expect(spy1).toHaveBeenCalledTimes(1);
+    expect(spy2).toHaveBeenCalledTimes(1);
+    expect(spy2).toHaveBeenCalledWith(
+        `${getApiBaseUrl()}/user/search`,
+        { params: { text: searchText } });
+  });
+
+  it('should throw error when user is not authenticated and a users are searched', async () => {
+    const spy1 = spyOn(testObj.adminAuthGuard, 'canActivate').and.returnValue(false);
+    const spy2 = spyOn (testObj.http, 'get').and.stub();
+
+    try {
+      testObj.searchUser('text');
+    } catch (error) {
+      expect(error.message).toEqual('Authorization failed. Illegal RestAPI request.');
+    }
+
+    expect(spy1).toHaveBeenCalledTimes(1);
+    expect(spy2).not.toHaveBeenCalled();
+  });
 });
