@@ -6,7 +6,7 @@ import { DashboardComponent } from 'features/admin/views/dasboard/dashboard.comp
 import { CreateUserComponent } from 'features/admin/views/create-user/create-user.component';
 import { EditUserComponent } from 'features/admin/views/edit-user/edit-user.component';
 import { SettingsComponent } from 'features/admin/views/settings/settings.component';
-import { UsersTableComponent } from './component/users-table/users-table.component';
+import { UsersTableComponent } from './components/users-table/users-table.component';
 
 @NgModule({
   imports: [

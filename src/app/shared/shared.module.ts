@@ -14,7 +14,7 @@ import { FieldLabelComponent } from 'shared/components/input/field-label/field-l
 import { FieldInfoComponent } from 'shared//components/input/field-info/field-info.component';
 import { InputContainerComponent } from './components/input/input-container/input-container.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faEdit, faUser, faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   imports: [

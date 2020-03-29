@@ -6,7 +6,7 @@ import { isNil } from 'lodash';
 import { UserRestApiService } from 'shared/api/user-rest-api.service';
 import { UserDto } from 'shared/api/dtos/dto-models';
 import { Subscription} from 'rxjs';
-import { UserTableColumnType } from 'features/admin/component/users-table/user-table-column-type.enum';
+import { UsersTableColumnType } from 'features/admin/components/users-table/users-table-column-type.enum';
 
 @Component({
   templateUrl: './edit-user.component.html',
@@ -23,10 +23,10 @@ export class EditUserComponent implements OnDestroy {
   });
 
   userDtos: UserDto[];
-  columns = new Set<UserTableColumnType> ([
-    UserTableColumnType.NAME_COLUMN_NAME,
-    UserTableColumnType.EMAIL_COLUMN_NAME,
-    UserTableColumnType.EDIT_ICON_COLUMN_NAME
+  columns = new Set<UsersTableColumnType> ([
+    UsersTableColumnType.NAME_COLUMN_NAME,
+    UsersTableColumnType.EMAIL_COLUMN_NAME,
+    UsersTableColumnType.EDIT_ICON_COLUMN_NAME
   ]);
 
   private subscriptions: Subscription = new Subscription();

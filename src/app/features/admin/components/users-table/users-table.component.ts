@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import { UsersTableRowModel } from 'features/admin/component/users-table/users-table-row.model';
+import { UsersTableRowModel } from 'features/admin/components/users-table/users-table-row.model';
 import { UserDto } from 'shared/api/dtos/dto-models';
 import { RoleHelperService } from 'shared/helper/role-helper.service';
 import { isNil } from 'lodash';
-import { UserTableColumnType } from 'features/admin/component/users-table/user-table-column-type.enum';
+import { UsersTableColumnType } from 'features/admin/components/users-table/users-table-column-type.enum';
 
 @Component({
   selector: 'app-users-table',
@@ -12,18 +12,18 @@ import { UserTableColumnType } from 'features/admin/component/users-table/user-t
 })
 export class UsersTableComponent implements OnChanges {
 
-  readonly nameColumnName = UserTableColumnType.NAME_COLUMN_NAME;
-  readonly emailColumnName = UserTableColumnType.EMAIL_COLUMN_NAME;
-  readonly rolesColumnName = UserTableColumnType.ROLES_COLUMN_NAME;
-  readonly editIconColumnName = UserTableColumnType.EDIT_ICON_COLUMN_NAME;
+  readonly nameColumnName = UsersTableColumnType.NAME_COLUMN_NAME;
+  readonly emailColumnName = UsersTableColumnType.EMAIL_COLUMN_NAME;
+  readonly rolesColumnName = UsersTableColumnType.ROLES_COLUMN_NAME;
+  readonly editIconColumnName = UsersTableColumnType.EDIT_ICON_COLUMN_NAME;
 
   @Input() userDtos: UserDto[];
 
-  @Input() columns: Set<UserTableColumnType> = new Set([
-    UserTableColumnType.NAME_COLUMN_NAME,
-    UserTableColumnType.EMAIL_COLUMN_NAME,
-    UserTableColumnType.ROLES_COLUMN_NAME,
-    UserTableColumnType.EDIT_ICON_COLUMN_NAME
+  @Input() columns: Set<UsersTableColumnType> = new Set([
+    UsersTableColumnType.NAME_COLUMN_NAME,
+    UsersTableColumnType.EMAIL_COLUMN_NAME,
+    UsersTableColumnType.ROLES_COLUMN_NAME,
+    UsersTableColumnType.EDIT_ICON_COLUMN_NAME
   ]);
 
   @Input() noDataMessage: string;
@@ -54,14 +54,14 @@ export class UsersTableComponent implements OnChanges {
 
   showColumn(columnName: string): boolean {
     switch (columnName) {
-      case UserTableColumnType.NAME_COLUMN_NAME.toString():
-        return this.columns.has(UserTableColumnType.NAME_COLUMN_NAME);
-      case UserTableColumnType.EMAIL_COLUMN_NAME.toString():
-        return this.columns.has(UserTableColumnType.EMAIL_COLUMN_NAME);
-      case UserTableColumnType.ROLES_COLUMN_NAME.toString():
-        return this.columns.has(UserTableColumnType.ROLES_COLUMN_NAME);
-      case UserTableColumnType.EDIT_ICON_COLUMN_NAME.toString():
-        return this.columns.has(UserTableColumnType.EDIT_ICON_COLUMN_NAME);
+      case UsersTableColumnType.NAME_COLUMN_NAME.toString():
+        return this.columns.has(UsersTableColumnType.NAME_COLUMN_NAME);
+      case UsersTableColumnType.EMAIL_COLUMN_NAME.toString():
+        return this.columns.has(UsersTableColumnType.EMAIL_COLUMN_NAME);
+      case UsersTableColumnType.ROLES_COLUMN_NAME.toString():
+        return this.columns.has(UsersTableColumnType.ROLES_COLUMN_NAME);
+      case UsersTableColumnType.EDIT_ICON_COLUMN_NAME.toString():
+        return this.columns.has(UsersTableColumnType.EDIT_ICON_COLUMN_NAME);
     }
     return false;
   }
