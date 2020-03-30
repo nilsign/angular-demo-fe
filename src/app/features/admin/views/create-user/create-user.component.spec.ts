@@ -7,6 +7,7 @@ import { setFormControlValue } from 'shared/functions/form-helper.functions';
 import { StringConstants } from 'shared/constants/string.constants';
 import { RoleType } from 'shared/api/dtos/dto-models';
 import { SharedModule } from 'shared/shared.module';
+import {UserFormComponent} from 'features/admin/components/user-form/user-form.component';
 
 describe('CreateUserComponent', () => {
 
@@ -19,7 +20,8 @@ describe('CreateUserComponent', () => {
           SharedModule
       ],
       declarations: [
-          CreateUserComponent
+          CreateUserComponent,
+          UserFormComponent
       ],
       providers: [
           KeycloakService,
@@ -44,7 +46,7 @@ describe('CreateUserComponent', () => {
     const email = 'john.doe@nilsign.com';
     const firstName = 'John';
     const lastName = 'Doe';
-    const formGroup = testObj.formGroup;
+    const formGroup = testObj.userFormGroup;
     setFormControlValue(formGroup, StringConstants.formControlNames.email, email);
     setFormControlValue(formGroup, StringConstants.formControlNames.firstName, firstName);
     setFormControlValue(formGroup, StringConstants.formControlNames.familyName, lastName);
@@ -52,7 +54,9 @@ describe('CreateUserComponent', () => {
     setFormControlValue(formGroup, StringConstants.formControlNames.adminRole, true);
     setFormControlValue(formGroup, StringConstants.formControlNames.sellerRole, true);
     setFormControlValue(formGroup, StringConstants.formControlNames.buyerRole, true);
-    const spy1 = spyOn(testObj, 'canCreateUser').and.returnValue(true);
+    const spy1 = spyOnProperty(testObj, 'canCreateUser', 'get')
+        .and.stub()
+        .and.returnValue(true);
     const spy2 = spyOn(testObj.userRestApi, 'saveUser')
         .and.stub()
         .and.returnValue(of(null));
@@ -79,7 +83,9 @@ describe('CreateUserComponent', () => {
 
   it('should log error when save user fails', async () => {
     const exceptionMessage = 'exception-message';
-    spyOn(testObj, 'canCreateUser').and.returnValue(true);
+    spyOnProperty(testObj, 'canCreateUser', 'get')
+        .and.stub()
+        .and.returnValue(true);
     spyOn(testObj.userRestApi, 'saveUser')
         .and.stub()
         .and.returnValue(throwError(exceptionMessage));
