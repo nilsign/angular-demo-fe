@@ -12,7 +12,7 @@ import {
 import { of } from 'rxjs';
 import { SharedModule } from 'shared/shared.module';
 import { UsersTableComponent } from 'features/admin/components/users-table/users-table.component';
-import {UsersTableColumnType} from 'features/admin/components/users-table/users-table-column-type.enum';
+import { UsersTableColumnType } from 'features/admin/components/users-table/users-table-column-type.enum';
 
 describe('ShowUsersComponent', () => {
 
@@ -73,7 +73,8 @@ describe('ShowUsersComponent', () => {
     expect(testObj.userDtos).toEqual(userDtos);
   });
 
-  it ('should add edit icon column with super admin authorization on component initialization', async () => {
+  it ('should add edit icon column in case of super admin authorization on component initialization',
+      async () => {
     spyOn(testObj.loggedInUserHelperService, 'isSuperAdmin').and.stub().and.returnValue(true);
     spyOn(testObj.userRestApi.getAllUsers(), 'subscribe').and.stub();
     const spy = spyOn(testObj.columns, 'add').and.callThrough();
