@@ -45,12 +45,12 @@ describe('EditUserComponent', () => {
   });
 
   it('should return false for has no user found message when search button is disabled', async () => {
-    spyOn(testObj, 'isSearchButtonDisabled').and.stub().and.returnValue(true);
+    spyOnProperty(testObj, 'isSearchButtonDisabled', 'get').and.stub().and.returnValue(true);
     expect(testObj.hasNoUsersFoundMessage).toBeFalsy();
   });
 
   it('should return false for has no user found message when user dtos are missing', async () => {
-    spyOn(testObj, 'isSearchButtonDisabled').and.stub().and.returnValue(true);
+    spyOnProperty(testObj, 'isSearchButtonDisabled', 'get').and.stub().and.returnValue(true);
 
     testObj.userDtos = null;
     expect(testObj.hasNoUsersFoundMessage).toBeFalsy();
@@ -61,14 +61,14 @@ describe('EditUserComponent', () => {
 
   it('should return false for has no user found message when search text is null', async () => {
     setFormControlValue(testObj.formGroup, testObj.searchUserControlName, null);
-    spyOn(testObj, 'isSearchButtonDisabled' as any).and.stub().and.returnValue(false);
+    spyOnProperty(testObj, 'isSearchButtonDisabled', 'get').and.stub().and.returnValue(false);
 
     expect(testObj.hasNoUsersFoundMessage).toBeFalsy();
   });
 
   it('should return false no users found message', async () => {
     setFormControlValue(testObj.formGroup, testObj.searchUserControlName, 'text');
-    spyOn(testObj, 'isSearchButtonDisabled' as any).and.stub().and.returnValue(false);
+    spyOnProperty(testObj, 'isSearchButtonDisabled', 'get').and.stub().and.returnValue(false);
 
     expect(testObj.hasNoUsersFoundMessage).toBeFalsy();
   });
@@ -76,7 +76,7 @@ describe('EditUserComponent', () => {
   it('should return no user found message if search result is empty', async () => {
     const searchText = 'text';
     setFormControlValue(testObj.formGroup, testObj.searchUserControlName, searchText);
-    spyOnProperty(testObj, 'hasNoUsersFoundMessage', 'get').and.returnValue(true);
+    spyOnProperty(testObj, 'hasNoUsersFoundMessage', 'get').and.stub().and.returnValue(true);
 
     expect(testObj.noUserFoundMessage).toEqual(`No users found for \'${testObj.searchText}\'.`);
   });
@@ -90,7 +90,7 @@ describe('EditUserComponent', () => {
   });
 
   it('should not search users when the search button is disabled', async () => {
-    spyOn(testObj, 'isSearchButtonDisabled' as any).and.stub().and.returnValue(true);
+    spyOnProperty(testObj, 'isSearchButtonDisabled', 'get').and.stub().and.returnValue(true);
     const spy = spyOn(testObj.userRestApiService, 'searchUser');
 
     testObj.onSearchButtonClicked();
@@ -99,7 +99,7 @@ describe('EditUserComponent', () => {
   });
 
   it('should search users when the search button is enabled', async () => {
-    spyOn(testObj, 'isSearchButtonDisabled' as any).and.stub().and.returnValue(false);
+    spyOnProperty(testObj, 'isSearchButtonDisabled', 'get').and.stub().and.returnValue(false);
     const spy = spyOn(testObj.userRestApiService, 'searchUser').and.stub().and.returnValue(of());
 
     testObj.onSearchButtonClicked();
@@ -113,7 +113,7 @@ describe('EditUserComponent', () => {
       userJpaAdmin
     ];
     const userDtosObservable = of(userDtos);
-    spyOn(testObj, 'isSearchButtonDisabled' as any).and.stub().and.returnValue(false);
+    spyOnProperty(testObj, 'isSearchButtonDisabled', 'get').and.stub().and.returnValue(false);
     const spy = spyOn(testObj.userRestApiService, 'searchUser').and.stub().and.returnValue(userDtosObservable);
 
     testObj.onSearchButtonClicked();

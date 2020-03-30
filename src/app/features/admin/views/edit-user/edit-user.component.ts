@@ -36,12 +36,17 @@ export class EditUserComponent implements OnDestroy {
     return getFormControlValue(this.formGroup, this.searchUserControlName);
   }
 
+  get isSearchButtonDisabled(): boolean {
+    return isNil(this.searchText) || this.searchText.trim().length < EditUserComponent.MINIMAL_USER_SEARCH_TEXT_LENGTH;
+  }
+
+
   get hasSearchResult(): boolean {
     return !isNil(this.userDtos) && this.searchText === this.lastSearchText;
   }
 
   get hasNoUsersFoundMessage(): boolean {
-    return !this.isSearchButtonDisabled()
+    return !this.isSearchButtonDisabled
         && !isNil(this.lastSearchText)
         && this.lastSearchText === this.searchText
         && this.userDtos
@@ -61,12 +66,8 @@ export class EditUserComponent implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  isSearchButtonDisabled(): boolean {
-    return isNil(this.searchText) || this.searchText.trim().length < EditUserComponent.MINIMAL_USER_SEARCH_TEXT_LENGTH;
-  }
-
   onSearchButtonClicked(): void {
-    if (this.isSearchButtonDisabled()) {
+    if (this.isSearchButtonDisabled) {
       return;
     }
     this.lastSearchText = this.searchText.trim();
