@@ -2,81 +2,15 @@
     <h2>
         Create User
     </h2>
-
-    <form [formGroup]="formGroup">
-        <app-input-text
-                [formGroup]="formGroup"
-                [controlName]="emailControlName"
-                [label]="'Email'"
-                [placeholder]="'Email'"
-                [maxLength]="320"
-                [fieldInfo]="'Please enter your email address.'"
-        >
-        </app-input-text>
-
-        <app-input-text
-                [formGroup]="formGroup"
-                [controlName]="firstNameControlName"
-                [label]="'First Name'"
-                [placeholder]="'First Name'"
-                [maxLength]="64"
-        >
-        </app-input-text>
-
-        <app-input-text
-                [formGroup]="formGroup"
-                [controlName]="familyNameControlName"
-                [label]="'Family Name'"
-                [placeholder]="'Family'"
-                [maxLength]="64"
-        >
-        </app-input-text>
-
-        <app-input-container
-                [label]="'User Roles'"
-                [markedInvalid]="markRoleSelectionContainerAsInvalid()"
-                [info]="getRoleSelectionContainerInfo()"
-        >
-
-            <app-input-checkbox
-                    [formGroup]="formGroup"
-                    [controlName]="superAdminControlName"
-                    [label]="'Assign Super Admin Role'"
-            >
-            </app-input-checkbox>
-
-            <app-input-checkbox
-                    [formGroup]="formGroup"
-                    [controlName]="adminControlName"
-                    [label]="'Assign Admin Role'"
-            >
-            </app-input-checkbox>
-
-            <app-input-checkbox
-                    [formGroup]="formGroup"
-                    [controlName]="sellerControlName"
-                    [label]="'Assign Seller Role'"
-            >
-            </app-input-checkbox>
-
-            <app-input-checkbox
-                    [formGroup]="formGroup"
-                    [controlName]="buyerControlName"
-                    [label]="'Assign Buyer Role'"
-            >
-            </app-input-checkbox>
-
-        </app-input-container>
-
+        <app-user-form></app-user-form>
         <button
                 class="btn btn-primary"
                 type="submit"
-                [disabled]="!canCreateUser() && clickedCreateUserButton"
+                [disabled]="!canCreateUser && clickedCreateUserButton"
                 (click)="onCreateUserClicked()"
         >
             Create User
         </button>
-    </form>
 
 </div>
 

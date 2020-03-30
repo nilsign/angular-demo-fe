@@ -7,6 +7,7 @@ import { CreateUserComponent } from 'features/admin/views/create-user/create-use
 import { EditUserComponent } from 'features/admin/views/edit-user/edit-user.component';
 import { SettingsComponent } from 'features/admin/views/settings/settings.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { UsersTableComponent } from './components/users-table/users-table.compon
       ShowUsersComponent,
       CreateUserComponent,
       EditUserComponent,
-      UsersTableComponent
+      UsersTableComponent,
+      UserFormComponent
   ]
 })
 export class AdminModule {
