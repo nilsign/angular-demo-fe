@@ -98,15 +98,14 @@ describe('EditUserComponent', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('should not search users when the search button is disabled', async () => {
+  it('should search users when the search button is enabled', async () => {
     spyOn(testObj, 'isSearchButtonDisabled' as any).and.stub().and.returnValue(false);
-    const spy = spyOn(testObj.userRestApiService, 'searchUser').and.stub();
+    const spy = spyOn(testObj.userRestApiService, 'searchUser').and.stub().and.returnValue(of());
 
     testObj.onSearchButtonClicked();
 
-    expect(spy).not.toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
-
 
   it('should set user dtos when the search users api response is not empty', async () => {
     const userDtos = [
