@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { AdminRoutingModule } from 'features/admin/admin-routing.module';
 import { SharedModule } from 'shared/shared.module';
-import { ShowUsersComponent } from 'features/admin/component/show-users/show-users.component';
-import { DashboardComponent } from 'features/admin/component/dasboard/dashboard.component';
-import { CreateUserComponent } from 'features/admin/component/create-user/create-user.component';
-import { EditUserComponent } from 'features/admin/component/edit-user/edit-user.component';
-import { SettingsComponent } from 'features/admin/component/settings/settings.component';
+import { ShowUsersComponent } from 'features/admin/views/show-users/show-users.component';
+import { DashboardComponent } from 'features/admin/views/dasboard/dashboard.component';
+import { CreateUserComponent } from 'features/admin/views/create-user/create-user.component';
+import { EditUserComponent } from 'features/admin/views/edit-user/edit-user.component';
+import { SettingsComponent } from 'features/admin/views/settings/settings.component';
+import { UsersTableComponent } from './components/users-table/users-table.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SettingsComponent } from 'features/admin/component/settings/settings.co
       SettingsComponent,
       ShowUsersComponent,
       CreateUserComponent,
-      EditUserComponent
+      EditUserComponent,
+      UsersTableComponent
   ]
 })
 export class AdminModule {

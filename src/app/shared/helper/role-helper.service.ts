@@ -15,7 +15,8 @@ export class RoleHelperService {
 
   isSuperAdmin(user: UserDto): boolean {
     const roles = this.getRoleTypes(user);
-    return roles.has(RoleType.ROLE_REALM_SUPERADMIN);
+    return roles.has(RoleType.ROLE_REALM_SUPERADMIN)
+        || roles.has(RoleType.ROLE_JPA_GLOBALADMIN);
   }
 
   isAdmin(user: UserDto): boolean {

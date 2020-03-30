@@ -10,7 +10,9 @@ import {
   userSuperAdmin
 } from 'testing/data/user-data.testing';
 import { of } from 'rxjs';
-import { UsersTableRowModel } from 'features/admin/component/show-users/users-table-row.model';
+import { SharedModule } from 'shared/shared.module';
+import { UsersTableComponent } from 'features/admin/components/users-table/users-table.component';
+import { UsersTableColumnType } from 'features/admin/components/users-table/users-table-column-type.enum';
 
 describe('ShowUsersComponent', () => {
 
@@ -29,8 +31,12 @@ describe('ShowUsersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+          SharedModule
+      ],
       declarations: [
-          ShowUsersComponent
+          ShowUsersComponent,
+          UsersTableComponent
       ],
       providers: [
           KeycloakService,
@@ -59,22 +65,23 @@ describe('ShowUsersComponent', () => {
   });
 
   it ('should call load all users on component initialization', async () => {
-    const spy = spyOn(testObj, 'loadAllUsers').and.stub();
+    const spy = spyOn(testObj.userRestApi.getAllUsers(), 'subscribe').and.stub();
 
     testObj.ngOnInit();
 
     expect(spy).toHaveBeenCalledTimes(1);
+    expect(testObj.userDtos).toEqual(userDtos);
   });
 
-  it ('should initialize all users on component initialization', async () => {
-    testObj.allUsers.subscribe(  (userTableRowModels: UsersTableRowModel[]) => {
-      expect(testObj.allUsers).not.toBeNull();
-      expect(userTableRowModels.length).toBe(5);
-      expect(userTableRowModels[0].roleNames).toEqual('GLOBALADMIN');
-      expect(userTableRowModels[1].roleNames).toEqual('ADMIN');
-      expect(userTableRowModels[2].roleNames).toEqual('ADMIN, SELLER');
-      expect(userTableRowModels[3].roleNames).toEqual('SELLER');
-      expect(userTableRowModels[4].roleNames).toEqual('BUYER');
-    });
+  it ('should add edit icon column in case of super admin authorization on component initialization',
+      async () => {
+    spyOn(testObj.loggedInUserHelperService, 'isSuperAdmin').and.stub().and.returnValue(true);
+    spyOn(testObj.userRestApi.getAllUsers(), 'subscribe').and.stub();
+    const spy = spyOn(testObj.columns, 'add').and.callThrough();
+
+    testObj.ngOnInit();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(testObj.columns).toContain(UsersTableColumnType.EDIT_ICON_COLUMN_NAME);
   });
 });

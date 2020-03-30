@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardComponent } from 'features/seller/components/dashboard/dashboard.component';
+import { DashboardComponent } from 'features/seller/views/dashboard/dashboard.component';
 
 describe('DashboardComponent', () => {
 

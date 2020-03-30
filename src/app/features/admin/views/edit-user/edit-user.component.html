@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <h2>
+        Edit User
+    </h2>
+    <form [formGroup]="formGroup">
+        <div class="row">
+            <app-input-text
+                    class="col"
+                    [formGroup]="formGroup"
+                    [controlName]="searchUserControlName"
+                    [placeholder]="'Search'"
+                    [maxLength]="64"
+                    [fieldInfo]="'Search for a user to edit.'"
+                    (keydown.enter)="onSearchButtonClicked()"
+            >
+            </app-input-text>
+            <button
+                    class="col-md-auto btn btn-primary search-button"
+                    [disabled]="isSearchButtonDisabled"
+                    (click)="onSearchButtonClicked()"
+            >
+                Search
+            </button>
+        </div>
+    </form>
+    <hr class="line-separator">
+    <ng-container *ngIf="hasSearchResult">
+        <app-users-table
+                [userDtos]="userDtos"
+                [columns]="columns"
+                [noDataMessage]="noUserFoundMessage"
+        >
+        </app-users-table>
+    </ng-container>
+</div>

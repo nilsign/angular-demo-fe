@@ -27,21 +27,29 @@
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                [ngClass]="{
-                    'active': activeMenuItemIndex === 2,
-                    'disabled': !loggedInUserHelperService.isSuperAdmin()
-                }"
+                [ngClass]="{ 'active': activeMenuItemIndex === 2 }"
         >
             Users Management
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" (click)="onShowAllUsersMenuItemClicked()">
+            <a
+                    class="dropdown-item"
+                    (click)="onShowAllUsersMenuItemClicked()"
+            >
                 Show all Users
             </a>
-            <a class="dropdown-item" (click)="onCreateUserMenuItemClicked()">
+            <a
+                    class="dropdown-item"
+                    [ngClass]="{ 'disabled': !loggedInUserHelperService.isSuperAdmin() }"
+                    (click)="onCreateUserMenuItemClicked()"
+            >
                 Create User
             </a>
-            <a class="dropdown-item" (click)="onEditUserMenuItemClicked()">
+            <a
+                    class="dropdown-item"
+                    [ngClass]="{ 'disabled': !loggedInUserHelperService.isSuperAdmin() }"
+                    (click)="onEditUserMenuItemClicked()"
+            >
                 Edit User
             </a>
         </div>

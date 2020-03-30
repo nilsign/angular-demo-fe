@@ -13,16 +13,20 @@ import { InputCheckboxComponent } from 'shared/components/input/input-checkbox/i
 import { FieldLabelComponent } from 'shared/components/input/field-label/field-label.component';
 import { FieldInfoComponent } from 'shared//components/input/field-info/field-info.component';
 import { InputContainerComponent } from './components/input/input-container/input-container.component';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   exports: [
       CommonModule,
       ReactiveFormsModule,
+      FontAwesomeModule,
       MenuBarComponent,
       SpinnerComponent,
       InputContainerComponent,
@@ -44,4 +48,11 @@ import { InputContainerComponent } from './components/input/input-container/inpu
   ]
 })
 export class SharedModule {
+  constructor(private library: FaIconLibrary) {
+    // Defines a set of usable Font Awesome icons.
+    library.addIcons(
+        faEdit,
+        faUser
+    );
+  }
 }
