@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserFormComponent } from './user-form.component';
-import {SharedModule} from 'shared/shared.module';
+import { SharedModule } from 'shared/shared.module';
 
 describe('UserFormComponent', () => {
 

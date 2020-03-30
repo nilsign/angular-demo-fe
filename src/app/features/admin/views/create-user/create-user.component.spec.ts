@@ -7,7 +7,7 @@ import { setFormControlValue } from 'shared/functions/form-helper.functions';
 import { StringConstants } from 'shared/constants/string.constants';
 import { RoleType } from 'shared/api/dtos/dto-models';
 import { SharedModule } from 'shared/shared.module';
-import {UserFormComponent} from 'features/admin/components/user-form/user-form.component';
+import { UserFormComponent } from 'features/admin/components/user-form/user-form.component';
 
 describe('CreateUserComponent', () => {
 
