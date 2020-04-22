@@ -10,6 +10,7 @@ import {
   userSuperAdmin
 } from 'testing/data/user-data.testing';
 import { of } from 'rxjs';
+import { UserFormComponent } from 'features/admin/components/user-form/user-form.component';
 
 describe('EditUserComponent', () => {
 
@@ -23,7 +24,8 @@ describe('EditUserComponent', () => {
       ],
       declarations: [
           EditUserComponent,
-          UsersTableComponent
+          UsersTableComponent,
+          UserFormComponent
       ],
       providers: [
           KeycloakService,
@@ -95,7 +97,7 @@ describe('EditUserComponent', () => {
 
     testObj.onSearchButtonClicked();
 
-    expect(spy).not.toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledTimes(0);
   });
 
   it('should search users when the search button is enabled', async () => {

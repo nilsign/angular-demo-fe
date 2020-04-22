@@ -58,6 +58,10 @@ describe('UsersTableComponent', () => {
     expect(testObj.tableRowModel.length).toBe(5);
   });
 
+  it ('should return emit event on table row clicked', async () => {
+    expect(testObj.showColumn('unknown-column-name')).toBeFalsy();
+  });
+
   it ('should return false when show column gets an unknown column name', async () => {
     expect(testObj.showColumn('unknown-column-name')).toBeFalsy();
   });
