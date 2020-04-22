@@ -13,6 +13,14 @@ export class RoleHelperService {
         : new Set<RoleType>(user.roles.map<RoleType>((roleDto: RoleDto) => roleDto.roleType));
   }
 
+  buildRoleDto(roleType: RoleType): RoleDto {
+    return {
+      id: null,
+      roleType,
+      roleName: ''
+    };
+  }
+
   isSuperAdmin(user: UserDto): boolean {
     const roles = this.getRoleTypes(user);
     return roles.has(RoleType.ROLE_REALM_SUPERADMIN)
@@ -21,9 +29,7 @@ export class RoleHelperService {
 
   isAdmin(user: UserDto): boolean {
     const roles = this.getRoleTypes(user);
-    return roles.has(RoleType.ROLE_REALM_SUPERADMIN)
-        || roles.has(RoleType.ROLE_REALM_CLIENT_ADMIN)
-        || roles.has(RoleType.ROLE_JPA_GLOBALADMIN)
+    return roles.has(RoleType.ROLE_REALM_CLIENT_ADMIN)
         || roles.has(RoleType.ROLE_JPA_ADMIN);
   }
 
@@ -40,7 +46,7 @@ export class RoleHelperService {
   }
 
   isMultiRole(user: UserDto): boolean {
-    let counter = this.isAdmin(user) ? 1 : 0;
+    let counter = this.isSuperAdmin(user) || this.isAdmin(user) ? 1 : 0;
     counter += this.isSeller(user) ? 1 : 0;
     counter += this.isBuyer(user) ? 1 : 0;
     return counter > 1;

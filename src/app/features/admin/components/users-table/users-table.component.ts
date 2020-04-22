@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { UsersTableRowModel } from 'features/admin/components/users-table/users-table-row.model';
 import { UserDto } from 'shared/api/dtos/dto-models';
 import { RoleHelperService } from 'shared/helper/role-helper.service';
@@ -28,6 +28,8 @@ export class UsersTableComponent implements OnChanges {
 
   @Input() noDataMessage: string;
 
+  @Output() tableRowClickedEvent = new EventEmitter<UserDto>();
+
   tableRowModel: UsersTableRowModel[];
 
   get hasNoDataMessage(): boolean {
@@ -44,12 +46,17 @@ export class UsersTableComponent implements OnChanges {
       this.tableRowModel = [];
       (changes.userDtos.currentValue as UserDto[]).forEach((userDto: UserDto) => {
         this.tableRowModel.push({
+            userDto,
             name: `${userDto.firstName} ${userDto.lastName}`,
             email: userDto.email,
             roleNames: this.getUserRoleCategories(userDto)
         });
       });
     }
+  }
+
+  onTableRowClicked(rowModel: UsersTableRowModel) {
+    this.tableRowClickedEvent.emit(rowModel.userDto);
   }
 
   showColumn(columnName: string): boolean {

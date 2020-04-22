@@ -16,7 +16,7 @@ export function getEmailValidator(customErrorText?: string): ValidatorFn {
 
 export function getRequiredValidation(customErrorText?: string): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
-    return isNil(control.value) || control.value.trim() === ''
+    return isNil(control.value) || control.value.toString().trim() === ''
         ? { illegalEmailFormat: chooseErrorText('Required field.', customErrorText) }
         : null;
   };

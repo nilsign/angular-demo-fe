@@ -1,12 +1,13 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, ViewChild } from '@angular/core';
 import { StringConstants } from 'shared/constants/string.constants';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getFormControlValue } from 'shared/functions/form-helper.functions';
 import { isNil } from 'lodash';
 import { UserRestApiService } from 'shared/api/user-rest-api.service';
 import { UserDto } from 'shared/api/dtos/dto-models';
-import { Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UsersTableColumnType } from 'features/admin/components/users-table/users-table-column-type.enum';
+import { UserFormComponent } from 'features/admin/components/user-form/user-form.component';
 
 @Component({
   templateUrl: './edit-user.component.html',
@@ -22,12 +23,16 @@ export class EditUserComponent implements OnDestroy {
     [this.searchUserControlName]: new FormControl('')
   });
 
+  @ViewChild(UserFormComponent, {static: false})
+  userFormComponent: UserFormComponent;
+
   userDtos: UserDto[];
   columns = new Set<UsersTableColumnType> ([
     UsersTableColumnType.NAME_COLUMN_NAME,
     UsersTableColumnType.EMAIL_COLUMN_NAME,
     UsersTableColumnType.EDIT_ICON_COLUMN_NAME
   ]);
+  selectedUserToEdit: UserDto;
 
   private subscriptions: Subscription = new Subscription();
   private lastSearchText: string;
@@ -39,7 +44,6 @@ export class EditUserComponent implements OnDestroy {
   get isSearchButtonDisabled(): boolean {
     return isNil(this.searchText) || this.searchText.trim().length < EditUserComponent.MINIMAL_USER_SEARCH_TEXT_LENGTH;
   }
-
 
   get hasSearchResult(): boolean {
     return !isNil(this.userDtos) && this.searchText === this.lastSearchText;
@@ -59,7 +63,9 @@ export class EditUserComponent implements OnDestroy {
         : null;
   }
 
-  constructor(public userRestApiService: UserRestApiService) {
+  constructor(
+      public userRestApiService: UserRestApiService,
+      public changeDetector: ChangeDetectorRef) {
   }
 
   ngOnDestroy(): void {
@@ -76,5 +82,34 @@ export class EditUserComponent implements OnDestroy {
           this.userDtos = userDtos;
         })
     );
+  }
+
+  onUserRowClicked(clickedUserDto: UserDto): void {
+    this.subscriptions.add(
+        this.userRestApiService.getUserByEmail(clickedUserDto.email).subscribe((userDto: UserDto) => {
+            this.selectedUserToEdit = userDto;
+            this.changeDetector.detectChanges();
+            this.userFormComponent.populateFormGroup(this.selectedUserToEdit);
+        })
+    );
+  }
+
+  onSaveButtonClicked(): void {
+    this.selectedUserToEdit = null;
+    const userDto = this.userFormComponent.buildUserDto();
+    this.subscriptions.add(
+      this.userRestApiService.saveUser(userDto).subscribe(
+          () => {},
+          ( error: any ) => {
+            console.error('Save user failed. ', error);
+          },
+          () => {
+            console.log('User saved successfully. ', userDto);
+          })
+    );
+  }
+
+  onCancelButtonClicked(): void {
+    this.selectedUserToEdit = null;
   }
 }
