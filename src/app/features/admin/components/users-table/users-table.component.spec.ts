@@ -9,6 +9,7 @@ import {
   userSuperAdmin
 } from 'testing/data/user-data.testing';
 import { SharedModule } from 'shared/shared.module';
+import { UsersTableRowModel } from 'features/admin/components/users-table/users-table-row.model';
 
 describe('UsersTableComponent', () => {
 
@@ -59,7 +60,18 @@ describe('UsersTableComponent', () => {
   });
 
   it ('should return emit event on table row clicked', async () => {
-    expect(testObj.showColumn('unknown-column-name')).toBeFalsy();
+    const rowModel: UsersTableRowModel = {
+      userDto: userJpaAdminJpaSeller,
+      name: '',
+      email: '',
+      roleNames: ''
+    };
+    const spy = spyOn(testObj.tableRowClickedEvent, 'emit');
+
+    testObj.onTableRowClicked(rowModel);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(userJpaAdminJpaSeller);
   });
 
   it ('should return false when show column gets an unknown column name', async () => {
