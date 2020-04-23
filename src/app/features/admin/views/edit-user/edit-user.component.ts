@@ -95,7 +95,7 @@ export class EditUserComponent implements OnDestroy {
               this.changeDetector.detectChanges();
               this.userFormComponent.populateFormGroup(this.selectedUserToEdit);
             },
-            ( error: any ) => {
+            (error: any) => {
               console.error('Request user by email failed. ', error);
             })
     );
@@ -107,7 +107,7 @@ export class EditUserComponent implements OnDestroy {
     this.subscriptions.add(
       this.userRestApiService.saveUser(userDto).subscribe(
           () => {},
-          ( error: any ) => {
+          (error: any) => {
             console.error('Save user failed. ', error);
           },
           () => {
