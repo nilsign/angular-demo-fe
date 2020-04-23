@@ -35,8 +35,10 @@ describe('UserFormComponent', () => {
   it('should populate form control with user dto values ', async () => {
     testObj.populateFormGroup(userJpaAdminJpaSeller);
 
-    expect(getFormControlValue(testObj.formGroup, testObj.firstNameControlName)).toEqual(userJpaAdminJpaSeller.firstName);
-    expect(getFormControlValue(testObj.formGroup, testObj.familyNameControlName)).toEqual(userJpaAdminJpaSeller.lastName);
+    expect(getFormControlValue(testObj.formGroup, testObj.firstNameControlName))
+        .toEqual(userJpaAdminJpaSeller.firstName);
+    expect(getFormControlValue(testObj.formGroup, testObj.familyNameControlName))
+        .toEqual(userJpaAdminJpaSeller.lastName);
     expect(getFormControlValue(testObj.formGroup, testObj.emailControlName)).toEqual(userJpaAdminJpaSeller.email);
     expect(getFormControlValue(testObj.formGroup, testObj.superAdminControlName)).toEqual(false);
     expect(getFormControlValue(testObj.formGroup, testObj.adminControlName)).toEqual(true);

@@ -158,7 +158,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ### Running Sonarqube
 
-Run `ng run sonar` to analyse and measure the code quality. To see the results navigate to http://localhost:9000.
+Run `npm run sonar` to analyse and measure the code quality. To see the results navigate to http://localhost:9000.
 
 Note, that the locally running Sonarqube server instance of the backend can be used here as well. To setup an instance
 please have a look at the backend's readme.
