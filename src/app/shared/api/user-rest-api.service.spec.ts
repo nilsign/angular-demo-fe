@@ -50,7 +50,7 @@ describe('UserRestApiService', () => {
   });
 
   it('should request user by email via rest api', async () => {
-    const email = 'email';
+    const email = 'email@sample.com';
     const spy1 = spyOn(testObj.adminAuthGuard, 'canActivate').and.returnValue(true);
     const spy2 = spyOn (testObj.http, 'get').and.stub();
 
@@ -58,9 +58,7 @@ describe('UserRestApiService', () => {
 
     expect(spy1).toHaveBeenCalledTimes(1);
     expect(spy2).toHaveBeenCalledTimes(1);
-    expect(spy2).toHaveBeenCalledWith(
-        `${getApiBaseUrl()}/user/email`,
-        { params: { text: email } });
+    expect(spy2).toHaveBeenCalledWith(`${getApiBaseUrl()}/user/email/${email}`);
   });
 
   it('should throw error when user is not authenticated and a user is requested by email', async () => {
