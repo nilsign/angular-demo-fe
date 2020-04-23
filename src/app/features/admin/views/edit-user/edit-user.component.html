@@ -2,34 +2,62 @@
     <h2>
         Edit User
     </h2>
-    <form [formGroup]="formGroup">
-        <div class="row">
-            <app-input-text
-                    class="col"
-                    [formGroup]="formGroup"
-                    [controlName]="searchUserControlName"
-                    [placeholder]="'Search'"
-                    [maxLength]="64"
-                    [fieldInfo]="'Search for a user to edit.'"
-                    (keydown.enter)="onSearchButtonClicked()"
+
+    <ng-container *ngIf="!selectedUserToEdit">
+
+        <form [formGroup]="formGroup">
+            <div class="row">
+                <app-input-text
+                        class="col"
+                        [formGroup]="formGroup"
+                        [controlName]="searchUserControlName"
+                        [placeholder]="'Search'"
+                        [maxLength]="64"
+                        [fieldInfo]="'Search for a user to edit.'"
+                        (keydown.enter)="onSearchButtonClicked()"
+                >
+                </app-input-text>
+                <button
+                        class="col-md-auto btn btn-primary search-button"
+                        [disabled]="isSearchButtonDisabled"
+                        (click)="onSearchButtonClicked()"
+                >
+                    Search
+                </button>
+            </div>
+        </form>
+
+        <hr class="line-separator">
+
+        <ng-container *ngIf="hasSearchResult">
+            <app-users-table
+                    [userDtos]="userDtos"
+                    [columns]="columns"
+                    [noDataMessage]="noUserFoundMessage"
+                    (tableRowClickedEvent)="onUserRowClicked($event)"
             >
-            </app-input-text>
-            <button
-                    class="col-md-auto btn btn-primary search-button"
-                    [disabled]="isSearchButtonDisabled"
-                    (click)="onSearchButtonClicked()"
-            >
-                Search
-            </button>
-        </div>
-    </form>
-    <hr class="line-separator">
-    <ng-container *ngIf="hasSearchResult">
-        <app-users-table
-                [userDtos]="userDtos"
-                [columns]="columns"
-                [noDataMessage]="noUserFoundMessage"
+            </app-users-table>
+        </ng-container>
+
+    </ng-container>
+
+    <ng-container *ngIf="selectedUserToEdit">
+
+        <app-user-form></app-user-form>
+
+        <button
+                class="col-md-auto btn btn-primary search-button"
+                [disabled]="isSearchButtonDisabled"
+                (click)="onSaveButtonClicked()"
         >
-        </app-users-table>
+            Save
+        </button>
+        <button
+                class="col-md-auto btn btn-outline-secondary search-button"
+                [disabled]="isSearchButtonDisabled"
+                (click)="onCancelButtonClicked()"
+        >
+            Cancel
+        </button>
     </ng-container>
 </div>

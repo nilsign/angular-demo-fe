@@ -25,7 +25,9 @@
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let rowModel of tableRowModel">
+            <tr
+                    *ngFor="let rowModel of tableRowModel"
+                    (click)="onTableRowClicked(rowModel)">
                 <ng-container *ngIf="showColumn(nameColumnName)">
                     <td>
                         {{ rowModel.name }}

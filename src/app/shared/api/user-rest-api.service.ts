@@ -24,9 +24,9 @@ export class UserRestApiService {
     throw Error('Authorization failed. Illegal RestAPI request.');
   }
 
-  saveUser(userDto: UserDto): Observable<UserDto> {
-    if (this.superAdminAuthGuard.canActivate()) {
-      return this.http.post<UserDto>(`${getApiBaseUrl()}/user`, userDto);
+  getUserByEmail(email: string): Observable<UserDto> {
+    if (this.adminAuthGuard.canActivate()) {
+      return this.http.get<UserDto>(`${getApiBaseUrl()}/user/email/${email}`);
     }
     throw Error('Authorization failed. Illegal RestAPI request.');
   }
@@ -36,6 +36,13 @@ export class UserRestApiService {
       return this.http.get<UserDto[]>(
           `${getApiBaseUrl()}/user/search`,
           { params: { text: searchText } });
+    }
+    throw Error('Authorization failed. Illegal RestAPI request.');
+  }
+
+  saveUser(userDto: UserDto): Observable<UserDto> {
+    if (this.superAdminAuthGuard.canActivate()) {
+      return this.http.post<UserDto>(`${getApiBaseUrl()}/user`, userDto);
     }
     throw Error('Authorization failed. Illegal RestAPI request.');
   }

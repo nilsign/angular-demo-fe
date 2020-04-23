@@ -3,7 +3,8 @@ import { StringConstants } from 'shared/constants/string.constants';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getEmailValidator, getRequiredValidation } from 'shared/functions/form-validator-helper.functions';
 import { RoleDto, RoleType, UserDto } from 'shared/api/dtos/dto-models';
-import { getFormControlValue } from 'shared/functions/form-helper.functions';
+import { getFormControlValue, setFormControlValue } from 'shared/functions/form-helper.functions';
+import { RoleHelperService } from 'shared/helper/role-helper.service';
 
 @Component({
   selector: 'app-user-form',
@@ -37,6 +38,9 @@ export class UserFormComponent {
         : 'Assign a role to the user.';
   }
 
+  constructor(public roleHelperService: RoleHelperService) {
+  }
+
   buildUserDto(): UserDto {
     return {
       id: null,
@@ -48,6 +52,16 @@ export class UserFormComponent {
     };
   }
 
+  populateFormGroup(userDto: UserDto) {
+    setFormControlValue(this.formGroup, this.firstNameControlName, userDto.firstName);
+    setFormControlValue(this.formGroup, this.familyNameControlName, userDto.lastName);
+    setFormControlValue(this.formGroup, this.emailControlName, userDto.email);
+    setFormControlValue(this.formGroup, this.superAdminControlName, this.roleHelperService.isSuperAdmin(userDto));
+    setFormControlValue(this.formGroup, this.adminControlName, this.roleHelperService.isAdmin(userDto));
+    setFormControlValue(this.formGroup, this.sellerControlName, this.roleHelperService.isSeller(userDto));
+    setFormControlValue(this.formGroup, this.buyerControlName, this.roleHelperService.isBuyer(userDto));
+  }
+
   markRoleSelectionContainerAsInvalid(): boolean {
     const superAdminControl = this.formGroup.controls[this.superAdminControlName];
     const adminControl = this.formGroup.controls[this.adminControlName];
@@ -57,29 +71,20 @@ export class UserFormComponent {
         && (superAdminControl.touched || adminControl.touched || sellerControl.touched || buyerControl.touched);
   }
 
-
   private buildRoleDtos(): RoleDto[] {
     const roleDtos: RoleDto[] = [];
     if (getFormControlValue(this.formGroup, this.superAdminControlName)) {
-      roleDtos.push(buildRoleDto(RoleType.ROLE_JPA_GLOBALADMIN));
+      roleDtos.push(this.roleHelperService.buildRoleDto(RoleType.ROLE_JPA_GLOBALADMIN));
     }
     if (getFormControlValue(this.formGroup, this.adminControlName)) {
-      roleDtos.push(buildRoleDto(RoleType.ROLE_JPA_ADMIN));
+      roleDtos.push(this.roleHelperService.buildRoleDto(RoleType.ROLE_JPA_ADMIN));
     }
     if (getFormControlValue(this.formGroup, this.sellerControlName)) {
-      roleDtos.push(buildRoleDto(RoleType.ROLE_JPA_SELLER));
+      roleDtos.push(this.roleHelperService.buildRoleDto(RoleType.ROLE_JPA_SELLER));
     }
     if (getFormControlValue(this.formGroup, this.buyerControlName)) {
-      roleDtos.push(buildRoleDto(RoleType.ROLE_JPA_BUYER));
+      roleDtos.push(this.roleHelperService.buildRoleDto(RoleType.ROLE_JPA_BUYER));
     }
     return roleDtos;
   }
-}
-
-function buildRoleDto(roleType: RoleType): RoleDto {
-  return {
-    id: null,
-    roleType,
-    roleName: ''
-  };
 }
