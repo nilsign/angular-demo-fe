@@ -47,10 +47,10 @@ export class CreateUserComponent {
     this.subscriptions.add(
         this.userRestApi.saveUser(this.userFormComponent.buildUserDto()).subscribe(
             (userDto: UserDto) => {
-              console.log('User saved successfully.', userDto);
+              console.log('User saved successfully. ', userDto);
             },
             (error: string) => {
-              console.error('Save user failed.', error);
+              console.error('Save user failed. ', error);
             }
         )
     );

@@ -77,20 +77,27 @@ export class EditUserComponent implements OnDestroy {
       return;
     }
     this.lastSearchText = this.searchText.trim();
-    this.subscriptions.add(this.userRestApiService.searchUser(this.searchText)
-        .subscribe((userDtos: UserDto[]) => {
+    this.subscriptions.add(this.userRestApiService.searchUser(this.searchText).subscribe(
+        (userDtos: UserDto[]) => {
           this.userDtos = userDtos;
+        },
+        (error: any) => {
+          console.error('Search user request failed. ', error);
         })
     );
   }
 
   onUserRowClicked(clickedUserDto: UserDto): void {
     this.subscriptions.add(
-        this.userRestApiService.getUserByEmail(clickedUserDto.email).subscribe((userDto: UserDto) => {
-            this.selectedUserToEdit = userDto;
-            this.changeDetector.detectChanges();
-            this.userFormComponent.populateFormGroup(this.selectedUserToEdit);
-        })
+        this.userRestApiService.getUserByEmail(clickedUserDto.email).subscribe(
+            (userDto: UserDto) => {
+              this.selectedUserToEdit = userDto;
+              this.changeDetector.detectChanges();
+              this.userFormComponent.populateFormGroup(this.selectedUserToEdit);
+            },
+            ( error: any ) => {
+              console.error('Request user by email failed. ', error);
+            })
     );
   }
 

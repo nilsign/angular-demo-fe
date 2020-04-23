@@ -94,6 +94,6 @@ describe('CreateUserComponent', () => {
     testObj.onCreateUserClicked();
 
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(spy).toHaveBeenCalledWith('Save user failed.', exceptionMessage);
+    expect(spy).toHaveBeenCalledWith('Save user failed. ', exceptionMessage);
   });
 });

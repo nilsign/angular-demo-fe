@@ -7,15 +7,17 @@ import { UsersTableComponent } from 'features/admin/components/users-table/users
 import { setFormControlValue } from 'shared/functions/form-helper.functions';
 import {
   userJpaAdmin,
+  userJpaAdminJpaSeller,
   userSuperAdmin
 } from 'testing/data/user-data.testing';
-import { of } from 'rxjs';
 import { UserFormComponent } from 'features/admin/components/user-form/user-form.component';
+import { of, throwError } from 'rxjs';
 
 describe('EditUserComponent', () => {
 
   let testObj: EditUserComponent;
   let fixture: ComponentFixture<EditUserComponent>;
+  let userFormComponent: UserFormComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,6 +42,10 @@ describe('EditUserComponent', () => {
     fixture = TestBed.createComponent(EditUserComponent);
     testObj = fixture.componentInstance;
     fixture.detectChanges();
+    userFormComponent = jasmine.createSpyObj(
+        'UserFormComponent',
+        ['populateFormGroup', 'buildUserDto']);
+    testObj.userFormComponent = userFormComponent;
   });
 
   it('should create', async () => {
@@ -109,6 +115,18 @@ describe('EditUserComponent', () => {
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
+  it('should log error search when search users failed', async () => {
+    const exceptionMessage = 'exception-message';
+    spyOnProperty(testObj, 'isSearchButtonDisabled', 'get').and.stub().and.returnValue(false);
+    spyOn(testObj.userRestApiService, 'searchUser').and.stub().and.returnValue(throwError(exceptionMessage));
+    const spy = spyOn(console, 'error');
+
+    testObj.onSearchButtonClicked();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith('Search user request failed. ', exceptionMessage);
+  });
+
   it('should set user dtos when the search users api response is not empty', async () => {
     const userDtos = [
       userSuperAdmin,
@@ -125,5 +143,77 @@ describe('EditUserComponent', () => {
         () => {},
         () => {},
         () => { expect(testObj.userDtos).toEqual(userDtos); });
+  });
+
+  it('should request user by email on user row clicked', async () => {
+    const userDtosObservable = of(userJpaAdminJpaSeller);
+    const spy1 = spyOn(testObj.userRestApiService, 'getUserByEmail')
+        .and.stub()
+        .and.returnValue(userDtosObservable);
+    const spy2 = spyOn(testObj.changeDetector, 'detectChanges').and.stub();
+
+    testObj.onUserRowClicked(userJpaAdminJpaSeller);
+
+    expect(spy1).toHaveBeenCalledTimes(1);
+    userDtosObservable.subscribe(
+        () => {},
+        () => {},
+        () => {
+          expect(testObj.selectedUserToEdit).toEqual(userJpaAdminJpaSeller);
+          expect(spy2).toHaveBeenCalledTimes(1);
+          expect(userFormComponent.populateFormGroup).toHaveBeenCalledTimes(1);
+          expect(userFormComponent.populateFormGroup).toHaveBeenCalledWith(testObj.selectedUserToEdit);
+        });
+  });
+
+  it('should log error on request user by email failed', async () => {
+    const exceptionMessage = 'exception-message';
+    spyOn(testObj.userRestApiService, 'getUserByEmail')
+        .and.stub()
+        .and.returnValue(throwError(exceptionMessage));
+    const spy = spyOn(console, 'error').and.stub();
+
+    testObj.onUserRowClicked(userJpaAdminJpaSeller);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith('Request user by email failed. ', exceptionMessage);
+  });
+
+  it('should call rest api save request on save button clicked', async () => {
+    const userDtoObservable = of(userJpaAdminJpaSeller);
+    const spy1 = spyOn(testObj.userRestApiService, 'saveUser').and.stub().and.returnValue(userDtoObservable);
+    const spy2 = spyOn(console, 'log');
+    testObj.onSaveButtonClicked();
+
+    expect(testObj.selectedUserToEdit).toBeNull();
+    expect(userFormComponent.buildUserDto).toHaveBeenCalledTimes(1);
+    userDtoObservable.subscribe(
+        () => {},
+        () => {},
+        () => {
+          expect(spy1).toHaveBeenCalledTimes(1);
+          expect(spy2).toHaveBeenCalledTimes(1);
+        }
+     );
+  });
+
+  it('should log error on save request failed', async () => {
+    const exceptionMessage = 'exception-message';
+    spyOn(testObj.userRestApiService, 'saveUser')
+        .and.stub()
+        .and.returnValue(throwError(exceptionMessage));
+    const spy = spyOn(console, 'error').and.stub();
+
+    testObj.onSaveButtonClicked();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith('Save user failed. ', exceptionMessage);
+  });
+
+  it('should set selected user to edit to null on cancel button clicked', async () => {
+    testObj.onCancelButtonClicked();
+
+    expect(testObj.selectedUserToEdit).toBeNull();
+
   });
 });
