@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { UsersTableColumnType } from 'features/admin/components/users-table/users-table-column-type.enum';
 import { UserFormComponent } from 'features/admin/components/user-form/user-form.component';
 import { getMinLengthValidation, getRequiredValidation } from 'shared/functions/form-validator-helper.functions';
+
 @Component({
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']
