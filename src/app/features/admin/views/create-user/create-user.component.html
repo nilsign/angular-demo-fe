@@ -1,0 +1,16 @@
+<div class="container-fluid">
+    <h2>
+        Create User
+    </h2>
+        <app-user-form></app-user-form>
+        <button
+                class="btn btn-primary"
+                type="submit"
+                [disabled]="!canCreateUser && clickedCreateUserButton"
+                (click)="onCreateUserClicked()"
+        >
+            Create User
+        </button>
+
+</div>
+

@@ -1,0 +1,13 @@
+@import "src/assets/styles/mixins";
+@import "src/assets/styles/variables";
+
+.role-name {
+  @include fontHeadline2;
+  line-height: $menu-bar-app-icon-dimension;
+  padding-bottom: 2px;
+  vertical-align: bottom;
+}
+
+.dropdown-toggle {
+  padding-bottom: 0 !important;
+}

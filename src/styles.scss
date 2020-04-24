@@ -1,0 +1,38 @@
+@import 'assets/styles/variables.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/colors.scss';
+@import 'assets/styles/mixins.scss';
+
+// HTML Tags
+body {
+  @include fontTextMedium;
+}
+
+h1 {
+  @include fontHeadline1;
+}
+
+h2 {
+  @include fontHeadline2;
+}
+
+h3 {
+  @include fontHeadline3;
+}
+
+h4 {
+  @include fontHeadline4;
+}
+
+label {
+  margin-bottom: 0;
+}
+
+.table td, .table th {
+  vertical-align: middle !important;
+}
+
+// Classes
+.invalid {
+  color: $error-text-bootstrap-color !important;
+}

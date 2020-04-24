@@ -1,0 +1,59 @@
+<div class="table-responsive">
+    <table class="tables table table-striped table-hover">
+        <thead class ="thead-dark">
+        <tr>
+            <ng-container *ngIf="showColumn(nameColumnName)">
+                <th scope="col">
+                    {{ nameColumnName }}
+                </th>
+            </ng-container>
+            <ng-container *ngIf="showColumn(emailColumnName)">
+                <th scope="col">
+                    {{ emailColumnName }}
+                </th>
+            </ng-container>
+            <ng-container *ngIf="showColumn(rolesColumnName)">
+                <th scope="col">
+                    {{ rolesColumnName }}
+                </th>
+            </ng-container>
+            <ng-container *ngIf="showColumn(editIconColumnName)">
+                <th scope="col" class="edit-column">
+                    {{ editIconColumnName }}
+                </th>
+            </ng-container>
+        </tr>
+        </thead>
+        <tbody>
+            <tr
+                    *ngFor="let rowModel of tableRowModel"
+                    (click)="onTableRowClicked(rowModel)">
+                <ng-container *ngIf="showColumn(nameColumnName)">
+                    <td>
+                        {{ rowModel.name }}
+                    </td>
+                </ng-container>
+                <ng-container *ngIf="showColumn(emailColumnName)">
+                    <td>
+                        {{ rowModel.email }}
+                    </td>
+                </ng-container>
+                <ng-container *ngIf="showColumn(rolesColumnName)">
+                    <td>
+                        {{ rowModel.roleNames }}
+                    </td>
+                </ng-container>
+                <ng-container *ngIf="showColumn(editIconColumnName)">
+                    <td class="edit-column">
+                        <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-container *ngIf="hasNoDataMessage">
+    <div class="no-data-message">
+        {{ noDataMessage }}
+    </div>
+</ng-container>
