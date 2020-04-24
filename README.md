@@ -9,6 +9,12 @@ Actually the Angular Demo Frontend is the counter part of this
 [String Boot Demo](https://github.com/nilsign/spring-boot-demo-be) backend project. So besides a locally running
 Keycloak and Postgres instance, the Backend must have been started, also locally.
 
+Note, once the BE and the FE has been started locally, navigate to http://localhost:4200 and login as super admin user
+in order to be able to access most of the implemented features, which are mainly user and role management related.
+
+  Username: `nilsign`<br>
+  Password: `root`
+
 ### Major Tech-Stack
 - Angular
 - TypeScript
