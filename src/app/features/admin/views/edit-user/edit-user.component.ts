@@ -8,6 +8,7 @@ import { UserDto } from 'shared/api/dtos/dto-models';
 import { Subscription } from 'rxjs';
 import { UsersTableColumnType } from 'features/admin/components/users-table/users-table-column-type.enum';
 import { UserFormComponent } from 'features/admin/components/user-form/user-form.component';
+import { getMinLengthValidation, getRequiredValidation } from 'shared/functions/form-validator-helper.functions';
 
 @Component({
   templateUrl: './edit-user.component.html',
@@ -20,7 +21,10 @@ export class EditUserComponent implements OnDestroy {
   readonly searchUserControlName = StringConstants.formControlNames.searchUser;
 
   readonly formGroup = new FormGroup({
-    [this.searchUserControlName]: new FormControl('')
+    [this.searchUserControlName]: new FormControl('', [
+         getRequiredValidation(),
+         getMinLengthValidation(EditUserComponent.MINIMAL_USER_SEARCH_TEXT_LENGTH)
+    ])
   });
 
   @ViewChild(UserFormComponent, {static: false})
