@@ -22,6 +22,17 @@ export function getRequiredValidation(customErrorText?: string): ValidatorFn {
   };
 }
 
+export function getMinLengthValidation(minLength: number, customErrorText?: string): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } => {
+    return isNil(control.value) || control.value.toString().trim().length < minLength
+        ? {
+          illegalEmailFormat: chooseErrorText(
+              `String must contain at least ${minLength} characters.`, customErrorText)
+        }
+        : null;
+  };
+}
+
 function chooseErrorText(errorText: string, customErrorText: string) {
   return isNil(customErrorText)
       ? errorText
