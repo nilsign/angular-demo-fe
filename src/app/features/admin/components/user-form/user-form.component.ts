@@ -32,6 +32,62 @@ export class UserFormComponent {
     [this.buyerControlName]: new FormControl(false)
   });
 
+  get firstNameInput(): string {
+    return getFormControlValue(this.formGroup, this.firstNameControlName);
+  }
+
+  set firstNameInput(firstName: string) {
+    setFormControlValue(this.formGroup, this.firstNameControlName, firstName);
+  }
+
+  get familyNameInput(): string {
+    return getFormControlValue(this.formGroup, this.familyNameControlName);
+  }
+
+  set familyNameInput(familyName: string) {
+    setFormControlValue(this.formGroup, this.familyNameControlName, familyName);
+  }
+
+  get emailInput(): string {
+    return getFormControlValue(this.formGroup, this.emailControlName);
+  }
+
+  set emailInput(email: string) {
+    setFormControlValue(this.formGroup, this.emailControlName, email);
+  }
+
+  get hasSuperAdminRoleInput(): boolean {
+    return getFormControlValue(this.formGroup, this.superAdminControlName);
+  }
+
+  set hasSuperAdminRoleInput(hasSuperAdminRole: boolean) {
+    setFormControlValue(this.formGroup, this.superAdminControlName, hasSuperAdminRole);
+  }
+
+  get hasAdminRoleInput(): boolean {
+    return getFormControlValue(this.formGroup, this.adminControlName);
+  }
+
+  set hasAdminRoleInput(hasAdminRole: boolean) {
+    setFormControlValue(this.formGroup, this.adminControlName, hasAdminRole);
+  }
+
+  get hasSellerRoleInput(): boolean {
+    return getFormControlValue(this.formGroup, this.sellerControlName);
+  }
+
+  set hasSellerRoleInput(hasSellerRole: boolean) {
+    setFormControlValue(this.formGroup, this.sellerControlName, hasSellerRole);
+  }
+
+  get hasBuyerRoleInput(): boolean {
+    return getFormControlValue(this.formGroup, this.buyerControlName);
+  }
+
+  set hasBuyerRoleInput(hasBuyerRole: boolean) {
+    setFormControlValue(this.formGroup, this.buyerControlName, hasBuyerRole);
+  }
+
   get roleSelectionContainerInfo(): string {
     return this.markRoleSelectionContainerAsInvalid()
         ? 'The created user needs at least one assigned role.'
@@ -44,22 +100,22 @@ export class UserFormComponent {
   buildUserDto(): UserDto {
     return {
       id: null,
-      email: getFormControlValue(this.formGroup, this.emailControlName),
-      firstName: getFormControlValue(this.formGroup, this.firstNameControlName),
-      lastName: getFormControlValue(this.formGroup, this.familyNameControlName),
+      email: this.emailInput,
+      firstName: this.firstNameInput,
+      lastName: this.familyNameInput,
       roles: this.buildRoleDtos(),
       customerId: null
     };
   }
 
   populateFormGroup(userDto: UserDto) {
-    setFormControlValue(this.formGroup, this.firstNameControlName, userDto.firstName);
-    setFormControlValue(this.formGroup, this.familyNameControlName, userDto.lastName);
-    setFormControlValue(this.formGroup, this.emailControlName, userDto.email);
-    setFormControlValue(this.formGroup, this.superAdminControlName, this.roleHelperService.isSuperAdmin(userDto));
-    setFormControlValue(this.formGroup, this.adminControlName, this.roleHelperService.isAdmin(userDto));
-    setFormControlValue(this.formGroup, this.sellerControlName, this.roleHelperService.isSeller(userDto));
-    setFormControlValue(this.formGroup, this.buyerControlName, this.roleHelperService.isBuyer(userDto));
+    this.firstNameInput = userDto.firstName;
+    this.familyNameInput = userDto.lastName;
+    this.emailInput = userDto.email;
+    this.hasSuperAdminRoleInput = this.roleHelperService.isSuperAdmin(userDto);
+    this.hasAdminRoleInput = this.roleHelperService.isAdmin(userDto);
+    this.hasSellerRoleInput = this.roleHelperService.isSeller(userDto);
+    this.hasBuyerRoleInput = this.roleHelperService.isBuyer(userDto);
   }
 
   markRoleSelectionContainerAsInvalid(): boolean {
@@ -73,16 +129,16 @@ export class UserFormComponent {
 
   private buildRoleDtos(): RoleDto[] {
     const roleDtos: RoleDto[] = [];
-    if (getFormControlValue(this.formGroup, this.superAdminControlName)) {
+    if (this.hasSuperAdminRoleInput) {
       roleDtos.push(this.roleHelperService.buildRoleDto(RoleType.ROLE_JPA_GLOBALADMIN));
     }
-    if (getFormControlValue(this.formGroup, this.adminControlName)) {
+    if (this.hasAdminRoleInput) {
       roleDtos.push(this.roleHelperService.buildRoleDto(RoleType.ROLE_JPA_ADMIN));
     }
-    if (getFormControlValue(this.formGroup, this.sellerControlName)) {
+    if (this.hasSellerRoleInput) {
       roleDtos.push(this.roleHelperService.buildRoleDto(RoleType.ROLE_JPA_SELLER));
     }
-    if (getFormControlValue(this.formGroup, this.buyerControlName)) {
+    if (this.hasBuyerRoleInput) {
       roleDtos.push(this.roleHelperService.buildRoleDto(RoleType.ROLE_JPA_BUYER));
     }
     return roleDtos;
