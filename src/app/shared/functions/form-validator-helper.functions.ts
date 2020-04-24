@@ -9,7 +9,7 @@ const regExEmailValidation = new RegExp(/^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;
 export function getEmailValidator(customErrorText?: string): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
     return control.value !== '' && !regExEmailValidation.test(control.value)
-      ? { illegalEmailFormat: chooseErrorText('Illegal Email format.', customErrorText) }
+      ? { emailFormatViolation: chooseErrorText('Illegal Email format.', customErrorText) }
       : null;
   };
 }
@@ -17,7 +17,7 @@ export function getEmailValidator(customErrorText?: string): ValidatorFn {
 export function getRequiredValidation(customErrorText?: string): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
     return isNil(control.value) || control.value.toString().trim() === ''
-        ? { missingRequiredInput: chooseErrorText('Required field.', customErrorText) }
+        ? { missingInputViolation: chooseErrorText('Required field.', customErrorText) }
         : null;
   };
 }
