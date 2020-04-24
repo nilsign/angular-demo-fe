@@ -60,32 +60,32 @@ export class UserFormComponent {
     return getFormControlValue(this.formGroup, this.superAdminControlName);
   }
 
-  set hasSuperAdminRoleInput(hasSuperAdminRoleInput: boolean) {
-    setFormControlValue(this.formGroup, this.superAdminControlName, hasSuperAdminRoleInput);
+  set hasSuperAdminRoleInput(hasSuperAdminRole: boolean) {
+    setFormControlValue(this.formGroup, this.superAdminControlName, hasSuperAdminRole);
   }
 
   get hasAdminRoleInput(): boolean {
     return getFormControlValue(this.formGroup, this.adminControlName);
   }
 
-  set hasAdminRoleInput(hasAdminRoleInput: boolean) {
-    setFormControlValue(this.formGroup, this.adminControlName, hasAdminRoleInput);
+  set hasAdminRoleInput(hasAdminRole: boolean) {
+    setFormControlValue(this.formGroup, this.adminControlName, hasAdminRole);
   }
 
   get hasSellerRoleInput(): boolean {
     return getFormControlValue(this.formGroup, this.sellerControlName);
   }
 
-  set hasSellerRoleInput(hasSellerRoleInput: boolean) {
-    setFormControlValue(this.formGroup, this.sellerControlName, hasSellerRoleInput);
+  set hasSellerRoleInput(hasSellerRole: boolean) {
+    setFormControlValue(this.formGroup, this.sellerControlName, hasSellerRole);
   }
 
   get hasBuyerRoleInput(): boolean {
     return getFormControlValue(this.formGroup, this.buyerControlName);
   }
 
-  set hasBuyerRoleInput(hasBuyerRoleInput: boolean) {
-    setFormControlValue(this.formGroup, this.buyerControlName, hasBuyerRoleInput);
+  set hasBuyerRoleInput(hasBuyerRole: boolean) {
+    setFormControlValue(this.formGroup, this.buyerControlName, hasBuyerRole);
   }
 
   get roleSelectionContainerInfo(): string {
